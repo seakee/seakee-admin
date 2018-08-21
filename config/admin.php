@@ -11,7 +11,7 @@ return [
 	/*
      * 站点标题
      */
-	'name' => 'Kiwi时光',
+	'name' => 'seakee-admin',
 
 	/*
 	 * 路由配置
