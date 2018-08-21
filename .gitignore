@@ -12,3 +12,8 @@ npm-debug.log
 yarn-error.log
 .env
 .phpunit.result.cache
+/public/js
+/public/css
+/public/fonts
+/public/mix-manifest.json
+.config.yml
