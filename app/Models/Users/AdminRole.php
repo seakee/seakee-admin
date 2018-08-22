@@ -25,7 +25,7 @@ class AdminRole extends Model
 	 */
 	public function perms()
 	{
-		return $this->belongsToMany('App\Models\Users\Permission', 'admin_permission_role', 'role_id', 'permission_id');
+		return $this->belongsToMany('App\Models\Users\AdminPermission', 'admin_permission_role', 'role_id', 'permission_id');
 	}
 
 	public static function getRoleIdList($userId){

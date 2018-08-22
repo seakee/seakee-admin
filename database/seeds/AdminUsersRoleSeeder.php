@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Users\AdminRole as Role;
-use App\Models\Users\AdminUser as User;
+use App\Models\Users\AdminRole;
+use App\Models\Users\AdminUser;
 
 class AdminUsersRoleSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class AdminUsersRoleSeeder extends Seeder
 	public function run()
 	{
 		//初始化权限
-		$role = new Role();
+		$role = new AdminRole();
 
 		$role->name         = 'Super_Admin';
 		$role->display_name = '超级管理员';
@@ -23,7 +23,7 @@ class AdminUsersRoleSeeder extends Seeder
 		$role->save();
 
 		//初始化管理员
-		$user = new User();
+		$user = new AdminUser();
 
 		$user->user_name = 'admin';
 		$user->email     = 'admin@admin.com';
