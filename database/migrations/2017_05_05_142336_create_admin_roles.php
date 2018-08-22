@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePermission extends Migration
+class CreateAdminRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreatePermission extends Migration
      */
     public function up()
     {
-	    // Create table for storing permissions
-	    Schema::create('admin_permissions', function (Blueprint $table) {
+	    // Create table for storing roles
+	    Schema::create('admin_roles', function (Blueprint $table) {
 		    $table->increments('id');
 		    $table->string('name')->unique();
 		    $table->string('display_name')->nullable();
@@ -22,17 +22,17 @@ class CreatePermission extends Migration
 		    $table->timestamps();
 	    });
 
-	    // Create table for associating permissions to roles (Many-to-Many)
-	    Schema::create('admin_permission_role', function (Blueprint $table) {
-		    $table->integer('permission_id')->unsigned();
+	    // Create table for associating roles to users (Many-to-Many)
+	    Schema::create('admin_role_user', function (Blueprint $table) {
+		    $table->integer('user_id')->unsigned();
 		    $table->integer('role_id')->unsigned();
 
-		    $table->foreign('permission_id')->references('id')->on('permissions')
+		    $table->foreign('user_id')->references('id')->on('admin_users')
 			    ->onUpdate('cascade')->onDelete('cascade');
-		    $table->foreign('role_id')->references('id')->on('roles')
+		    $table->foreign('role_id')->references('id')->on('admin_roles')
 			    ->onUpdate('cascade')->onDelete('cascade');
 
-		    $table->primary(['permission_id', 'role_id']);
+		    $table->primary(['user_id', 'role_id']);
 	    });
     }
 
@@ -43,7 +43,7 @@ class CreatePermission extends Migration
      */
     public function down()
     {
-	    Schema::drop('admin_permission_role');
-	    Schema::drop('admin_permissions');
+	    Schema::drop('admin_role_user');
+	    Schema::drop('admin_roles');
     }
 }
