@@ -25,10 +25,10 @@ class Role extends Model
 	 */
 	public function perms()
 	{
-		return $this->belongsToMany('App\Models\Users\Permission', 'permission_role', 'role_id', 'permission_id');
+		return $this->belongsToMany('App\Models\Users\Permission', 'admin_permission_role', 'role_id', 'permission_id');
 	}
 
 	public static function getRoleIdList($userId){
-		return DB::table('role_user')->select('role_id')->where('user_id', $userId)->get()->toArray();
+		return DB::table('admin_role_user')->select('role_id')->where('user_id', $userId)->get()->toArray();
 	}
 }
