@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class AdminUser extends Authenticatable
 {
 	use Notifiable;
 	use SoftDeletes;
@@ -37,7 +37,7 @@ class User extends Authenticatable
 	];
 
 	/**
-	 * Many-to-Many relations with Role.
+	 * Many-to-Many relations with AdminRole.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\Users;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class AdminRole extends Model
 {
 	/**
 	 * Many-to-Many relations with the user model.
