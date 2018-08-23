@@ -12,5 +12,8 @@ namespace App\Admin\Controllers;
 
 class HomeController
 {
-
+	public function profile()
+	{
+		return response()->json('ssss');
+	}
 }
