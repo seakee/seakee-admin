@@ -13,34 +13,32 @@ namespace App\Admin\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class AuthController extends Controller
 {
-	/**
-	 * Get a JWT token via given credentials.
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
+	use ThrottlesLogins;
+
+	protected $username = 'account';
+
 	public function login(Request $request)
 	{
-		//$params = ['user_name' => 'admin', 'password' => 'admin123456'];
-		$rules = [
-			'user_name'   => [
-				'required',
-				'exists:admin_users',
-			],
-			'password' => 'required|string|min:6|max:20',
-		];
+		$this->validateLogin($request);
 
-		// 验证参数，如果验证失败，则会抛出 ValidationException 的异常
-		$params = $this->validate($request, $rules);
+		// If the class is using the ThrottlesLogins trait, we can automatically throttle
+		// the login attempts for this application. We'll key this by the username and
+		// the IP address of the client making these requests into this application.
+		if ($this->hasTooManyLoginAttempts($request)) {
+			$this->fireLockoutEvent($request);
 
-		// 使用 Auth 登录用户，如果登录成功，则返回 201 的 code 和 token，如果登录失败则返回
-		return ($token = Auth::guard('admin')->attempt($params))
-			? response(['token' => 'bearer ' . $token], 201)
-			: response(['error' => '账号或密码错误'], 400);
+			return $this->sendLockoutResponse($request);
+		}
+
+		if ($token = $this->attemptLogin($request)) {
+			return response()->json(['msg' => 'success', 'token' => 'bearer ' . $token], 201);
+		}
+
+		return response()->json(['msg' => trans('auth.failed')], 400);
 	}
 
 	/**
@@ -52,6 +50,73 @@ class AuthController extends Controller
 	{
 		Auth::guard('admin')->logout();
 
-		return response(['message' => '退出成功']);
+		return response()->json(['msg' => 'success'], 200);
+	}
+
+	protected function username()
+	{
+		return $this->username;
+	}
+
+	/**
+	 * Validate the user login request.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 *
+	 * @return void
+	 */
+	protected function validateLogin(Request $request)
+	{
+		$this->validate($request, [$this->username() => 'required|string', 'password' => 'required|string',]);
+	}
+
+	/**
+	 * Attempt to log the user into the application.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 *
+	 * @return bool
+	 */
+	protected function attemptLogin(Request $request)
+	{
+		return Auth::guard('admin')->attempt($this->credentials($request));
+	}
+
+	/**
+	 * Get the needed authorization credentials from the request.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 *
+	 * @return array
+	 */
+	protected function credentials(Request $request)
+	{
+		$login      = $request->input($this->username());
+		$loginField = $this->loginField($login);
+
+		$credentials[$loginField] = $login;
+		$credentials['password']  = $request->input('password');
+
+		return $credentials;
+	}
+
+	/**
+	 * Get the login field
+	 *
+	 * @param $login
+	 *
+	 * @return string
+	 */
+	protected function loginField($login)
+	{
+		if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+			return 'email';
+		}
+
+		if (is_phone_number($login)) {
+			return 'phone';
+		}
+
+		return 'user_name';
 	}
 }
