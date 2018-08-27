@@ -1,6 +1,6 @@
 <?php
 /**
- * File: RoleService.php
+ * File: AdminRoleServicervice.php
  * Author: Seakee <seakee23@163.com>
  * Homepage: https://seakee.top
  * Date: 2018/8/27 16:54
@@ -10,9 +10,10 @@
 namespace App\Service\User;
 
 
+use Cache;
 use App\Repository\User\AdminRoleRepository;
 
-class RoleService
+class AdminRoleService
 {
 	protected $roleRepository;
 
