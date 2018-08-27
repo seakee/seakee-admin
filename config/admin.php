@@ -22,6 +22,14 @@ return [
 		// 控制器命名空间前缀
 		'namespace' => 'App\\Admin\\Controllers',
 		// 默认中间件列表
-		'middleware' => ['web', 'admin'],
+		'middleware' => ['admin'],
+	],
+
+	//缓存相关配置
+	'cache' => [
+		//缓存开关
+		'enable' => true,
+		//缓存时间（单位：min）
+		'ttl'    => 10080,
 	],
 ];
