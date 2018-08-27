@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Route;
 use Auth;
 use Closure;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -11,6 +12,13 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class RefreshToken extends BaseMiddleware
 {
+	/**
+	 * 白名单路由，放行不需要检查或刷新token的路由
+	 *
+	 * @var array
+	 */
+	protected $exceptRouteName = ['admin.login', 'admin.logout'];
+
 	/**
 	 * Handle an incoming request.
 	 *
@@ -22,6 +30,11 @@ class RefreshToken extends BaseMiddleware
 	 */
 	public function handle($request, Closure $next)
 	{
+		//属于白名单的路由直接放行
+		if (in_array(Route::currentRouteName(), $this->exceptRouteName)){
+			return $next($request);
+		}
+
 		// 检查此次请求中是否带有 token，如果没有则抛出异常。
 		$this->checkForToken($request);
 
