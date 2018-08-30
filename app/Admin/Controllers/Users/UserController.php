@@ -62,9 +62,14 @@ class UserController extends Controller
 		return response()->json(['msg' => 'success']);
 	}
 
-	public function show()
+	/**
+	 * @param string $id
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+	 */
+	public function show(string $id)
 	{
-		
+		return $this->userService->find($id);
 	}
 
 	public function update()
@@ -72,8 +77,12 @@ class UserController extends Controller
 		
 	}
 
-	public function destroy()
+	public function destroy(string $ids)
 	{
-		
+		$ids = explode(',', $ids);
+
+		$rs = $this->userService->delete($ids);
+
+		return $rs ? response()->json(['msg' => 'success']) : response()->json(['msg' => 'failed'], 500);
 	}
 }

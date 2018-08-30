@@ -70,6 +70,16 @@ class AdminUserRepository
 	 */
 	public function paginate(array $where, int $perPage, int $page): LengthAwarePaginator
 	{
-		return $this->user->where($where)->paginate($perPage,['id', 'user_name', 'avatar', 'email', 'phone', 'created_at'],'page', $page);
+		return $this->user->where($where)->paginate($perPage,['id', 'user_name', 'avatar', 'email', 'phone', 'status', 'rank', 'created_at'],'page', $page);
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+	 */
+	public function find(int $id)
+	{
+		return $this->user->findOrFail($id, ['id', 'user_name', 'avatar', 'email', 'phone', 'status', 'rank', 'created_at']);
 	}
 }

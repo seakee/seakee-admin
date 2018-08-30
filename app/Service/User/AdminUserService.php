@@ -76,4 +76,14 @@ class AdminUserService
 
 		return $this->userRepository->paginate($where, $perPage, $page);
 	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+	 */
+	public function find(int $id)
+	{
+		return $this->userRepository->find($id);
+	}
 }
