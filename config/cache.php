@@ -91,4 +91,5 @@ return [
         str_slug(env('APP_NAME', 'seakee_admin'), '_').'_cache'
     ),
 
+    'ttl' => 10080,
 ];

@@ -14,23 +14,47 @@ use App\Models\Users\AdminRole;
 
 class AdminRoleRepository
 {
+	/**
+	 * @var AdminRole
+	 */
 	protected $role;
 
+	/**
+	 * AdminRoleRepository constructor.
+	 *
+	 * @param AdminRole $role
+	 */
 	public function __construct(AdminRole $role)
 	{
 		$this->role = $role;
 	}
 
-	public function store(array $data)
+	/**
+	 * @param array $data
+	 *
+	 * @return AdminRole
+	 */
+	public function store(array $data):AdminRole
 	{
 		return $this->role->create($data);
 	}
 
+	/**
+	 * @param array $data
+	 * @param array $where
+	 *
+	 * @return bool
+	 */
 	public function update(array $data, array $where)
 	{
 		return $this->role->where($where)->update($data);
 	}
 
+	/**
+	 * @param array|int $ids
+	 *
+	 * @return int
+	 */
 	public function destroy($ids)
 	{
 		return $this->role->destroy($ids);
