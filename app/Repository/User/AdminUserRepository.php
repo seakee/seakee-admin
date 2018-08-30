@@ -11,6 +11,7 @@ namespace App\Repository\User;
 
 
 use App\Models\Users\AdminUser;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AdminUserRepository
 {
@@ -58,5 +59,17 @@ class AdminUserRepository
 	public function destroy($ids):int
 	{
 		return $this->user->destroy($ids);
+	}
+
+	/**
+	 * @param array $where
+	 * @param int   $perPage
+	 * @param int   $page
+	 *
+	 * @return LengthAwarePaginator
+	 */
+	public function paginate(array $where, int $perPage, int $page): LengthAwarePaginator
+	{
+		return $this->user->where($where)->paginate($perPage,['id', 'user_name', 'avatar', 'email', 'phone', 'created_at'],'page', $page);
 	}
 }

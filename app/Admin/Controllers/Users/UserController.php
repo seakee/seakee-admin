@@ -13,16 +13,40 @@ namespace App\Admin\Controllers\Users;
 use App\Admin\Requests\User\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Service\User\AdminUserService;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+	/**
+	 * @var AdminUserService
+	 */
 	protected $userService;
 
+	/**
+	 * UserController constructor.
+	 *
+	 * @param AdminUserService $userService
+	 */
 	public function __construct(AdminUserService $userService)
 	{
 		$this->userService = $userService;
 	}
 
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+	 */
+	public function index(Request $request)
+	{
+		return $this->userService->paginate($request);
+	}
+
+	/**
+	 * @param UserRequest $request
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function store(UserRequest $request)
 	{
 		$params = $request->all();
