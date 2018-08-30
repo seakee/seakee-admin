@@ -52,6 +52,11 @@ class AdminPermissionService
 		return $this->permissionRepository->update($data, $where);
 	}
 
+	/**
+	 * @param array|int $ids
+	 *
+	 * @return int
+	 */
 	public function delete($ids):int
 	{
 		return $this->permissionRepository->destroy($ids);
