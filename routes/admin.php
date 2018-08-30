@@ -19,3 +19,7 @@ Route::prefix('auth')->namespace('Auth')->group(function($router) {
 Route::middleware('refresh.token')->group(function($router) {
 	$router->get('profile','HomeController@profile');
 });
+
+Route::group(['namespace' => 'Users'], function () {
+	Route::apiResource('adminUser', 'UserController');
+});
