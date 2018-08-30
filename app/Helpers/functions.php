@@ -102,3 +102,24 @@ if (!function_exists('human_file_size')){
 		return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) .@$size[$factor];
 	}
 }
+
+/**
+ * 获取指定key的输入值，并过滤空值项
+ *
+ * @param array                    $paramsKey
+ * @param \Illuminate\Http\Request $request
+ *
+ * @return array
+ */
+if (!function_exists('filter_request_params')) {
+	function filter_request_params(array $paramsKey, \Illuminate\Http\Request $request)
+	{
+		foreach ($paramsKey as $key) {
+			if ($request->filled($key)) {
+				$data[$key] = $request->input($key);
+			}
+		}
+
+		return $data ?? [];
+	}
+}
