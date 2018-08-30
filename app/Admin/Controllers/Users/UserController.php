@@ -61,4 +61,19 @@ class UserController extends Controller
 
 		return response()->json(['msg' => 'success']);
 	}
+
+	public function show()
+	{
+		
+	}
+
+	public function update()
+	{
+		
+	}
+
+	public function destroy()
+	{
+		
+	}
 }
