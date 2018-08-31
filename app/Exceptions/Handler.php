@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Handler extends ExceptionHandler
 {
@@ -68,6 +69,10 @@ class Handler extends ExceptionHandler
 
 	    if ($exception instanceof MethodNotAllowedHttpException) {
 		    return response()->json(['msg' => 'Method Not Allowed', 'Allow' => array_first($exception->getHeaders())], 405);
+	    }
+
+	    if ($exception instanceof TokenInvalidException) {
+		    return response()->json(['msg' => $exception->getMessage()], 500);
 	    }
 
 	    return parent::render($request, $exception);
