@@ -16,10 +16,6 @@ Route::prefix('auth')->namespace('Auth')->group(function($router) {
 	$router->post('logout', 'AuthController@logout')->name('admin.logout');
 });
 
-Route::middleware('refresh.token')->group(function($router) {
-	$router->get('profile','HomeController@profile');
-});
-
 Route::group(['namespace' => 'Users'], function () {
 	Route::apiResource('adminUser', 'UserController');
 });
