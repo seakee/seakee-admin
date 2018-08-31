@@ -17,5 +17,5 @@ Route::prefix('auth')->namespace('Auth')->group(function($router) {
 });
 
 Route::group(['namespace' => 'Users'], function () {
-	Route::apiResource('adminUser', 'UserController');
+	Route::apiResource('adminUser', 'UserController', ['parameters' => ['adminUser' => 'user_id']]);
 });
