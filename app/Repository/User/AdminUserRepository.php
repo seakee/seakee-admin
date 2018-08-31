@@ -42,13 +42,13 @@ class AdminUserRepository
 
 	/**
 	 * @param array $data
-	 * @param array $where
+	 * @param int   $id
 	 *
 	 * @return bool
 	 */
-	public function update(array $data, array $where):bool
+	public function update(array $data, int $id): bool
 	{
-		return $this->user->where($where)->update($data);
+		return $this->user->where('id', $id)->update($data);
 	}
 
 	/**
@@ -56,7 +56,7 @@ class AdminUserRepository
 	 *
 	 * @return int
 	 */
-	public function destroy($ids):int
+	public function destroy($ids): int
 	{
 		return $this->user->destroy($ids);
 	}
@@ -74,12 +74,12 @@ class AdminUserRepository
 	}
 
 	/**
-	 * @param int $id
+	 * @param array|int $ids
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
 	 */
-	public function find(int $id)
+	public function find($ids)
 	{
-		return $this->user->findOrFail($id, ['id', 'user_name', 'avatar', 'email', 'phone', 'status', 'rank', 'created_at']);
+		return $this->user->findOrFail($ids, ['id', 'user_name', 'avatar', 'email', 'phone', 'status', 'rank', 'created_at']);
 	}
 }

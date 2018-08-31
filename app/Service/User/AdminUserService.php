@@ -33,33 +33,41 @@ class AdminUserService
 	}
 
 	/**
-	 * @param array $data
+	 * @param Request $request
 	 *
 	 * @return AdminUser
 	 */
-	public function create(array $data):AdminUser
+	public function create(Request $request):AdminUser
 	{
+		$data = filter_request_params(['user_name', 'email', 'phone', 'password'], $request);
+
+		$data['password'] = bcrypt($data['password']);
+
 		return $this->userRepository->store($data);
 	}
 
 	/**
-	 * @param array $data
-	 * @param array $where
+	 * @param Request $request
+	 * @param int     $id
 	 *
 	 * @return bool
 	 */
-	public function edit(array $data, array $where):bool
+	public function edit(Request $request, int $id):bool
 	{
-		return $this->userRepository->update($data, $where);
+		$data = filter_request_params(['user_name', 'email', 'phone', 'password'], $request);
+
+		return $this->userRepository->update($data, $id);
 	}
 
 	/**
-	 * @param array|int $ids
+	 * @param string $ids
 	 *
 	 * @return int
 	 */
-	public function delete($ids):int
+	public function delete($ids): int
 	{
+		$ids = explode(',', $ids);
+
 		return $this->userRepository->destroy($ids);
 	}
 
@@ -78,12 +86,12 @@ class AdminUserService
 	}
 
 	/**
-	 * @param int $id
+	 * @param array|int $ids
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
 	 */
-	public function find(int $id)
+	public function find($ids)
 	{
-		return $this->userRepository->find($id);
+		return $this->userRepository->find($ids);
 	}
 }

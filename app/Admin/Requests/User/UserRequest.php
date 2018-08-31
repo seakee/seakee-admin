@@ -12,6 +12,7 @@ namespace App\Admin\Requests\User;
 
 use App\Admin\Requests\Request;
 use Illuminate\Validation\Factory;
+use Route;
 
 class UserRequest extends Request
 {
@@ -32,12 +33,18 @@ class UserRequest extends Request
 
 	public function rules()
 	{
-		return [
-			'user_name' => 'required|string|min:4|max:255|unique:admin_users',
-			'email'     => 'required|string|email|max:255|unique:admin_users',
-			'phone'     => 'required|is_mobile|unique:admin_users',
-			'password'  => 'required|string|min:6|confirmed',
-		];
+		$currentRouteName = Route::currentRouteName();
+
+		$rules = $this->rules;
+
+		if ($currentRouteName == 'adminUser.update') {
+			$rules['user_name'] = $rules['user_name'] . ',user_name,' . $this->user_id;
+			$rules['phone']     = $rules['phone'] . ',phone,' . $this->user_id;
+			$rules['email']     = $rules['email'] . ',email,' . $this->user_id;
+			$rules['password']  = 'sometimes|' . $rules['password'];
+		}
+
+		return $rules;
 	}
 
 	/**
@@ -50,7 +57,14 @@ class UserRequest extends Request
 		return [
 			'user_name' => '用户名',
 			'phone'     => '手机号',
-			'email'     => '你输入的',
+			'email'     => 'E-mail',
 		];
 	}
+
+	protected $rules =  [
+		'user_name' => 'required|string|min:4|max:255|unique:admin_users',
+		'email'     => 'required|string|email|max:255|unique:admin_users',
+		'phone'     => 'required|is_mobile|unique:admin_users',
+		'password'  => 'required|string|min:6|confirmed',
+	];
 }

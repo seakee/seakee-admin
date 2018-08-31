@@ -49,11 +49,7 @@ class UserController extends Controller
 	 */
 	public function store(UserRequest $request)
 	{
-		$params = $request->all();
-
-		$params['password'] = bcrypt($params['password']);
-
-		$user = $this->userService->create($params);
+		$user = $this->userService->create($request);
 
 		if (empty($user)){
 			return response()->json(['msg' => 'registration failed'], 500);
@@ -72,15 +68,30 @@ class UserController extends Controller
 		return $this->userService->find($id);
 	}
 
-	public function update()
+	/**
+	 * @param string      $id
+	 * @param UserRequest $request
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function update(string $id, UserRequest $request)
 	{
-		
+		$rs = $this->userService->edit($request, $id);
+
+		if (empty($rs)){
+			return response()->json(['msg' => 'update failed'], 500);
+		}
+
+		return response()->json(['msg' => 'success']);
 	}
 
+	/**
+	 * @param string $ids
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function destroy(string $ids)
 	{
-		$ids = explode(',', $ids);
-
 		$rs = $this->userService->delete($ids);
 
 		return $rs ? response()->json(['msg' => 'success']) : response()->json(['msg' => 'failed'], 500);
