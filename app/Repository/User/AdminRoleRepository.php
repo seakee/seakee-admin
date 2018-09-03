@@ -11,6 +11,7 @@ namespace App\Repository\User;
 
 
 use App\Models\Users\AdminRole;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AdminRoleRepository
 {
@@ -41,13 +42,13 @@ class AdminRoleRepository
 
 	/**
 	 * @param array $data
-	 * @param array $where
+	 * @param int   $id
 	 *
 	 * @return bool
 	 */
-	public function update(array $data, array $where)
+	public function update(array $data, int $id): bool
 	{
-		return $this->role->where($where)->update($data);
+		return $this->role->where('id', $id)->update($data);
 	}
 
 	/**
@@ -58,5 +59,27 @@ class AdminRoleRepository
 	public function destroy($ids)
 	{
 		return $this->role->destroy($ids);
+	}
+
+	/**
+	 * @param array $where
+	 * @param int   $perPage
+	 * @param int   $page
+	 *
+	 * @return LengthAwarePaginator
+	 */
+	public function paginate(array $where, int $perPage, int $page): LengthAwarePaginator
+	{
+		return $this->role->where($where)->paginate($perPage,['id', 'name', 'display_name', 'description', 'created_at'],'page', $page);
+	}
+
+	/**
+	 * @param array|int $ids
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+	 */
+	public function find($ids)
+	{
+		return $this->role->findOrFail($ids, ['id', 'name', 'display_name', 'description', 'created_at']);
 	}
 }

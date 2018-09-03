@@ -14,6 +14,8 @@ use App\Models\Users\AdminRole;
 use Cache;
 use App\Repository\User\AdminRoleRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 
 class AdminRoleService
 {
@@ -33,33 +35,39 @@ class AdminRoleService
 	}
 
 	/**
-	 * @param array $data
+	 * @param Request $request
 	 *
 	 * @return AdminRole
 	 */
-	public function create(array $data): AdminRole
+	public function create(Request $request): AdminRole
 	{
+		$data = filter_request_params(['name', 'display_name', 'description'], $request);
+
 		return $this->roleRepository->store($data);
 	}
 
 	/**
-	 * @param array $data
-	 * @param array $where
+	 * @param Request $request
+	 * @param int     $id
 	 *
 	 * @return bool
 	 */
-	public function edit(array $data, array $where): bool
+	public function edit(Request $request, int $id): bool
 	{
-		return $this->roleRepository->update($data, $where);
+		$data = filter_request_params(['name', 'display_name', 'description'], $request);
+
+		return $this->roleRepository->update($data, $id);
 	}
 
 	/**
-	 * @param array|int $ids
+	 * @param string $ids
 	 *
 	 * @return int
 	 */
 	public function delete($ids): int
 	{
+		$ids = explode(',', $ids);
+
 		return $this->roleRepository->destroy($ids);
 	}
 
@@ -73,5 +81,29 @@ class AdminRoleService
 		return Cache::remember('admin.roles.' . $user->id, config('cache.ttl'), function () use ($user) {
 			return $user->roles;
 		});
+	}
+
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+	 */
+	public function paginate(Request $request): LengthAwarePaginator
+	{
+		$where   = filter_request_params(['name', 'display_name', 'description'], $request);
+		$perPage = $request->get('per_page', 15);
+		$page    = $request->get('page', 1);
+
+		return $this->roleRepository->paginate($where, $perPage, $page);
+	}
+
+	/**
+	 * @param array|int $ids
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+	 */
+	public function find($ids)
+	{
+		return $this->roleRepository->find($ids);
 	}
 }
