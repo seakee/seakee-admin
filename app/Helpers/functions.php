@@ -123,3 +123,27 @@ if (!function_exists('filter_request_params')) {
 		return $data ?? [];
 	}
 }
+
+if (!function_exists('clear_cache')) {
+	/**
+	 * 清除指定key的缓存
+	 *
+	 * @param array|string  $key
+	 * @param bool          $is_tags
+	 */
+	function clear_cache($key, $is_tags = false)
+	{
+		if ($is_tags){
+			\Cache::tags($key)->flush();
+		}
+
+		if (is_array($key)){
+			foreach ($key as $k){
+				\Cache::forget($k);
+			}
+
+		}
+
+		\Cache::forget($key);
+	}
+}
