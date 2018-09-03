@@ -52,10 +52,10 @@ class UserController extends Controller
 		$user = $this->userService->create($request);
 
 		if (empty($user)){
-			return response()->json(['msg' => 'registration failed'], 500);
+			return response()->json(['error' => 'registration failed'], 500);
 		}
 
-		return response()->json(['msg' => 'success']);
+		return response()->json(['msg' => 'success'],201);
 	}
 
 	/**
@@ -79,10 +79,10 @@ class UserController extends Controller
 		$rs = $this->userService->edit($request, $id);
 
 		if (empty($rs)){
-			return response()->json(['msg' => 'update failed'], 500);
+			return response()->json(['error' => 'update failed'], 500);
 		}
 
-		return response()->json(['msg' => 'success']);
+		return response()->json(['msg' => 'success'],201);
 	}
 
 	/**
@@ -94,6 +94,6 @@ class UserController extends Controller
 	{
 		$rs = $this->userService->delete($ids);
 
-		return $rs ? response()->json(['msg' => 'success']) : response()->json(['msg' => 'failed'], 500);
+		return $rs ? response()->json(['msg' => 'success'],204) : response()->json(['error' => 'failed'], 500);
 	}
 }
