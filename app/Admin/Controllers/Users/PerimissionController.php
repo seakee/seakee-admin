@@ -7,7 +7,7 @@
  * Description:
  */
 
-namespace App\Admin\Controllers\Permissions;
+namespace App\Admin\Controllers\Users;
 
 
 use App\Admin\Requests\Users\PermissionRequest;

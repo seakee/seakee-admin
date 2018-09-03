@@ -13,7 +13,7 @@ namespace App\Admin\Controllers\Users;
 use App\Http\Controllers\Controller;
 use App\Services\Users\AdminRoleService;
 use Illuminate\Http\Request;
-use App\Admin\Requests\Role\RoleRequest;
+use App\Admin\Requests\Users\RoleRequest;
 
 class RoleController extends Controller
 {
