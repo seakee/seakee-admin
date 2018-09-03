@@ -11,7 +11,7 @@ namespace App\Admin\Controllers\Users;
 
 
 use App\Http\Controllers\Controller;
-use App\Service\User\AdminRoleService;
+use App\Services\Users\AdminRoleService;
 use Illuminate\Http\Request;
 use App\Admin\Requests\Role\RoleRequest;
 

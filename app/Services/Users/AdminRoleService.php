@@ -7,12 +7,12 @@
  * Description:
  */
 
-namespace App\Service\User;
+namespace App\Services\Users;
 
 
 use App\Models\Users\AdminRole;
 use Cache;
-use App\Repository\User\AdminRoleRepository;
+use App\Repositories\Users\AdminRoleRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;

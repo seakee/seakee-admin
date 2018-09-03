@@ -7,12 +7,12 @@
  * Description:
  */
 
-namespace App\Service\User;
+namespace App\Services\Users;
 
 
 use App\Models\Users\AdminPermission;
 use Cache;
-use App\Repository\User\AdminPermissionRepository;
+use App\Repositories\Users\AdminPermissionRepository;
 
 class AdminPermissionService
 {

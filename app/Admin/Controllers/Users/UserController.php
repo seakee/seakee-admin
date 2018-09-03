@@ -12,7 +12,7 @@ namespace App\Admin\Controllers\Users;
 
 use App\Admin\Requests\User\UserRequest;
 use App\Http\Controllers\Controller;
-use App\Service\User\AdminUserService;
+use App\Services\Users\AdminUserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller

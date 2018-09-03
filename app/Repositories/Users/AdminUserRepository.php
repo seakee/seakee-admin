@@ -7,7 +7,7 @@
  * Description:
  */
 
-namespace App\Repository\User;
+namespace App\Repositories\Users;
 
 
 use App\Models\Users\AdminUser;

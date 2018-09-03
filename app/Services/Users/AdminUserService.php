@@ -7,10 +7,10 @@
  * Description:
  */
 
-namespace App\Service\User;
+namespace App\Services\Users;
 
 
-use App\Repository\User\AdminUserRepository;
+use App\Repositories\Users\AdminUserRepository;
 use App\Models\Users\AdminUser;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
