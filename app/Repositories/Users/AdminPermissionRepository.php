@@ -12,6 +12,7 @@ namespace App\Repositories\Users;
 
 use App\Models\Users\AdminPermission;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AdminPermissionRepository
 {
@@ -42,13 +43,13 @@ class AdminPermissionRepository
 
 	/**
 	 * @param array $data
-	 * @param array $where
+	 * @param int   $id
 	 *
 	 * @return bool
 	 */
-	public function update(array $data, array $where):bool
+	public function update(array $data, int $id):bool
 	{
-		return $this->permission->where($where)->update($data);
+		return $this->permission->where('id', $id)->update($data);
 	}
 
 	/**
@@ -67,5 +68,27 @@ class AdminPermissionRepository
 	public function all(): Collection
 	{
 		return $this->permission->all();
+	}
+
+	/**
+	 * @param array $where
+	 * @param int   $perPage
+	 * @param int   $page
+	 *
+	 * @return LengthAwarePaginator
+	 */
+	public function paginate(array $where, int $perPage, int $page): LengthAwarePaginator
+	{
+		return $this->permission->where($where)->paginate($perPage,['id', 'name', 'display_name', 'description', 'created_at'],'page', $page);
+	}
+
+	/**
+	 * @param array|int $ids
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+	 */
+	public function find($ids)
+	{
+		return $this->permission->findOrFail($ids, ['id', 'name', 'display_name', 'description', 'created_at']);
 	}
 }

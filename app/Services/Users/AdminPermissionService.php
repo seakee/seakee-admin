@@ -13,6 +13,8 @@ namespace App\Services\Users;
 use App\Models\Users\AdminPermission;
 use Cache;
 use App\Repositories\Users\AdminPermissionRepository;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AdminPermissionService
 {
@@ -32,24 +34,28 @@ class AdminPermissionService
 	}
 
 	/**
-	 * @param array $data
+	 * @param Request $request
 	 *
 	 * @return AdminPermission
 	 */
-	public function create(array $data):AdminPermission
+	public function create(Request $request):AdminPermission
 	{
+		$data = filter_request_params(['name', 'display_name', 'description'], $request);
+
 		return $this->permissionRepository->store($data);
 	}
 
 	/**
-	 * @param array $data
-	 * @param array $where
+	 * @param Request $request
+	 * @param int     $id
 	 *
 	 * @return bool
 	 */
-	public function edit(array $data, array $where):bool
+	public function edit(Request $request, int $id):bool
 	{
-		return $this->permissionRepository->update($data, $where);
+		$data = filter_request_params(['name', 'display_name', 'description'], $request);
+
+		return $this->permissionRepository->update($data, $id);
 	}
 
 	/**
@@ -59,6 +65,8 @@ class AdminPermissionService
 	 */
 	public function delete($ids):int
 	{
+		$ids = explode(',', $ids);
+
 		return $this->permissionRepository->destroy($ids);
 	}
 
@@ -87,5 +95,29 @@ class AdminPermissionService
 		return Cache::remember('admin.allName', config('cache.ttl'), function (){
 			return array_column($this->permissionRepository->all()->toArray(), 'name');
 		});
+	}
+
+	/**
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+	 */
+	public function paginate(Request $request): LengthAwarePaginator
+	{
+		$where   = filter_request_params(['name', 'display_name', 'description'], $request);
+		$perPage = $request->get('per_page', 15);
+		$page    = $request->get('page', 1);
+
+		return $this->permissionRepository->paginate($where, $perPage, $page);
+	}
+
+	/**
+	 * @param array|int $ids
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+	 */
+	public function find($ids)
+	{
+		return $this->permissionRepository->find($ids);
 	}
 }

@@ -7,13 +7,13 @@
  * Description:
  */
 
-namespace App\Admin\Requests\Role;
+namespace App\Admin\Requests\Users;
 
 
 use App\Admin\Requests\Request;
 use Route;
 
-class RoleRequest extends Request
+class PermissionRequest extends Request
 {
 	public function rules()
 	{
@@ -21,8 +21,8 @@ class RoleRequest extends Request
 
 		$rules = $this->rules;
 
-		if ($currentRouteName == 'adminRole.update') {
-			$rules['name'] = $rules['name'] . ',name,' . $this->role_id;
+		if ($currentRouteName == 'admin.permissions.update') {
+			$rules['name'] = $rules['name'] . ',name,' . $this->id;
 		}
 
 		return $rules;
@@ -36,14 +36,14 @@ class RoleRequest extends Request
 	public function attributes()
 	{
 		return [
-			'name'         => '角色称',
-			'display_name' => '角色名称',
-			'description'  => '角色描述',
+			'name'         => '权限标识',
+			'display_name' => '权限名称',
+			'description'  => '权限描述',
 		];
 	}
 
 	protected $rules = [
-		'name'         => 'required|string|max:255|unique:admin_roles',
+		'name'         => 'required|string|max:255|unique:admin_permissions',
 		'display_name' => 'required|string|max:255',
 		'description'  => 'required|string|max:255',
 	];

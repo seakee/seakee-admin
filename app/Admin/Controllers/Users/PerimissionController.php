@@ -1,35 +1,35 @@
 <?php
 /**
- * File: UserController.php
+ * File: PermissionController.php
  * Author: Seakee <seakee23@163.com>
  * Homepage: https://seakee.top
  * Date: 2018/8/30 14:48
  * Description:
  */
 
-namespace App\Admin\Controllers\Users;
+namespace App\Admin\Controllers\Permissions;
 
 
-use App\Admin\Requests\Users\UserRequest;
+use App\Admin\Requests\Users\PermissionRequest;
 use App\Http\Controllers\Controller;
-use App\Services\Users\AdminUserService;
+use App\Services\Users\AdminPermissionService;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PermissionController extends Controller
 {
 	/**
-	 * @var AdminUserService
+	 * @var AdminPermissionService
 	 */
-	protected $userService;
+	protected $permissionService;
 
 	/**
-	 * UserController constructor.
+	 * PermissionController constructor.
 	 *
-	 * @param AdminUserService $userService
+	 * @param AdminPermissionService $permissionService
 	 */
-	public function __construct(AdminUserService $userService)
+	public function __construct(AdminPermissionService $permissionService)
 	{
-		$this->userService = $userService;
+		$this->permissionService = $permissionService;
 	}
 
 	/**
@@ -39,19 +39,19 @@ class UserController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		return $this->userService->paginate($request);
+		return $this->permissionService->paginate($request);
 	}
 
 	/**
-	 * @param UserRequest $request
+	 * @param PermissionRequest $request
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function store(UserRequest $request)
+	public function store(PermissionRequest $request)
 	{
-		$user = $this->userService->create($request);
+		$permission = $this->permissionService->create($request);
 
-		if (empty($user)){
+		if (empty($permission)){
 			return response()->json(['error' => 'registration failed'], 500);
 		}
 
@@ -65,18 +65,18 @@ class UserController extends Controller
 	 */
 	public function show(string $id)
 	{
-		return $this->userService->find($id);
+		return $this->permissionService->find($id);
 	}
 
 	/**
 	 * @param string      $id
-	 * @param UserRequest $request
+	 * @param PermissionRequest $request
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function update(string $id, UserRequest $request)
+	public function update(string $id, PermissionRequest $request)
 	{
-		$rs = $this->userService->edit($request, $id);
+		$rs = $this->permissionService->edit($request, $id);
 
 		if (empty($rs)){
 			return response()->json(['error' => 'update failed'], 500);
@@ -92,7 +92,7 @@ class UserController extends Controller
 	 */
 	public function destroy(string $ids)
 	{
-		$rs = $this->userService->delete($ids);
+		$rs = $this->permissionService->delete($ids);
 
 		return $rs ? response()->json(['msg' => 'success'],204) : response()->json(['error' => 'failed'], 500);
 	}

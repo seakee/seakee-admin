@@ -7,7 +7,7 @@
  * Description:
  */
 
-namespace App\Admin\Requests\User;
+namespace App\Admin\Requests\Users;
 
 
 use App\Admin\Requests\Request;
@@ -37,10 +37,10 @@ class UserRequest extends Request
 
 		$rules = $this->rules;
 
-		if ($currentRouteName == 'adminUser.update') {
-			$rules['user_name'] = $rules['user_name'] . ',user_name,' . $this->user_id;
-			$rules['phone']     = $rules['phone'] . ',phone,' . $this->user_id;
-			$rules['email']     = $rules['email'] . ',email,' . $this->user_id;
+		if ($currentRouteName == 'admin.users.update') {
+			$rules['user_name'] = $rules['user_name'] . ',user_name,' . $this->id;
+			$rules['phone']     = $rules['phone'] . ',phone,' . $this->id;
+			$rules['email']     = $rules['email'] . ',email,' . $this->id;
 			$rules['password']  = 'sometimes|' . $rules['password'];
 		}
 

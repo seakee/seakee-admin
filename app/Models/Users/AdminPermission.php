@@ -8,6 +8,15 @@ use DB;
 class AdminPermission extends Model
 {
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'name', 'display_name', 'description',
+	];
+
+	/**
 	 * Many-to-Many relations with role model.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
