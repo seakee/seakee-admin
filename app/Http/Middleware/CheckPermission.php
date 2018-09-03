@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Service\User\{AdminRoleService, AdminPermissionService};
+use App\Services\Users\{AdminRoleService, AdminPermissionService};
 use Closure;
 use Route;
 use Auth;
