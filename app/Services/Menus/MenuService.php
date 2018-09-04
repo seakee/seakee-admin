@@ -13,6 +13,7 @@ use App\Repositories\Menus\MenuRepository;
 use App\Models\Menus\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Cache;
 
 class MenuService
 {
@@ -106,5 +107,50 @@ class MenuService
 	public function find($ids)
 	{
 		return $this->menuRepository->find($ids);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function all(): array
+	{
+		return Cache::remember('admin.allMenus', config('cache.ttl'), function (){
+			return $this->menuRepository->all()->toArray();
+		});
+	}
+
+	/**
+	 * @param $currentPermission
+	 * @param $user
+	 *
+	 * @return mixed
+	 */
+	public function current($currentPermission, $user)
+	{
+		return Cache::remember('admin.menus.' . $user->id, config('cache.ttl'), function () use ($currentPermission, $user) {
+			$allMenu = $this->all();
+			$roles = $user->roles->toArray();
+
+			if (!in_array('Super_Admin', $roles)) {
+				foreach ($allMenu as $menu) {
+					if (in_array($menu['route_name'], $currentPermission)) {
+						//查找父菜单
+						if ($menu['father_id'] != -1) {
+							foreach ($allMenu as $m) {
+								if ($menu['father_id'] == $m['id']){
+									$currentUserMenu[] = $m;
+								}
+							}
+						}
+						$currentUserMenu[] = $menu;
+					}
+				}
+			}
+
+			//过滤重复菜单
+			//$currentUserMenu = array_filter_repeat($currentUserMenu, 'id');
+
+			return $currentUserMenu ?? $allMenu;
+		});
 	}
 }

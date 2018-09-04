@@ -12,6 +12,7 @@ namespace App\Repositories\Menus;
 
 use App\Models\Menus\Menu;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class MenuRepository
 {
@@ -81,5 +82,13 @@ class MenuRepository
 	public function find($ids)
 	{
 		return $this->menu->findOrFail($ids, ['id', 'icon', 'menu_name', 'route_name', 'father_id', 'sort', 'display', 'created_at']);
+	}
+
+	/**
+	 * @return \Illuminate\Support\Collection
+	 */
+	public function all(): Collection
+	{
+		return $this->menu->where('display', 1)->orderBy('sort', 'desc')->get();
 	}
 }

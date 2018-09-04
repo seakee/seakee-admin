@@ -97,4 +97,11 @@ class MenuController extends Controller
 
 		return $rs ? response()->json(['msg' => 'success'],204) : response()->json(['error' => 'failed'], 500);
 	}
+
+	public function current(srting $id)
+	{
+		$user
+
+		return response()->json($this->menuService->current());
+	}
 }
