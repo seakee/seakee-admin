@@ -1,6 +1,6 @@
 <?php
 /**
- * File: RoleRequest.php
+ * File: PermissionRequest.php
  * Author: Seakee <seakee23@163.com>
  * Homepage: https://seakee.top
  * Date: 2018/8/30 14:06
