@@ -64,7 +64,7 @@ class RoleController extends Controller
 
 		clear_cache('admin.allName');
 
-		return response()->json(['msg' => 'success']);
+		return response()->json(['msg' => 'success'],201);
 	}
 
 	/**
@@ -93,7 +93,7 @@ class RoleController extends Controller
 
 		clear_cache('admin.allName');
 
-		return response()->json(['msg' => 'success']);
+		return response()->json(['msg' => 'success'],201);
 	}
 
 	/**
@@ -111,7 +111,7 @@ class RoleController extends Controller
 
 		clear_cache('admin.allName');
 
-		return response()->json(['msg' => 'success']);
+		return response()->json(['msg' => 'success'],204);
 	}
 
 	/**

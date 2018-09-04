@@ -104,6 +104,6 @@ class PermissionController extends Controller
 
 		clear_cache('admin.allName');
 
-		return response()->json(['msg' => 'success'],201);
+		return response()->json(['msg' => 'success'],204);
 	}
 }
