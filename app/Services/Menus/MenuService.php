@@ -9,7 +9,7 @@
 
 namespace App\Services\Menus;
 
-use App\Repositories\Menu\MenuRepository;
+use App\Repositories\Menus\MenuRepository;
 use App\Models\Menus\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

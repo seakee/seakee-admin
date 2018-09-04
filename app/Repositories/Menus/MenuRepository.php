@@ -7,7 +7,7 @@
  * Description:
  */
 
-namespace App\Repositories\Menu;
+namespace App\Repositories\Menus;
 
 
 use App\Models\Menus\Menu;
