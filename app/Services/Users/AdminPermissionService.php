@@ -108,7 +108,7 @@ class AdminPermissionService
 	 */
 	public function allName(): array
 	{
-		return Cache::remember('admin.allName', config('cache.ttl'), function (){
+		return Cache::remember('admin.allPermissionNames', config('cache.ttl'), function (){
 			return array_column($this->permissionRepository->all()->toArray(), 'name');
 		});
 	}

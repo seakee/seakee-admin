@@ -89,6 +89,8 @@ class UserController extends Controller
 			return response()->json(['error' => 'update failed'], 500);
 		}
 
+		clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
+
 		return response()->json(['msg' => 'success'],201);
 	}
 
@@ -139,7 +141,7 @@ class UserController extends Controller
 			return response()->json(['error' => 'sync failed'], 500);
 		}
 
-		clear_cache('admin.roles.' . $id);
+		clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
 
 		return response()->json(['msg' => 'success'],201);
 	}

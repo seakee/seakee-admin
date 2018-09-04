@@ -55,7 +55,7 @@ class PermissionController extends Controller
 			return response()->json(['error' => 'registration failed'], 500);
 		}
 
-		clear_cache('admin.allName');
+		clear_cache('admin.allPermissionNames');
 
 		return response()->json(['msg' => 'success'],201);
 	}
@@ -84,7 +84,7 @@ class PermissionController extends Controller
 			return response()->json(['error' => 'update failed'], 500);
 		}
 
-		clear_cache('admin.allName');
+		clear_cache('admin.allPermissionNames');
 
 		return response()->json(['msg' => 'success'],201);
 	}
@@ -102,7 +102,7 @@ class PermissionController extends Controller
 			return response()->json(['error' => 'destroy failed'], 500);
 		}
 
-		clear_cache('admin.allName');
+		clear_cache('admin.allPermissionNames');
 
 		return response()->json(['msg' => 'success'],204);
 	}
@@ -127,7 +127,7 @@ class PermissionController extends Controller
 			}
 		}
 
-		clear_cache('admin.allName');
+		clear_cache('admin.allPermissionNames');
 
 		return response()->json(['msg' => '共新增' . $count . '条权限，其中成功' . ($count - $failure) . '条失败' . $failure . '条'], 201);
 	}
