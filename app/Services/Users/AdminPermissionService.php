@@ -96,10 +96,10 @@ class AdminPermissionService
 	{
 		return Cache::remember('admin.permissions.' . $user->id, config('cache.ttl'), function () use ($roles){
 			foreach ($roles as $role){
-				$permission[] = array_get($role->permissions->toArray(), 'name');
+				$permission[] = array_column($role->permissions->toArray(), 'name');
 			}
 
-			return $permission ?? [];
+			return array_collapse($permission  ?? []);
 		});
 	}
 
