@@ -17,6 +17,8 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 });
 
 Route::group(['namespace' => 'Users'], function () {
+	Route::get('users/{id}/roles','UserController@showRoles')->name('admin.users.roles');
+	Route::put('users/{id}/roles','UserController@syncRoles')->name('admin.users.syncRoles');
 	Route::apiResource('users', 'UserController', [
 		'parameters' => ['users' => 'id'],
 		'names'       => [

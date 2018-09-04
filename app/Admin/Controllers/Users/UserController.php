@@ -12,7 +12,7 @@ namespace App\Admin\Controllers\Users;
 
 use App\Admin\Requests\Users\UserRequest;
 use App\Http\Controllers\Controller;
-use App\Services\Users\AdminUserService;
+use App\Services\Users\{AdminUserService, AdminRoleService};
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -23,13 +23,20 @@ class UserController extends Controller
 	protected $userService;
 
 	/**
+	 * @var AdminRoleService
+	 */
+	protected $roleService;
+
+	/**
 	 * UserController constructor.
 	 *
 	 * @param AdminUserService $userService
+	 * @param AdminRoleService $roleService
 	 */
-	public function __construct(AdminUserService $userService)
+	public function __construct(AdminUserService $userService, AdminRoleService $roleService)
 	{
 		$this->userService = $userService;
+		$this->roleService = $roleService;
 	}
 
 	/**
@@ -95,5 +102,45 @@ class UserController extends Controller
 		$rs = $this->userService->delete($ids);
 
 		return $rs ? response()->json(['msg' => 'success'],204) : response()->json(['error' => 'failed'], 500);
+	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function showRoles(string $id)
+	{
+		$user = $this->userService->find($id);
+
+		if (empty($user)){
+			return response()->json(['error' => 'not found'], 404);
+		}
+
+		return response()->json($user->roles);
+	}
+
+	/**
+	 * @param string  $id
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function syncRoles(string $id, Request $request)
+	{
+		$roleIds = explode(",", $request->input('role_ids'));
+		$user    = $this->userService->find($id);
+
+		$this->roleService->find($roleIds);
+
+		$rs = $user->roles()->sync($roleIds);
+
+		if (empty($rs)){
+			return response()->json(['error' => 'sync failed'], 500);
+		}
+
+		clear_cache('admin.roles.' . $id);
+
+		return response()->json(['msg' => 'success'],201);
 	}
 }
