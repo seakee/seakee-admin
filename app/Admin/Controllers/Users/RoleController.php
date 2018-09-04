@@ -11,17 +11,32 @@ namespace App\Admin\Controllers\Users;
 
 
 use App\Http\Controllers\Controller;
-use App\Services\Users\AdminRoleService;
+use App\Services\Users\{AdminRoleService, AdminPermissionService};
 use Illuminate\Http\Request;
 use App\Admin\Requests\Users\RoleRequest;
 
 class RoleController extends Controller
 {
+	/**
+	 * @var AdminRoleService
+	 */
 	protected $roleService;
-	
-	public function __construct(AdminRoleService $roleService)
+
+	/**
+	 * @var AdminPermissionService
+	 */
+	protected $permissionService;
+
+	/**
+	 * RoleController constructor.
+	 *
+	 * @param AdminRoleService       $roleService
+	 * @param AdminPermissionService $permissionService
+	 */
+	public function __construct(AdminRoleService $roleService, AdminPermissionService $permissionService)
 	{
-		$this->roleService = $roleService;
+		$this->roleService       = $roleService;
+		$this->permissionService = $permissionService;
 	}
 
 	/**
@@ -46,6 +61,8 @@ class RoleController extends Controller
 		if (empty($user)){
 			return response()->json(['error' => 'registration failed'], 500);
 		}
+
+		clear_cache('admin.allName');
 
 		return response()->json(['msg' => 'success']);
 	}
@@ -74,6 +91,8 @@ class RoleController extends Controller
 			return response()->json(['error' => 'update failed'], 500);
 		}
 
+		clear_cache('admin.allName');
+
 		return response()->json(['msg' => 'success']);
 	}
 
@@ -86,6 +105,52 @@ class RoleController extends Controller
 	{
 		$rs = $this->roleService->delete($ids);
 
-		return $rs ? response()->json(['msg' => 'success']) : response()->json(['error' => 'failed'], 500);
+		if (empty($rs)){
+			return response()->json(['error' => 'destroy failed'], 500);
+		}
+
+		clear_cache('admin.allName');
+
+		return response()->json(['msg' => 'success']);
+	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function showPermissions(string $id)
+	{
+		$role    = $this->roleService->find($id);
+
+		if (empty($user)){
+			return response()->json(['error' => 'not found'], 404);
+		}
+
+		return response()->json($role->permissions);
+	}
+
+	/**
+	 * @param string  $id
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function syncPermissions(string $id, Request $request)
+	{
+		$permIds = explode(",", $request->input('permission_ids'));
+		$role    = $this->roleService->find($id);
+
+		$this->permissionService->find($permIds);
+
+		$rs = $role->permissions()->sync($permIds);
+
+		if (empty($rs)){
+			return response()->json(['error' => 'sync failed'], 500);
+		}
+
+		clear_cache(['admin.permissions.' . $id, 'admin.allName']);
+
+		return response()->json(['msg' => 'success'],201);
 	}
 }
