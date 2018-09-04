@@ -106,4 +106,29 @@ class PermissionController extends Controller
 
 		return response()->json(['msg' => 'success'],204);
 	}
+
+	/**
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function createBatch()
+	{
+		$routes = \Route::getRoutes()->getRoutesByName();
+
+		$count   = count($routes);
+		$failure = 0;
+		foreach ($routes as $key => $route){
+			if (!in_array($key, $this->permissionService->allName())){
+				$data['name'] = $data['display_name'] = $data['description'] = $key;
+				if (!$this->permissionService->getPermissionRepository()->store($data)){
+					$failure += 1;
+				}
+			} else {
+				$count --;
+			}
+		}
+
+		clear_cache('admin.allName');
+
+		return response()->json(['msg' => '共新增' . $count . '条权限，其中成功' . ($count - $failure) . '条失败' . $failure . '条'], 201);
+	}
 }

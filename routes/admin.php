@@ -43,6 +43,7 @@ Route::group(['namespace' => 'Users'], function () {
 		],
 	]);
 
+	Route::post('permissions/batch','PermissionController@createBatch')->name('admin.roles.createBatch');
 	Route::apiResource('permissions', 'PermissionController', [
 		'parameters' => ['permissions' => 'id'],
 		'names'       => [
