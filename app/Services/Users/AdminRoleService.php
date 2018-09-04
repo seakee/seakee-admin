@@ -35,6 +35,22 @@ class AdminRoleService
 	}
 
 	/**
+	 * @return AdminRoleRepository
+	 */
+	public function getRoleRepository(): AdminRoleRepository
+	{
+		return $this->roleRepository;
+	}
+
+	/**
+	 * @param AdminRoleRepository $roleRepository
+	 */
+	public function setRoleRepository(AdminRoleRepository $roleRepository)
+	{
+		$this->roleRepository = $roleRepository;
+	}
+
+	/**
 	 * @param Request $request
 	 *
 	 * @return AdminRole

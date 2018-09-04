@@ -34,6 +34,22 @@ class AdminPermissionService
 	}
 
 	/**
+	 * @return AdminPermissionRepository
+	 */
+	public function getPermissionRepository(): AdminPermissionRepository
+	{
+		return $this->permissionRepository;
+	}
+
+	/**
+	 * @param AdminPermissionRepository $permissionRepository
+	 */
+	public function setPermissionRepository(AdminPermissionRepository $permissionRepository)
+	{
+		$this->permissionRepository = $permissionRepository;
+	}
+
+	/**
 	 * @param Request $request
 	 *
 	 * @return AdminPermission

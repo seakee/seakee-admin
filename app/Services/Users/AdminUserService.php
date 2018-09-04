@@ -33,6 +33,22 @@ class AdminUserService
 	}
 
 	/**
+	 * @return AdminUserRepository
+	 */
+	public function getUserRepository(): AdminUserRepository
+	{
+		return $this->userRepository;
+	}
+
+	/**
+	 * @param AdminUserRepository $userRepository
+	 */
+	public function setUserRepository(AdminUserRepository $userRepository)
+	{
+		$this->userRepository = $userRepository;
+	}
+
+	/**
 	 * @param Request $request
 	 *
 	 * @return AdminUser
