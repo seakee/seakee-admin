@@ -96,7 +96,7 @@ class AdminPermissionService
 	{
 		return Cache::remember('admin.permissions.' . $user->id, config('cache.ttl'), function () use ($roles){
 			foreach ($roles as $role){
-				$permission[] = array_get($role->permisson->toArray(), 'name');
+				$permission[] = array_get($role->permissions->toArray(), 'name');
 			}
 
 			return $permission ?? [];
