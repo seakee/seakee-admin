@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -73,6 +74,10 @@ class Handler extends ExceptionHandler
 
 	    if ($exception instanceof TokenInvalidException) {
 		    return response()->json(['error' => $exception->getMessage()], 500);
+	    }
+
+	    if ($exception instanceof QueryException) {
+		    return response()->json(['error' => $exception->errorInfo[2]], 500);
 	    }
 
 	    return parent::render($request, $exception);
