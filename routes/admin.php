@@ -54,7 +54,9 @@ Route::group(['namespace' => 'Users'], function () {
 			'destroy' => 'admin.permissions.destroy',
 		],
 	]);
+});
 
+Route::group(['namespace' => 'Menus'], function () {
 	Route::apiResource('menus', 'MenuController', [
 		'parameters' => ['menus' => 'id'],
 		'names'       => [
