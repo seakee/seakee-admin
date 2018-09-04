@@ -34,9 +34,9 @@ class AdminUsersRoleSeeder extends Seeder
 		$user->save();
 
 		if (!$user->save()) {
-			Log::info('Unable to create user ' . $user->username, (array)$user->errors());
+			Log::info('Unable to create user ' . $user->user_name, (array)$user->errors());
 		} else {
-			Log::info('Created user "' . $user->username . '" <' . $user->email . '>');
+			Log::info('Created user "' . $user->user_name . '" <' . $user->email . '>');
 		}
 
 		//授权

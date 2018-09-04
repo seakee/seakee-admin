@@ -13,7 +13,7 @@ class AdminMenusTableSeeder extends Seeder
 	{
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-home',
-			'menu_name' => '管理中心',
+			'name' => '管理中心',
 			'route_name' => '#',
 			'father_id' => -1,
 			'sort' => 99,
@@ -24,7 +24,7 @@ class AdminMenusTableSeeder extends Seeder
 
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-users',
-			'menu_name' => '用户中心',
+			'name' => '用户中心',
 			'route_name' => '#',
 			'father_id' => -1,
 			'sort' => 98,
@@ -35,7 +35,7 @@ class AdminMenusTableSeeder extends Seeder
 
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-dashboard',
-			'menu_name' => '仪表盘',
+			'name' => '仪表盘',
 			'route_name' => 'admin.index',
 			'father_id' => 1,
 			'sort' => 10,
@@ -46,7 +46,7 @@ class AdminMenusTableSeeder extends Seeder
 
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-gears',
-			'menu_name' => '系统配置',
+			'name' => '系统配置',
 			'route_name' => 'config.index',
 			'father_id' => 1,
 			'sort' => 9,
@@ -57,7 +57,7 @@ class AdminMenusTableSeeder extends Seeder
 
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-list-ul',
-			'menu_name' => '菜单管理',
+			'name' => '菜单管理',
 			'route_name' => 'menu.admin',
 			'father_id' => 1,
 			'sort' => 8,
@@ -68,7 +68,7 @@ class AdminMenusTableSeeder extends Seeder
 
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-folder-o',
-			'menu_name' => '文件管理',
+			'name' => '文件管理',
 			'route_name' => 'file.index',
 			'father_id' => 1,
 			'sort' => 7,
@@ -79,7 +79,7 @@ class AdminMenusTableSeeder extends Seeder
 
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-user',
-			'menu_name' => '用户管理',
+			'name' => '用户管理',
 			'route_name' => 'user.index',
 			'father_id' => 2,
 			'sort' => 10,
@@ -90,7 +90,7 @@ class AdminMenusTableSeeder extends Seeder
 
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-address-card',
-			'menu_name' => '角色管理',
+			'name' => '角色管理',
 			'route_name' => 'role.index',
 			'father_id' => 2,
 			'sort' => 9,
@@ -101,7 +101,7 @@ class AdminMenusTableSeeder extends Seeder
 
 		DB::table('admin_menus')->insert([
 			'icon' => 'fa-expeditedssl',
-			'menu_name' => '权限管理',
+			'name' => '权限管理',
 			'route_name' => 'permission.index',
 			'father_id' => 2,
 			'sort' => 8,
