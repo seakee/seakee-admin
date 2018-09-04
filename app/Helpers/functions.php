@@ -141,9 +141,8 @@ if (!function_exists('clear_cache')) {
 			foreach ($key as $k){
 				\Cache::forget($k);
 			}
-
+		} else {
+			\Cache::forget($key);
 		}
-
-		\Cache::forget($key);
 	}
 }

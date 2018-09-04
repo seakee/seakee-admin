@@ -31,7 +31,7 @@ class AdminRole extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */
-	public function permission()
+	public function permissions()
 	{
 		return $this->belongsToMany('App\Models\Users\AdminPermission', 'admin_permission_role', 'role_id', 'permission_id');
 	}
