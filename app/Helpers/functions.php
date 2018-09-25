@@ -67,7 +67,7 @@ if (!function_exists('is_phone_number')) {
 	 */
 	function is_phone_number(string $number): bool
 	{
-		return preg_match('/^(\+?0?86\-?)?((13\d|14[57]|15[^4,\D]|17[3678]|18\d)\d{8}|170[059]\d{7})$/', $number);
+		return preg_match('/^(\+?0?86\-?)?((13\d|14[579]|15[^4,\D]|16[6]|17[13678]|18\d)\d{8}|19[89]|170[059]\d{7})$/', $number);
 	}
 }
 
