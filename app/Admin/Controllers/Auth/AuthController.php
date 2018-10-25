@@ -113,8 +113,8 @@ class AuthController extends Controller
 			return 'email';
 		}
 
-		if (is_phone_number($login)) {
-			return 'phone';
+		if (is_mobile_number($login)) {
+			return 'mobile';
 		}
 
 		return 'user_name';

@@ -57,7 +57,7 @@ if (!function_exists('friendly_date')) {
 	}
 }
 
-if (!function_exists('is_phone_number')) {
+if (!function_exists('is_mobile_number')) {
 	/**
 	 * 校验是否为中国手机号码（截止2018-09-29）
 	 *
@@ -65,7 +65,7 @@ if (!function_exists('is_phone_number')) {
 	 *
 	 * @return bool
 	 */
-	function is_phone_number(string $number): bool
+	function is_mobile_number(string $number): bool
 	{
 		return preg_match('/^(\+?0?86\-?)?((13\d|14[579]|15[^4,\D]|16[6]|19[89]|17[135678]|18\d)\d{8}|170[059]\d{7})$/', $number);
 	}

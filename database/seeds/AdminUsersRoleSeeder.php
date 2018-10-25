@@ -27,7 +27,7 @@ class AdminUsersRoleSeeder extends Seeder
 
 		$user->user_name = 'admin';
 		$user->email     = 'admin@admin.com';
-		$user->phone     = '18888888888';
+		$user->mobile     = '18888888888';
 		$user->rank      = 1;
 		$user->password  = bcrypt('admin123456');
 
