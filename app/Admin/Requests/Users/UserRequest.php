@@ -11,7 +11,6 @@ namespace App\Admin\Requests\Users;
 
 
 use App\Admin\Requests\Request;
-use Illuminate\Validation\Factory;
 use Route;
 
 class UserRequest extends Request

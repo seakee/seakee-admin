@@ -11,26 +11,10 @@ namespace App\Admin\Requests\Users;
 
 
 use App\Admin\Requests\Request;
-use Illuminate\Validation\Factory;
 use Route;
 
 class PermissionRequest extends Request
 {
-	public function __construct(array $query = [], array $request = [], array $attributes = [], array $cookies = [], array $files = [], array $server = [], $content = null, Factory $factory)
-	{
-		parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
-
-		$name = 'route_exists';
-
-		$test = function ($_, $value) {
-			return Route::getRoutes()->hasNamedRoute($value);
-		};
-
-		$errorMessage = '路由不存在';
-
-		$factory->extend($name, $test, $errorMessage);
-	}
-
 	public function rules()
 	{
 		$currentRouteName = Route::currentRouteName();

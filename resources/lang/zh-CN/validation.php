@@ -112,6 +112,7 @@ return [
     'uploaded'             => ':attribute上传失败。',
     'url'                  => ':attribute格式不正确。',
     'mobile'               => ':attribute号码不正确。',
+    'route_exists'         => ':attribute不存在。',
 
     /*
     |--------------------------------------------------------------------------
