@@ -86,7 +86,7 @@ class UserController extends Controller
 		$rs = $this->userService->edit($request, $id);
 
 		if (empty($rs)){
-			return response()->json(['error' => 'update failed'], 500);
+			return response()->json(['error' => 'updates failed'], 500);
 		}
 
 		clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);

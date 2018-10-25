@@ -51,7 +51,7 @@ class MenuController extends Controller
 		$menu = $this->menuService->create($request);
 
 		if (empty($menu)){
-			return response()->json(['error' => 'registration failed'], 500);
+			return response()->json(['error' => 'creates failed'], 500);
 		}
 
 		return response()->json(['msg' => 'success'],201);
@@ -78,7 +78,7 @@ class MenuController extends Controller
 		$rs = $this->menuService->edit($request, $id);
 
 		if (empty($rs)){
-			return response()->json(['error' => 'update failed'], 500);
+			return response()->json(['error' => 'updates failed'], 500);
 		}
 
 		clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
@@ -95,12 +95,12 @@ class MenuController extends Controller
 	{
 		$rs = $this->menuService->delete($ids);
 
-		return $rs ? response()->json(['msg' => 'success'],204) : response()->json(['error' => 'failed'], 500);
+		return $rs ? response()->json(['msg' => 'success'],204) : response()->json(['error' => 'destruction failed'], 500);
 	}
 
 	public function current(srting $id)
 	{
-		$user
+		//$user
 
 		return response()->json($this->menuService->current());
 	}

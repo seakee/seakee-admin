@@ -59,7 +59,7 @@ class RoleController extends Controller
 		$user = $this->roleService->create($request);
 
 		if (empty($user)){
-			return response()->json(['error' => 'registration failed'], 500);
+			return response()->json(['error' => 'creates failed'], 500);
 		}
 
 		return response()->json(['msg' => 'success'],201);
@@ -86,7 +86,7 @@ class RoleController extends Controller
 		$rs = $this->roleService->edit($request, $id);
 
 		if (empty($rs)){
-			return response()->json(['error' => 'update failed'], 500);
+			return response()->json(['error' => 'updates failed'], 500);
 		}
 
 		return response()->json(['msg' => 'success'],201);
@@ -102,7 +102,7 @@ class RoleController extends Controller
 		$rs = $this->roleService->delete($ids);
 
 		if (empty($rs)){
-			return response()->json(['error' => 'destroy failed'], 500);
+			return response()->json(['error' => 'destruction failed'], 500);
 		}
 
 		return response()->json(['msg' => 'success'],204);
