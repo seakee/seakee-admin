@@ -111,6 +111,7 @@ return [
     'unique'               => ':attribute已经存在。',
     'uploaded'             => ':attribute上传失败。',
     'url'                  => ':attribute格式不正确。',
+    'mobile'               => ':attribute号码不正确。',
 
     /*
     |--------------------------------------------------------------------------

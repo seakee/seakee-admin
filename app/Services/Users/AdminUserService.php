@@ -55,7 +55,7 @@ class AdminUserService
 	 */
 	public function create(Request $request):AdminUser
 	{
-		$data = filter_request_params(['user_name', 'email', 'phone', 'password'], $request);
+		$data = filter_request_params(['user_name', 'email', 'mobile', 'password'], $request);
 
 		$data['password'] = bcrypt($data['password']);
 
@@ -70,7 +70,7 @@ class AdminUserService
 	 */
 	public function edit(Request $request, int $id):bool
 	{
-		$data = filter_request_params(['user_name', 'email', 'phone', 'password'], $request);
+		$data = filter_request_params(['user_name', 'email', 'mobile', 'password'], $request);
 
 		return $this->userRepository->update($data, $id);
 	}
@@ -94,7 +94,7 @@ class AdminUserService
 	 */
 	public function paginate(Request $request): LengthAwarePaginator
 	{
-		$where   = filter_request_params(['user_name', 'email', 'phone'], $request);
+		$where   = filter_request_params(['user_name', 'email', 'mobile'], $request);
 		$perPage = $request->get('per_page', 15);
 		$page    = $request->get('page', 1);
 

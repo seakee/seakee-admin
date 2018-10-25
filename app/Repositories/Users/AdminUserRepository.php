@@ -70,7 +70,7 @@ class AdminUserRepository
 	 */
 	public function paginate(array $where, int $perPage, int $page): LengthAwarePaginator
 	{
-		return $this->user->where($where)->paginate($perPage,['id', 'user_name', 'avatar', 'email', 'phone', 'status', 'rank', 'created_at'],'page', $page);
+		return $this->user->where($where)->paginate($perPage,['id', 'user_name', 'avatar', 'email', 'mobile', 'status', 'rank', 'created_at'],'page', $page);
 	}
 
 	/**
@@ -80,6 +80,6 @@ class AdminUserRepository
 	 */
 	public function find($ids)
 	{
-		return $this->user->findOrFail($ids, ['id', 'user_name', 'avatar', 'email', 'phone', 'status', 'rank', 'created_at']);
+		return $this->user->findOrFail($ids, ['id', 'user_name', 'avatar', 'email', 'mobile', 'status', 'rank', 'created_at']);
 	}
 }
