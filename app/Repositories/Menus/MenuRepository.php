@@ -71,7 +71,7 @@ class MenuRepository
 	 */
 	public function paginate(array $where, int $perPage, int $page): LengthAwarePaginator
 	{
-		return $this->menu->where($where)->paginate($perPage,['id', 'icon', 'menu_name', 'route_name', 'father_id', 'sort', 'display', 'created_at'],'page', $page);
+		return $this->menu->where($where)->paginate($perPage,['id', 'icon', 'name', 'route_name', 'father_id', 'sort', 'display', 'created_at'],'page', $page);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class MenuRepository
 	 */
 	public function find($ids)
 	{
-		return $this->menu->findOrFail($ids, ['id', 'icon', 'menu_name', 'route_name', 'father_id', 'sort', 'display', 'created_at']);
+		return $this->menu->findOrFail($ids, ['id', 'icon', 'name', 'route_name', 'father_id', 'sort', 'display', 'created_at']);
 	}
 
 	/**
