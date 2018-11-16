@@ -12,7 +12,10 @@ namespace App\Admin\Controllers\Users;
 
 use App\Admin\Requests\Users\UserRequest;
 use App\Http\Controllers\Controller;
-use App\Services\Users\{AdminUserService, AdminRoleService};
+use App\Services\Menus\MenuService;
+use App\Services\Users\{
+	AdminPermissionService, AdminUserService, AdminRoleService
+};
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -28,15 +31,30 @@ class UserController extends Controller
 	protected $roleService;
 
 	/**
+	 * @var AdminPermissionService
+	 */
+	protected $permissionService;
+
+	/**
+	 * @var MenuService
+	 */
+	protected $menuService;
+
+	/**
 	 * UserController constructor.
 	 *
-	 * @param AdminUserService $userService
-	 * @param AdminRoleService $roleService
+	 * @param AdminUserService       $userService
+	 * @param AdminRoleService       $roleService
+	 * @param AdminPermissionService $permissionService
+	 * @param MenuService            $menuService
 	 */
-	public function __construct(AdminUserService $userService, AdminRoleService $roleService)
+	public function __construct(AdminUserService $userService, AdminRoleService $roleService,
+	                            AdminPermissionService $permissionService, MenuService $menuService)
 	{
-		$this->userService = $userService;
-		$this->roleService = $roleService;
+		$this->userService       = $userService;
+		$this->roleService       = $roleService;
+		$this->permissionService = $permissionService;
+		$this->menuService       = $menuService;
 	}
 
 	/**
@@ -144,5 +162,20 @@ class UserController extends Controller
 		clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
 
 		return response()->json(['msg' => 'success'],201);
+	}
+
+	public function showMenus(string $id)
+	{
+		$user = $this->userService->find($id);
+
+		if (empty($user)){
+			return response()->json(['error' => 'not found'], 404);
+		}
+
+		$permission = $this->permissionService->current($user, $user->roles);
+
+		$menus = $this->menuService->current($permission, $user);
+
+		return response()->json($menus);
 	}
 }

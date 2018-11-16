@@ -131,6 +131,7 @@ class MenuService
 			$allMenu = $this->all();
 			$roles = $user->roles->toArray();
 
+			$currentUserMenu = [];
 			if (!in_array('Super_Admin', $roles)) {
 				foreach ($allMenu as $menu) {
 					if (in_array($menu['route_name'], $currentPermission)) {
@@ -145,12 +146,14 @@ class MenuService
 						$currentUserMenu[] = $menu;
 					}
 				}
+			} else {
+				$currentUserMenu = $allMenu;
 			}
 
 			//过滤重复菜单
 			//$currentUserMenu = array_filter_repeat($currentUserMenu, 'id');
 
-			return $currentUserMenu ?? $allMenu;
+			return $currentUserMenu;
 		});
 	}
 }
