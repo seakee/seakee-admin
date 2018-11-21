@@ -19,6 +19,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 Route::group(['namespace' => 'Users'], function () {
 	Route::get('users/{id}/roles','UserController@showRoles')->name('admin.users.roles');
 	Route::get('users/{id}/menus','UserController@showMenus')->name('admin.users.menus');
+	Route::get('users/{id}/permissions','UserController@showPermissions')->name('admin.users.permissions');
 	Route::put('users/{id}/roles','UserController@syncRoles')->name('admin.users.syncRoles');
 	Route::apiResource('users', 'UserController', [
 		'parameters' => ['users' => 'id'],
@@ -31,7 +32,6 @@ Route::group(['namespace' => 'Users'], function () {
 		],
 	]);
 
-	Route::get('roles/{id}/permissions','RoleController@showPermissions')->name('admin.roles.permissions');
 	Route::put('roles/{id}/permissions','RoleController@syncPermissions')->name('admin.roles.syncPermissions');
 	Route::apiResource('roles', 'RoleController', [
 		'parameters' => ['roles' => 'id'],

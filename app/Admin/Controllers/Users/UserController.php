@@ -178,4 +178,18 @@ class UserController extends Controller
 
 		return response()->json($menus);
 	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function showPermissions(string $id)
+	{
+		$user = $this->userService->find($id);
+
+		$permission = $this->permissionService->current($user, $user->roles);
+
+		return response()->json($permission);
+	}
 }
