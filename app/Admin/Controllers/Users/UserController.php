@@ -133,10 +133,6 @@ class UserController extends Controller
 	{
 		$user = $this->userService->find($id);
 
-		if (empty($user)){
-			return response()->json(['error' => 'not found'], 404);
-		}
-
 		return response()->json($user->roles);
 	}
 
@@ -164,13 +160,14 @@ class UserController extends Controller
 		return response()->json(['msg' => 'success'],201);
 	}
 
+	/**
+	 * @param string $id
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function showMenus(string $id)
 	{
 		$user = $this->userService->find($id);
-
-		if (empty($user)){
-			return response()->json(['error' => 'not found'], 404);
-		}
 
 		$permission = $this->permissionService->current($user, $user->roles);
 
