@@ -95,11 +95,16 @@ class AdminPermissionService
 	public function current($user, $roles): array
 	{
 		return Cache::remember('admin.permissions.' . $user->id, config('cache.ttl'), function () use ($roles){
-			foreach ($roles as $role){
-				$permission[] = array_column($role->permissions->toArray(), 'name');
+			if (in_array('Super_Admin', array_column($roles->toArray(), 'name'))){
+				$permission = $this->allName();
+			} else {
+				foreach ($roles as $role){
+					$permission[] = array_column($role->permissions->toArray(), 'name');
+				}
+				$permission = array_keys(array_flip(array_collapse($permission  ?? [])));
 			}
 
-			return array_collapse($permission  ?? []);
+			return $permission;
 		});
 	}
 
