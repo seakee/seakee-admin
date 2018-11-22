@@ -22,6 +22,7 @@
         "element-ui": "^2.4.6",
         "less-loader": "^4.1.0",
         "vue-router": "^3.0.1",
+        "vuex": "^3.0.1",
         "vux": "^2.9.2",
         "vux-loader": "^1.2.9"
     }
