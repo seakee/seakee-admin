@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/', function () {
+	return view('admin');
+})->name('admin.index');
+
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 	Route::post('login', 'AuthController@login')->name('admin.login');
 	Route::post('logout', 'AuthController@logout')->name('admin.logout');
