@@ -10,18 +10,18 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.17",
+        "axios": "^0.18.0",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
         "jquery": "^3.2",
-        "laravel-mix": "^1.0",
-        "lodash": "^4.17.4",
+        "laravel-mix": "^3.0.0",
+        "lodash": "^4.17.11",
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "element-ui": "^2.4.6",
+        "element-ui": "^2.4.11",
         "less-loader": "^4.1.0",
-        "vue-router": "^3.0.1",
+        "vue-router": "^3.0.2",
         "vuex": "^3.0.1",
         "vux": "^2.9.2",
         "vux-loader": "^1.2.9"
