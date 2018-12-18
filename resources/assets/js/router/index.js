@@ -4,13 +4,17 @@ import Router from 'vue-router'
 Vue.use(Router);
 
 /* Layout */
-import Layout from '../views/layout/layout'
+import Layout from '@/views/layout/layout'
 
 export const constantRouterMap = [
     {
         path     : '/',
-        component: Layout,
-        hidden   : false
+        component: Layout
+    },
+
+    {
+        path     : '/login',
+        component: require('@/views/login')
     }
 ];
 
