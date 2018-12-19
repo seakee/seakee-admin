@@ -28,10 +28,9 @@ const auth = {
         },
         // 用户登出，清除本地数据
         logout(state) {
+            state.id        = null;
             state.user_name = null;
-            state.mobile    = null;
             state.avatar    = null;
-            state.email     = null;
             state.token     = null;
 
             localStorage.removeItem('token');
@@ -41,10 +40,10 @@ const auth = {
         // 登录成功后保存用户信息
         login({commit}, loginInfo) {
             return new Promise(function (resolve, reject) {
-                post('/auth/login', {
-                    'account': loginInfo.account.trim(),
-                    'password' : loginInfo.password
-                }).then(response => {
+                login(
+                    loginInfo.account.trim(),
+                    loginInfo.password
+                ).then(response => {
                     if (response.status === 201) {
                         const data = response.data;
                         commit('setToken', data.token);
@@ -60,25 +59,30 @@ const auth = {
         // 登录成功后使用 token 拉取用户的信息
         profile({commit}) {
             return new Promise(function (resolve, reject) {
-                axios.get('profile', {}).then(respond => {
-                    if (respond.status === 200) {
-                        commit('profile', respond.data);
-                        resolve();
+                profile().then(response => {
+                    if (response.status === 200) {
+                        const data = response.data;
+                        commit('profile', data);
+                        resolve()
                     } else {
                         reject();
                     }
+                }).catch(error => {
+                    reject(error)
+                });
+            });
+        },
+        // 用户登出，清除本地数据并重定向至登录页面
+        logout({commit}) {
+            return new Promise(function (resolve, reject) {
+                logout().then(() => {
+                    commit('logout', '');
+                    resolve()
+                }).catch(error => {
+                    reject(error)
                 })
             })
         },
-        // 用户登出，清除本地数据并重定向至登录页面
-        /*logout({commit}) {
-            return new Promise(function (resolve, reject) {
-                commit('logout');
-                axios.post('auth/logout', {}).then(respond => {
-                    Vue.$router.push({path: '/'});
-                })
-            })
-        },*/
         // 将刷新的 token 保存至本地
         refreshToken({commit}, token) {
             return new Promise(function (resolve, reject) {
