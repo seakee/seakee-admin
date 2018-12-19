@@ -18,8 +18,6 @@
 </template>
 
 <script>
-    import {login} from "../api/index";
-
     export default {
         name   : "login",
         data() {
@@ -64,6 +62,7 @@
                         this.loading = true;
                         this.$store.dispatch('login', this.loginForm).then(() => {
                             this.loading = false;
+                            this.$store.dispatch('profile');
                             this.$router.push({path: '/'});
                         }).catch(() => {
                             this.loading = false;

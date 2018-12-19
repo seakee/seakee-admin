@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 	Route::post('login', 'AuthController@login')->name('admin.login');
 	Route::post('logout', 'AuthController@logout')->name('admin.logout');
+	Route::get('profile', 'AuthController@profile')->name('admin.profile');
 });
 
 Route::group(['namespace' => 'Users'], function () {

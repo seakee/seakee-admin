@@ -53,6 +53,13 @@ class AuthController extends Controller
 		return response()->json(['msg' => 'success'], 200);
 	}
 
+	public function profile()
+	{
+		$profile = Auth::guard('admin')->user()->toArray();
+
+		return response()->json(array_only($profile, ['id', 'user_name', 'avatar']), 200);
+	}
+
 	protected function username()
 	{
 		return $this->username;

@@ -1,20 +1,18 @@
-import axios from "axios";
-import {get, post} from '@/utils/http'
+import axios                    from "axios";
+import {login, logout, profile} from "@/api";
 
 const auth = {
     state    : {
+        id       : null,
         user_name: null,
         avatar   : null,
-        mobile   : null,
-        token    : null,
-        email    : null
+        token    : null
     },
     mutations: {
         // 用户登录成功，存储 token 并设置 header 头
         setToken(state, token) {
             state.token        = token;
             localStorage.token = token;
-            console.log(state);
         },
         // 用户刷新 token 成功，使用新的 token 替换掉本地的token
         refreshToken(state, token) {
@@ -24,10 +22,9 @@ const auth = {
         },
         // 登录成功后拉取用户的信息存储到本地
         profile(state, data) {
+            state.id        = data.id;
             state.user_name = data.user_name;
-            state.mobile    = data.mobile;
             state.avatar    = data.avatar;
-            state.email     = data.email;
         },
         // 用户登出，清除本地数据
         logout(state) {
