@@ -13,7 +13,7 @@ const path = require('path');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sass('resources/assets/sass/app.scss', 'public/css', { implementation: require('node-sass') })
     .webpackConfig({
         resolve: {
             extensions: ['.js', '.vue', '.json'],
