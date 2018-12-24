@@ -1,5 +1,7 @@
 <template>
-    <div class="app-main">主体</div>
+    <div class="app-main">
+        <router-view/>
+    </div>
 </template>
 
 <script>
