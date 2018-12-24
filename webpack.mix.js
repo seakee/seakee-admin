@@ -20,6 +20,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
             alias     : {
                 '@': path.resolve(__dirname, 'resources/assets/js')
             }
+        },
+        output: {
+            // 未被列在 entry 且需要被打包出来的文件
+            chunkFilename: 'js/[id].[hash].js'
         }
     })
     .options({
