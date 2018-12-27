@@ -62,7 +62,6 @@
                         this.loading = true;
                         this.$store.dispatch('login', this.loginForm).then(() => {
                             this.loading = false;
-                            this.$store.dispatch('profile');
                             this.$router.push({path: '/'});
                         }).catch(() => {
                             this.loading = false;
