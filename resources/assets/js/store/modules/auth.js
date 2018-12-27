@@ -1,39 +1,32 @@
-import axios                    from "axios";
-import {login, logout, profile} from "@/api";
+import axios                          from "axios";
+import {login, logout, profile}       from "@/api";
+import {getData, setData, removeData} from "@/utils/localStorage";
 
 const auth = {
     state    : {
-        id       : null,
-        user_name: null,
-        avatar   : null,
-        token    : null
+        token  : getData('token'),
+        profile: null
     },
     mutations: {
         // 用户登录成功，存储 token 并设置 header 头
         setToken(state, token) {
-            state.token        = token;
-            localStorage.token = token;
+            state.token = token;
         },
         // 用户刷新 token 成功，使用新的 token 替换掉本地的token
         refreshToken(state, token) {
             state.token                                    = token;
-            localStorage.token                             = token;
             axios.defaults.headers.common['Authorization'] = state.token;
         },
         // 登录成功后拉取用户的信息存储到本地
         profile(state, data) {
-            state.id        = data.id;
-            state.user_name = data.user_name;
-            state.avatar    = data.avatar;
+            state.profile = data;
+
         },
         // 用户登出，清除本地数据
         logout(state) {
-            state.id        = null;
-            state.user_name = null;
-            state.avatar    = null;
-            state.token     = null;
-
-            localStorage.removeItem('token');
+            state.token   = null;
+            state.profile = null;
+            removeData('token');
         }
     },
     actions  : {
@@ -47,6 +40,7 @@ const auth = {
                     if (response.status === 201) {
                         const data = response.data;
                         commit('setToken', data.token);
+                        setData('token', data.token);
                         resolve()
                     } else {
                         reject();
@@ -77,7 +71,8 @@ const auth = {
             return new Promise(function (resolve, reject) {
                 logout().then(() => {
                     commit('logout', '');
-                    resolve()
+                    this.$route.push({path: '/login'});
+                    resolve();
                 }).catch(error => {
                     reject(error)
                 })
@@ -87,6 +82,7 @@ const auth = {
         refreshToken({commit}, token) {
             return new Promise(function (resolve, reject) {
                 commit('refreshToken', token);
+                setData('token', token);
             })
         },
     }
