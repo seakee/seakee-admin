@@ -1,7 +1,6 @@
 import Vue       from 'vue'
 import Router    from 'vue-router'
 import store     from '@/store'
-import {getData} from "@/utils/localStorage";
 
 Vue.use(Router);
 
@@ -23,12 +22,12 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    const token = getData('token');
+    const token = store.getters.token;
     if (token) {
         if (to.path === '/login') {
             next({path: '/'});
         } else {
-            if (store.state.auth.profile === null) {
+            if (store.getters.profile === null) {
                 store.dispatch('profile').then(res => {
                     //todo 渲染菜单
                     next();
