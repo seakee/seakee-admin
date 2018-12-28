@@ -17,6 +17,7 @@ use App\Services\Users\{
 	AdminPermissionService, AdminUserService, AdminRoleService
 };
 use Illuminate\Http\Request;
+use Auth;
 
 class UserController extends Controller
 {
@@ -188,5 +189,11 @@ class UserController extends Controller
 		$permission = $this->permissionService->current($user, $user->roles);
 
 		return response()->json($permission);
+	}
+
+	public function profile()
+	{
+		$profile = Auth::user();
+		return response()->json($profile);
 	}
 }

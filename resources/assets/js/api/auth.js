@@ -8,10 +8,6 @@ export function login(account, password) {
     );
 }
 
-export function profile() {
-    return get('/auth/profile');
-}
-
 export function logout() {
     return post('/auth/logout');
 }

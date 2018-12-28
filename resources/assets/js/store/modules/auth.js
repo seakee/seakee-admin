@@ -1,5 +1,6 @@
 import axios                          from "axios";
-import {login, logout, profile}       from "@/api";
+import {login, logout}                from "@/api/auth";
+import {profile}                      from "@/api/user";
 import {getData, setData, removeData} from "@/utils/localStorage";
 
 const auth = {
