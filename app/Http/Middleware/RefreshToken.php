@@ -50,6 +50,8 @@ class RefreshToken extends BaseMiddleware
 			try {
 				// 刷新用户的 token
 				$token = $this->auth->refresh();
+				//替换过期token
+				$request->headers->set('Authorization', 'Bearer '.$token);
 				// 使用一次性登录以保证此次请求的成功
 				Auth::guard()->onceUsingId($this->auth->manager()->getPayloadFactory()->buildClaimsCollection()->toPlainArray()['sub']);
 			} catch (JWTException $exception) {
