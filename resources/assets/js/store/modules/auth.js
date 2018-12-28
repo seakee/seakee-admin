@@ -2,6 +2,7 @@ import axios                          from "axios";
 import {login, logout}                from "@/api/auth";
 import {profile}                      from "@/api/user";
 import {getData, setData, removeData} from "@/utils/localStorage";
+import router from '@/router'
 
 const auth = {
     state    : {
@@ -27,7 +28,6 @@ const auth = {
         logout(state) {
             state.token   = null;
             state.profile = null;
-            removeData('token');
         }
     },
     actions  : {
@@ -70,13 +70,9 @@ const auth = {
         // 用户登出，清除本地数据并重定向至登录页面
         logout({commit}) {
             return new Promise(function (resolve, reject) {
-                logout().then(() => {
-                    commit('logout', '');
-                    this.$route.push({path: '/login'});
-                    resolve();
-                }).catch(error => {
-                    reject(error)
-                })
+                commit('logout', '');
+                removeData('token');
+                router.push({path: '/login'});
             })
         },
         // 将刷新的 token 保存至本地

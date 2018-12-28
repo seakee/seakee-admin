@@ -34,12 +34,13 @@ http.interceptors.response.use((response) => {
 
         // 如果响应中的 http code 为 401，那么则此用户可能 token 失效了之类的，我会触发 logout 方法，清除本地的数据并将用户重定向至登录页面
         case 401:
+            Message({message: '登录已失效，请重新登录', type:'error', center: true});
             return store.dispatch('logout');
         // 如果响应中的 http code 为 400，那么就弹出一条错误提示给用户
         case 400:
         case 404:
         case 500:
-            return Message.error(error.response.data.msg);
+            return Message({message: error.response.data.msg,type:'error', center: true});
     }
     return Promise.reject(error);
 });
