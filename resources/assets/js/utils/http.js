@@ -37,6 +37,8 @@ http.interceptors.response.use((response) => {
             return store.dispatch('logout');
         // 如果响应中的 http code 为 400，那么就弹出一条错误提示给用户
         case 400:
+        case 404:
+        case 500:
             return Message.error(error.response.data.msg);
     }
     return Promise.reject(error);
