@@ -28,25 +28,5 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-    html{
-        min-height: 100%;
-        position: relative;
-    }
-    body{
-        overflow-x: hidden;
-    }
 
-
-    .wrapper {
-        min-height: 100%;
-        min-width: 100%;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-    .app-content{
-        z-index: 1001;
-        margin-left: 200px;
-        padding-bottom: 40px;
-        padding-top: 60px;
-    }
 </style>

@@ -43,7 +43,6 @@
         min-width: 200px;
         background: rgba(0, 0, 0, 0.05);
         position: absolute;
-        padding: 10px 20px;
         text-align: center;
     }
     .header-nav{
