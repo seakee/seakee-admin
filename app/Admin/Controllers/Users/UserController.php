@@ -191,9 +191,21 @@ class UserController extends Controller
 		return response()->json($permission);
 	}
 
+	/**
+	 * @return \Illuminate\Http\JsonResponse
+	 */
 	public function profile()
 	{
-		$profile = Auth::user();
+        $user = Auth::user();
+
+        $profile = array_only($user->toArray(),['id', 'user_name', 'avatar']);
+
+        $roles      = $user->roles;
+        $permission = $this->permissionService->current($user, $roles);
+        $menus      = $this->menuService->current($permission, $user);
+
+        $profile['menus'] = $this->menuService->tree($menus, true);
+
 		return response()->json($profile);
 	}
 }
