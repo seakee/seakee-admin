@@ -28,8 +28,8 @@ router.beforeEach((to, from, next) => {
             next({path: '/'});
         } else {
             if (store.getters.profile === null) {
+                //获取登录用户信息
                 store.dispatch('profile').then(res => {
-                    //todo 渲染菜单
                     next();
                 }).catch(err => {
                     console.log(err);
