@@ -129,7 +129,7 @@ class MenuService
     {
         return Cache::remember('admin.menus.' . $user->id, config('cache.ttl'), function () use ($currentPermission, $user) {
             $allMenu = $this->all();
-            $roles   = $user->roles->toArray();
+            $roles   = array_column($user->roles->toArray(), 'name');
 
             $currentUserMenu = [];
             if (!in_array('Super_Admin', $roles)) {
