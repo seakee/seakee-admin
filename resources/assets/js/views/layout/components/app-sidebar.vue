@@ -2,14 +2,14 @@
     <aside class="el-aside">
         <el-menu default-active="" class="el-menu-vertical">
             <template v-for="(menu, parentIndex) in this.$store.getters.profile.menus">
-                <el-submenu :index="parentIndex">
+                <el-submenu :index="parentIndex + ''">
                     <template slot="title">
                         <i class="fas" :class="menu.icon"></i>
                         <span slot="title">{{ menu.name }}</span>
                     </template>
                     <template v-if="menu.nodes !== 'undefined'">
                         <template v-for="(m, index) in menu.nodes">
-                            <el-menu-item :index="generateIndex(parentIndex,index)"><i class="fas" :class="m.icon"></i>{{ m.name }}</el-menu-item>
+                            <el-menu-item :index="generateIndex(parentIndex,index) + ''"><i class="fas" :class="m.icon"></i>{{ m.name }}</el-menu-item>
                         </template>
                     </template>
                 </el-submenu>
