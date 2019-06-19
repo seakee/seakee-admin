@@ -72,7 +72,9 @@ class AdminUserService
 	{
 		$data = filter_request_params(['user_name', 'email', 'mobile', 'password', 'avatar', 'status'], $request);
 
-		$data['password'] = bcrypt($data['password']);
+		if (isset($data['password'])){
+			$data['password'] = bcrypt($data['password']);
+		}
 
 		return $this->userRepository->update($data, $id);
 	}
