@@ -28,6 +28,11 @@ class UserRequest extends Request
 			$rules['password']  = 'sometimes|' . $rules['password'];
 		}
 
+		//更改用户状态时不验证其他字段
+		if (isset($this->status)) {
+			return [];
+		}
+
 		return $rules;
 	}
 
@@ -44,7 +49,7 @@ class UserRequest extends Request
 		];
 	}
 
-	protected $rules =  [
+	protected $rules = [
 		'user_name' => 'required|string|min:4|max:255|unique:admin_users',
 		'email'     => 'required|string|email|max:255|unique:admin_users',
 		'mobile'    => 'required|mobile|unique:admin_users',
