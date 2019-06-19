@@ -17,5 +17,5 @@ export function profile() {
 }
 
 export function update(id, data) {
-    return put('/users/', data)
+    return put('/users/' + id, data)
 }
