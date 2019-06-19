@@ -15,3 +15,7 @@ export function create(data) {
 export function profile() {
     return get('/users/profile');
 }
+
+export function update(id, data) {
+    return put('/users/', data)
+}
