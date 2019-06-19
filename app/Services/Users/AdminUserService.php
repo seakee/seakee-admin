@@ -70,7 +70,9 @@ class AdminUserService
 	 */
 	public function edit(Request $request, int $id):bool
 	{
-		$data = filter_request_params(['user_name', 'email', 'mobile', 'password'], $request);
+		$data = filter_request_params(['user_name', 'email', 'mobile', 'password', 'avatar', 'status'], $request);
+
+		$data['password'] = bcrypt($data['password']);
 
 		return $this->userRepository->update($data, $id);
 	}
