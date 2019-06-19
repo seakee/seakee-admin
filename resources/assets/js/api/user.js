@@ -1,7 +1,7 @@
 import {get,post,put,deletes} from "@/utils/http";
 
 export function getList() {
-    return get('/users/index');
+    return get('/users');
 }
 
 export function getInfo(id) {
