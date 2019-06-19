@@ -1,6 +1,8 @@
 <template>
     <div class="app-main">
-        <router-view/>
+        <div class="app-container">
+            <router-view/>
+        </div>
     </div>
 </template>
 
@@ -14,5 +16,9 @@
     .app-main {
         margin-right: auto;
         margin-left: auto;
+    }
+
+    .app-container {
+        padding: 20px;
     }
 </style>
