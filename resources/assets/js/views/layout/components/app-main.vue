@@ -21,4 +21,7 @@
     .app-container {
         padding: 20px;
     }
+    .el-table {
+        position: unset;
+    }
 </style>
