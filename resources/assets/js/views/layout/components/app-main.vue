@@ -1,8 +1,6 @@
 <template>
     <div class="app-main">
-        <div class="app-container">
-            <router-view/>
-        </div>
+        <router-view/>
     </div>
 </template>
 
@@ -21,6 +19,7 @@
     .app-container {
         padding: 20px;
     }
+
     .el-table {
         position: unset;
     }
