@@ -29,4 +29,8 @@
 
 <style rel="stylesheet/scss" lang="scss">
 
+    button i{
+        width: 25px;
+    }
+
 </style>
