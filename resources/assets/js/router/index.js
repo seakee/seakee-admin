@@ -13,6 +13,18 @@ const router = new Router({
             path     : '/',
             component: Layout
         },
+        {
+            path     : '/userCenter',
+            component: Layout,
+            children: [
+                {
+                    path: 'users/index',
+                    name: 'userCenter.users.index',
+                    component: () => import('@/views/userCenter/users/index')
+                }
+            ]
+
+        },
 
         {
             path     : '/login',
