@@ -14,10 +14,10 @@
                 </el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit"><i class="fas fa-search"></i>查询</el-button>
+                <el-button type="primary" @click="fetchData"><i class="fas fa-search"></i>查询</el-button>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit"><i class="fas fa-user-plus"></i>新增用户</el-button>
+                <el-button type="primary" @click="fetchData"><i class="fas fa-user-plus"></i>新增用户</el-button>
             </el-form-item>
         </el-form>
         <el-table v-bind="list" border style="width: 100%" stripe element-loading-text="Loading">
@@ -54,6 +54,18 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="pagination-container">
+            <el-pagination
+                    background
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="userForm.current_page"
+                    :page-sizes="[10, 20, 50]"
+                    :page-size="userForm.per_page"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="userForm.total">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -61,23 +73,18 @@
     import {getList, update} from "@/api/user";
 
     export default {
-        filters: {
-            statusFilter(status) {
-                const statusMap = {
-                    1: '已启用',
-                    0: '已禁用'
-                };
-                return statusMap[status]
-            }
-        },
         data() {
             return {
                 list       : null,
                 listLoading: true,
                 userForm   : {
-                    user_name: '',
-                    email    : '',
-                    mobile   : ''
+                    user_name   : '',
+                    email       : '',
+                    mobile      : '',
+                    page        : 1,
+                    total       : 0,
+                    per_page    : 10,
+                    current_page: 1
                 }
             }
         },
@@ -88,9 +95,11 @@
             //拉取列表数据
             fetchData() {
                 this.listLoading = true;
-                getList().then(response => {
-                    this.list        = response.data;
-                    this.listLoading = false
+                getList(this.userForm).then(response => {
+                    this.list              = response.data;
+                    this.userForm.total    = response.data.total;
+                    this.userForm.per_page = response.data.per_page;
+                    this.listLoading       = false
                 })
             },
             //修改用户状态
@@ -102,7 +111,16 @@
                         center : true
                     });
                 })
-            }
+            },
+            handleSizeChange   : function (pageSize) { // 每页条数切换
+                this.userForm.per_page = pageSize;
+                this.fetchData(this.userForm);
+            },
+            handleCurrentChange: function (currentPage) {//页码切换
+                this.userForm.current_page = currentPage;
+                this.userForm.page         = currentPage;
+                this.fetchData(this.userForm);
+            },
         }
     }
 </script>
