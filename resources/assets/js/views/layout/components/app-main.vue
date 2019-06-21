@@ -23,4 +23,7 @@
     .el-table {
         position: unset;
     }
+    .pagination-container {
+        padding: 20px 0;
+    }
 </style>
