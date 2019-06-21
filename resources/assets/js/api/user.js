@@ -19,3 +19,7 @@ export function profile() {
 export function update(id, data) {
     return put('/users/' + id, data)
 }
+
+export function deleteUser(id) {
+    return deletes('/users/' + id);
+}

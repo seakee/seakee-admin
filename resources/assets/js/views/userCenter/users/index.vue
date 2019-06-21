@@ -50,7 +50,7 @@
                 <template slot-scope="scope">
                     <el-button type="primary" size="mini">角色</el-button>
                     <el-button type="success" size="mini">编辑</el-button>
-                    <el-button type="danger" size="mini">删除</el-button>
+                    <el-button type="danger" size="mini" @click="deleteUser(scope.row.id)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-    import {getList, update} from "@/api/user";
+    import {getList, update, deleteUser} from "@/api/user";
 
     export default {
         data() {
@@ -121,6 +121,29 @@
                 this.userForm.page         = currentPage;
                 this.fetchData(this.userForm);
             },
+            deleteUser(id) {
+                this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    deleteUser(id).then(response => {
+                        if (this.list.data.length === 1 && this.userForm.page !== 1){
+                            this.userForm.page -= 1;
+                        }
+                        this.fetchData(this.userForm);
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            }
         }
     }
 </script>
