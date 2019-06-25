@@ -72,7 +72,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-folder-o',
+			'icon' => 'fa-folder',
 			'name' => '文件管理',
 			'route_name' => 'admin.file.index',
 			'path' => '/managerCenter/file/index',
@@ -108,7 +108,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-expeditedssl',
+			'icon' => 'fa-user-lock',
 			'name' => '权限管理',
 			'route_name' => 'admin.permission.index',
 			'path' => '/userCenter/permissions/index',
