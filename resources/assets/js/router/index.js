@@ -7,6 +7,8 @@ Vue.use(Router);
 /* Layout */
 import Layout    from '@/views/layout/layout'
 
+import userCenterRouter from './modules/userCenter'
+
 const router = new Router({
     routes: [
         {
@@ -14,22 +16,10 @@ const router = new Router({
             component: Layout
         },
         {
-            path     : '/userCenter',
-            component: Layout,
-            children: [
-                {
-                    path: 'users/index',
-                    name: 'userCenter.users.index',
-                    component: () => import('@/views/userCenter/users/index')
-                }
-            ]
-
-        },
-
-        {
             path     : '/login',
             component: () => import('@/views/login')
-        }
+        },
+        userCenterRouter
     ]
 });
 
