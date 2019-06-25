@@ -23,7 +23,7 @@ class Menu extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'icon', 'name', 'route_name', 'father_id', 'sort', 'display'
+        'icon', 'name', 'route_name', 'path', 'father_id', 'sort', 'display'
     ];
 
 }

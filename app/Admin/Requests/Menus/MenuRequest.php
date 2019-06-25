@@ -33,6 +33,7 @@ class MenuRequest extends Request
 			'father_id'  => '父ID',
 			'sort'       => '排序值',
 			'display'    => '是否显示',
+			'path'       => '前端路径',
 		];
 	}
 
@@ -43,5 +44,6 @@ class MenuRequest extends Request
 		'father_id'  => 'required',
 		'sort'       => 'numeric',
 		'display'    => 'required',
+		'path'       => 'required',
 	];
 }

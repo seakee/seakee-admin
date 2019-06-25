@@ -55,7 +55,7 @@ class MenuService
      */
     public function create(Request $request): Menu
     {
-        $data = filter_request_params(['icon', 'name', 'route_name', 'father_id', 'sort', 'display'], $request);
+        $data = filter_request_params(['icon', 'name', 'route_name', 'path', 'father_id', 'sort', 'display'], $request);
 
         return $this->menuRepository->store($data);
     }
@@ -68,7 +68,7 @@ class MenuService
      */
     public function edit(Request $request, int $id): bool
     {
-        $data = filter_request_params(['icon', 'name', 'route_name', 'father_id', 'sort', 'display'], $request);
+        $data = filter_request_params(['icon', 'name', 'route_name', 'path', 'father_id', 'sort', 'display'], $request);
 
         return $this->menuRepository->update($data, $id);
     }
@@ -92,7 +92,7 @@ class MenuService
      */
     public function paginate(Request $request): LengthAwarePaginator
     {
-        $where = filter_request_params(['name', 'route_name', 'display',], $request);
+        $where = filter_request_params(['name', 'route_name', 'path', 'display',], $request);
         $perPage = $request->get('per_page', 15);
         $page = $request->get('page', 1);
 
@@ -187,9 +187,9 @@ class MenuService
                 if ($menu['father_id'] == $father_id) {
                     $nodes = $this->setMenuTree($menus, $menu['id'], $simple);
                     if ($simple){
-                    	$menu = array_only($menu, ['icon', 'name', 'route_name']);
+                    	$menu = array_only($menu, ['icon', 'name', 'route_name', 'path']);
                     }
-                    $result[] = empty($nodes) ? array_only($menu, ['icon', 'name', 'route_name']) : array_merge($menu, ['nodes' => $nodes]);
+                    $result[] = empty($nodes) ? array_only($menu, ['icon', 'name', 'route_name', 'path']) : array_merge($menu, ['nodes' => $nodes]);
                 }
             }
         }
