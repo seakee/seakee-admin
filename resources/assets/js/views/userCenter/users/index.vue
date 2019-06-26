@@ -17,7 +17,9 @@
                 <el-button type="primary" @click="fetchData"><i class="fas fa-search"></i>查询</el-button>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="fetchData"><i class="fas fa-user-plus"></i>新增用户</el-button>
+                <router-link to="/userCenter/users/create">
+                    <el-button type="primary"><i class="fas fa-user-plus"></i>新增用户</el-button>
+                </router-link>
             </el-form-item>
         </el-form>
         <el-table v-bind="list" border style="width: 100%" stripe element-loading-text="Loading">

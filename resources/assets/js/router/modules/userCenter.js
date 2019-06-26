@@ -16,6 +16,14 @@ const userCenterRouter = {
                 title   : '用户管理'
             },
             component: () => import('@/views/userCenter/users/index')
+        },
+        {
+            path     : 'users/create',
+            name     : 'userCenter.users.create',
+            meta     : {
+                title   : '新增用户'
+            },
+            component: () => import('@/views/userCenter/users/create')
         }
     ]
 
