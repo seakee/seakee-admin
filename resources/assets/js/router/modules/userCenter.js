@@ -24,6 +24,14 @@ const userCenterRouter = {
                 title   : '新增用户'
             },
             component: () => import('@/views/userCenter/users/create')
+        },
+        {
+            path     : 'users/edit/:id(\\d+)',
+            name     : 'userCenter.users.edit',
+            meta     : {
+                title   : '编辑用户'
+            },
+            component: () => import('@/views/userCenter/users/edit')
         }
     ]
 
