@@ -13,21 +13,32 @@ const router = new Router({
     routes: [
         {
             path     : '/',
-            component: Layout
+            component: Layout,
+            name     : 'admin'
         },
         {
             path     : '/errorPage',
             component: Layout,
+            meta     : {
+                title   : '错误'
+            },
             children : [
                 {
                     path     : '404',
                     name     : 'errorPage.404',
+                    meta     : {
+                        title   : '404'
+                    },
                     component: () => import('@/views/errorPage/404')
                 }
             ]
         },
         {
             path     : '/login',
+            name     : 'admin.login',
+            meta     : {
+                title   : '登录'
+            },
             component: () => import('@/views/login')
         },
         userCenterRouter,
@@ -39,6 +50,9 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+
+    document.title = to.meta.title ? to.meta.title : '首页 - seakee-admin';
+
     const token = store.getters.token;
     if (token) {
         if (to.path === '/login') {

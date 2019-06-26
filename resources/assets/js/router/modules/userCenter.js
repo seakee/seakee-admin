@@ -1,13 +1,20 @@
-import Layout    from '@/views/layout/layout'
+import Layout from '@/views/layout/layout'
 
 const userCenterRouter = {
     path     : '/userCenter',
+    name     : 'userCenter',
+    redirect : '/userCenter/users/index',
+    meta     : {
+        title   : '用户中心'
+    },
     component: Layout,
-    redirect:'/userCenter/users/index',
-    children: [
+    children : [
         {
-            path: 'users/index',
-            name: 'userCenter.users.index',
+            path     : 'users/index',
+            name     : 'userCenter.users.index',
+            meta     : {
+                title   : '用户管理'
+            },
             component: () => import('@/views/userCenter/users/index')
         }
     ]

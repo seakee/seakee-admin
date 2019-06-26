@@ -6,9 +6,9 @@
         <div class="header-nav">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-                <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-                <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+                <el-breadcrumb-item v-for="(item) in breadcrumbList" :key="item.path">
+                    {{ item.meta.title }}
+                </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
     </el-header>
@@ -16,7 +16,30 @@
 
 <script>
     export default {
-        name: "app-header"
+        name: "app-header",
+        data(){
+            return {
+                breadcrumbList: null
+            }
+        },
+        watch: {
+            $route() {
+                this.getBreadcrumb()
+            }
+        },
+        created() {
+            this.getBreadcrumb()
+        },
+        methods: {
+            getBreadcrumb() {
+                let matchedList = this.$route.matched;
+                if (matchedList[0].name === 'admin'){
+                    this.breadcrumbList = [];
+                } else {
+                    this.breadcrumbList = matchedList;
+                }
+            }
+        }
     }
 </script>
 
