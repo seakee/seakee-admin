@@ -91,7 +91,7 @@
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
-                    create(this.userForm).then(response => {console.log(response);
+                    create(this.userForm).then(response => {
                         if (response.data.msg === 'success'){
                             this.$message({
                                 type: 'success',
