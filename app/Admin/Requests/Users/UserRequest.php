@@ -50,9 +50,9 @@ class UserRequest extends Request
 	}
 
 	protected $rules = [
-		'user_name' => 'required|string|min:4|max:255|unique:admin_users',
+		'user_name' => 'required|string|min:5|max:15|unique:admin_users',
 		'email'     => 'required|string|email|max:255|unique:admin_users',
 		'mobile'    => 'required|mobile|unique:admin_users',
-		'password'  => 'required|string|min:6|confirmed',
+		'password'  => 'required|string|min:8|max:16|confirmed',
 	];
 }
