@@ -59,7 +59,8 @@
                     email                : '',
                     mobile               : '',
                     password             : '',
-                    password_confirmation: ''
+                    password_confirmation: '',
+                    id                   : 0
                 },
                 rules: {
                     user_name: [
@@ -88,15 +89,27 @@
         },
         created () {
             let id = this.$route.params && this.$route.params.id;
+            this.userForm.id = id;
             this.fetchData(id)
         },
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
-                    update(this.id, this.userForm).then(response => {
-                        if (response.data.msg === 'success'){
+                    let userForm = null;
+                    if (this.userForm.password === '' && this.userForm.password === '') {
+                        userForm = {
+                            user_name: this.userForm.user_name,
+                            email    : this.userForm.email,
+                            mobile   : this.userForm.mobile,
+                        }
+                    } else {
+                        userForm = this.userForm
+                    }
+
+                    update(this.userForm.id, userForm).then(response => {
+                        if (response.data.msg === 'success') {
                             this.$message({
-                                type: 'success',
+                                type   : 'success',
                                 message: '编辑成功!'
                             });
                             this.goBack();
