@@ -31,3 +31,7 @@ export function syncRoles(id, data) {
 export function getRoles(id) {
     return get('/users/' + id + '/roles');
 }
+
+export function getPermissions(id) {
+    return get('users/' + id + '/permissions');
+}

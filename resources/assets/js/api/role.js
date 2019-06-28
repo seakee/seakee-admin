@@ -16,10 +16,14 @@ export function update(id, data) {
     return put('/roles/' + id, data)
 }
 
-export function deleteRoles(id) {
+export function deleteRole(id) {
     return deletes('/roles/' + id);
 }
 
 export function syncPermissions(id, data) {
     return put('/roles/' + id + '/permissions', data)
+}
+
+export function getPermissions(id) {
+    return get('/roles/' + id + '/permissions')
 }
