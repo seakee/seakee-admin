@@ -145,7 +145,7 @@ class UserController extends Controller
 	 */
 	public function syncRoles(string $id, Request $request)
 	{
-		$roleIds = explode(",", $request->input('role_ids'));
+		$roleIds = array_filter(explode(",", $request->input('role_ids')));
 		$user    = $this->userService->find($id);
 
 		$this->roleService->find($roleIds);

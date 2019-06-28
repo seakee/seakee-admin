@@ -132,7 +132,7 @@ class RoleController extends Controller
 	 */
 	public function syncPermissions(string $id, Request $request)
 	{
-		$permIds = explode(",", $request->input('permission_ids'));
+		$permIds = array_filter(explode(",", $request->input('permission_ids')));
 		$role    = $this->roleService->find($id);
 
 		$this->permissionService->find($permIds);
