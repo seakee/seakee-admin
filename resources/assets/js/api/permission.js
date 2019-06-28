@@ -12,10 +12,10 @@ export function create(data) {
     return post('/permissions/', data)
 }
 
-export function profile() {
-    return get('/permissions/profile');
-}
-
 export function update(id, data) {
     return put('/permissions/' + id, data)
+}
+
+export function deletePermission(id) {
+    return deletes('/permissions/' + id);
 }
