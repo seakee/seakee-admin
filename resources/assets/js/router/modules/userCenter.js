@@ -40,6 +40,38 @@ const userCenterRouter = {
                 title   : '角色分配'
             },
             component: () => import('@/views/userCenter/users/syncRoles')
+        },
+        {
+            path     : 'roles/index',
+            name     : 'userCenter.roles.index',
+            meta     : {
+                title   : '角色管理'
+            },
+            component: () => import('@/views/userCenter/roles/index')
+        },
+        {
+            path     : 'roles/create',
+            name     : 'userCenter.roles.create',
+            meta     : {
+                title   : '新增角色'
+            },
+            component: () => import('@/views/userCenter/roles/create')
+        },
+        {
+            path     : 'roles/edit/:id(\\d+)',
+            name     : 'userCenter.roles.edit',
+            meta     : {
+                title   : '编辑角色'
+            },
+            component: () => import('@/views/userCenter/roles/edit')
+        },
+        {
+            path     : 'roles/syncPermissions/:id(\\d+)',
+            name     : 'userCenter.roles.syncRoles',
+            meta     : {
+                title   : '角色授权'
+            },
+            component: () => import('@/views/userCenter/roles/syncPermissions')
         }
     ]
 
