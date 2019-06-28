@@ -80,6 +80,12 @@ class AdminRoleRepository
 	 */
 	public function find($ids)
 	{
-		return $this->role->findOrFail($ids, ['id', 'name', 'display_name', 'description', 'created_at']);
+		$columns = ['id', 'name', 'display_name', 'description', 'created_at'];
+
+		if (is_array($ids)){
+			return $this->role->findMany($ids, $columns);
+		}
+
+		return $this->role->findOrFail($ids, $columns);
 	}
 }

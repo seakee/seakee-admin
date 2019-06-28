@@ -89,6 +89,12 @@ class AdminPermissionRepository
 	 */
 	public function find($ids)
 	{
-		return $this->permission->findOrFail($ids, ['id', 'name', 'display_name', 'description', 'created_at']);
+		$columns = ['id', 'name', 'display_name', 'description', 'created_at'];
+
+		if (is_array($ids)){
+			return $this->permission->findMany($ids, $columns);
+		}
+
+		return $this->permission->findOrFail($ids, $columns);
 	}
 }
