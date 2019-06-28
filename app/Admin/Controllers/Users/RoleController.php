@@ -115,9 +115,9 @@ class RoleController extends Controller
 	 */
 	public function showPermissions(string $id)
 	{
-		$role    = $this->roleService->find($id);
+		$role = $this->roleService->find($id);
 
-		if (empty($user)){
+		if (empty($role)){
 			return response()->json(['error' => 'not found'], 404);
 		}
 

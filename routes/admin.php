@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Users'], function () {
 	]);
 
 	Route::put('roles/{id}/permissions','RoleController@syncPermissions')->name('admin.roles.syncPermissions');
+	Route::get('roles/{id}/permissions','RoleController@showPermissions')->name('admin.roles.permissions');
 	Route::apiResource('roles', 'RoleController', [
 		'parameters' => ['roles' => 'id'],
 		'names'       => [
