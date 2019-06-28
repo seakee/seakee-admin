@@ -23,3 +23,11 @@ export function update(id, data) {
 export function deleteUser(id) {
     return deletes('/users/' + id);
 }
+
+export function syncRoles(id, data) {
+    return put('/users/' + id + '/roles', data)
+}
+
+export function getRoles(id) {
+    return get('/users/' + id + '/roles');
+}

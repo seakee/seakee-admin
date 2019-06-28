@@ -112,7 +112,6 @@
                                 type   : 'success',
                                 message: '编辑成功!'
                             });
-                            this.goBack();
                         }
                     });
                 });

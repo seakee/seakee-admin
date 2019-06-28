@@ -32,6 +32,14 @@ const userCenterRouter = {
                 title   : '编辑用户'
             },
             component: () => import('@/views/userCenter/users/edit')
+        },
+        {
+            path     : 'users/syncRoles/:id(\\d+)',
+            name     : 'userCenter.users.syncRoles',
+            meta     : {
+                title   : '角色分配'
+            },
+            component: () => import('@/views/userCenter/users/syncRoles')
         }
     ]
 

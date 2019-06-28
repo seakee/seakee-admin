@@ -50,7 +50,7 @@
             </el-table-column>
             <el-table-column prop="" label="操作" align="center" width="230">
                 <template slot-scope="scope">
-                    <el-button type="primary" size="mini">角色</el-button>
+                    <el-button type="primary" size="mini" @click="syncRoles(scope.row.id)">角色</el-button>
                     <el-button type="success" size="mini" @click="editUser(scope.row.id)">编辑</el-button>
                     <el-button type="danger" size="mini" @click="deleteUser(scope.row.id)">删除</el-button>
                 </template>
@@ -148,6 +148,9 @@
             },
             editUser(id) {
                 this.$router.push('/userCenter/users/edit/' + id)
+            },
+            syncRoles(id) {
+                this.$router.push('/userCenter/users/syncRoles/' + id)
             }
         }
     }
