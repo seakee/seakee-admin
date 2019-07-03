@@ -20,9 +20,6 @@
         padding: 20px;
     }
 
-    .el-table {
-        position: unset;
-    }
     .pagination-container {
         padding: 20px 0;
     }

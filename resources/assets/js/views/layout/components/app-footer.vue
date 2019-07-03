@@ -16,6 +16,5 @@
     bottom: 0;
     border-top: solid 1px #e6e6e6;
     background: #ffffff;
-    position: fixed;
 }
 </style>
