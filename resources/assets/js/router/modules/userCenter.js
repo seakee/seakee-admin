@@ -72,6 +72,30 @@ const userCenterRouter = {
                 title   : '角色授权'
             },
             component: () => import('@/views/userCenter/roles/syncPermissions')
+        },
+        {
+            path     : 'permissions/index',
+            name     : 'userCenter.permissions.index',
+            meta     : {
+                title   : '权限管理'
+            },
+            component: () => import('@/views/userCenter/permissions/index')
+        },
+        {
+            path     : 'permissions/create',
+            name     : 'userCenter.permissions.create',
+            meta     : {
+                title   : '新增权限'
+            },
+            component: () => import('@/views/userCenter/permissions/create')
+        },
+        {
+            path     : 'permissions/edit/:id(\\d+)',
+            name     : 'userCenter.permissions.edit',
+            meta     : {
+                title   : '编辑权限'
+            },
+            component: () => import('@/views/userCenter/permissions/edit')
         }
     ]
 
