@@ -35,6 +35,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
         output : {
             // 未被列在 entry 且需要被打包出来的文件
             chunkFilename: 'js/[id].[hash].js'
+        },
+        externals: {
+            vue: 'Vue',
+            'element-ui':'ELEMENT'
         }
     })
     .options({

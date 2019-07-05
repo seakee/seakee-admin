@@ -8,10 +8,13 @@
         <title>{{ config('admin.name') }}</title>
         <!-- Styles -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="//unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css">
+        <link rel="stylesheet" href="//cdn.bootcss.com/element-ui/2.4.11/theme-chalk/index.css">
+        <link rel="stylesheet" href="//ccdn.bootcss.com/font-awesome/5.6.3/css/all.min.css">
     </head>
     <body>
     <div id="app"></div>
+    <script src="//cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
+    <script src="//cdn.bootcss.com/element-ui/2.4.11/index.js"></script>
     <script src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>
