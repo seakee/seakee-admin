@@ -8,6 +8,7 @@
         <title>{{ config('admin.name') }}</title>
         <!-- Styles -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="//unpkg.com/element-ui@2.4.11/lib/theme-chalk/index.css">
     </head>
     <body>
     <div id="app"></div>
