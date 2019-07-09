@@ -1,7 +1,29 @@
-let mix    = require('laravel-mix');
-const path = require('path');
+let mix  = require('laravel-mix');
+let path = require('path');
 
-//生产环境开始版本控制
+yaml = require('js-yaml');
+fs   = require('fs');
+
+let config = {};
+try {
+    //读取配置文件
+    config = yaml.safeLoad(fs.readFileSync(path.resolve(__dirname, '.config.yml'), 'utf8'));
+} catch (e) {
+    config = {admin: {cdn: {enable: false}}};
+}
+
+
+if (config.admin.cdn.enable === true) {
+    //开启CDN时打包忽略
+    mix.webpackConfig({
+        externals: {
+            vue         : 'Vue',
+            'element-ui': 'ELEMENT'
+        }
+    });
+}
+
+//生产环境开启版本控制
 if (mix.inProduction()) {
     mix.version();
 }
@@ -35,10 +57,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
         output : {
             // 未被列在 entry 且需要被打包出来的文件
             chunkFilename: 'js/[id].[hash].js'
-        },
-        externals: {
-            vue: 'Vue',
-            'element-ui':'ELEMENT'
         }
     })
     .options({
