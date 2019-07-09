@@ -1,12 +1,31 @@
 <template>
-    <div class="app-main">
+    <div class="app-main" :style="{ 'min-height': height + 'px' }">
         <router-view/>
     </div>
 </template>
 
 <script>
     export default {
-        name: "app-main"
+        name: "app-main",
+        data(){
+          return {
+              height : 0
+          }
+        },
+        created() {
+            window.addEventListener('resize', this.getHeight);
+            this.getHeight();
+        },
+        methods: {
+            getHeight(){
+                this.height = window.innerHeight - 100;
+            }
+
+        },
+        destroyed(){
+            window.removeEventListener('resize', this.getHeight)
+        }
+
     }
 </script>
 
