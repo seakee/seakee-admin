@@ -164,7 +164,7 @@ class MenuService
      * @param bool $simple
      * @param int $father_id
      *
-     * @return array|string
+     * @return array
      */
     public function tree($menus, $simple = false, $father_id = -1)
     {
@@ -189,7 +189,7 @@ class MenuService
                     if ($simple){
                     	$menu = array_only($menu, ['icon', 'name', 'route_name', 'path']);
                     }
-                    $result[] = empty($nodes) ? array_only($menu, ['icon', 'name', 'route_name', 'path']) : array_merge($menu, ['nodes' => $nodes]);
+                    $result[] = empty($nodes) ? $menu : array_merge($menu, ['nodes' => $nodes]);
                 }
             }
         }

@@ -32,11 +32,21 @@ class MenuController extends Controller
 	}
 
 	/**
+	 * @return array|string
+	 */
+	public function index()
+	{
+		$menus = $this->menuService->all();
+
+		return $this->menuService->tree($menus);
+	}
+
+	/**
 	 * @param Request $request
 	 *
 	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
 	 */
-	public function index(Request $request)
+	public function paginate(Request $request)
 	{
 		return $this->menuService->paginate($request);
 	}
