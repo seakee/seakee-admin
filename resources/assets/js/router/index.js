@@ -7,7 +7,8 @@ Vue.use(Router);
 /* Layout */
 import Layout from '@/views/layout/layout'
 
-import userCenterRouter from './modules/userCenter'
+import userCenterRouter    from './modules/userCenter'
+import managerCenterRouter from './modules/managerCenter';
 
 const router = new Router({
     routes: [
@@ -42,6 +43,7 @@ const router = new Router({
             component: () => import('@/views/login')
         },
         userCenterRouter,
+        managerCenterRouter,
         {
             path    : '*',
             redirect: '/errorPage/404'
