@@ -36,7 +36,7 @@ class MenuController extends Controller
 	 */
 	public function index()
 	{
-		$menus = $this->menuService->all();
+		$menus = $this->menuService->list();
 
 		return $this->menuService->tree($menus);
 	}

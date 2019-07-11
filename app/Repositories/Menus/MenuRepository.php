@@ -91,4 +91,12 @@ class MenuRepository
 	{
 		return $this->menu->where('display', 1)->orderBy('sort', 'desc')->get();
 	}
+
+	/**
+	 * @return \Illuminate\Support\Collection
+	 */
+	public function list(): Collection
+	{
+		return $this->menu->orderBy('sort', 'desc')->get();
+	}
 }

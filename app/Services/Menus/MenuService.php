@@ -109,6 +109,14 @@ class MenuService
         return $this->menuRepository->find($ids);
     }
 
+	/**
+	 * @return array
+	 */
+	public function list(): array
+	{
+		return $this->menuRepository->list()->toArray();
+	}
+
     /**
      * @return array
      */
