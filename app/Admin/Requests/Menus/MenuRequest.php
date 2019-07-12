@@ -16,6 +16,11 @@ class MenuRequest extends Request
 {
 	public function rules()
 	{
+		//更改显示状态时不验证其他字段
+		if (isset($this->display)) {
+			return [];
+		}
+
 		return $this->rules;
 	}
 
