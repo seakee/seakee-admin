@@ -12,7 +12,7 @@ class AdminMenusTableSeeder extends Seeder
 	public function run()
 	{
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-home',
+			'icon' => 'fas fa-home',
 			'name' => '管理中心',
 			'route_name' => '#',
 			'path' => '/managerCenter',
@@ -24,7 +24,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-users',
+			'icon' => 'fas fa-users',
 			'name' => '用户中心',
 			'route_name' => '#',
 			'path' => '/userCenter',
@@ -36,7 +36,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-dashboard',
+			'icon' => 'fas fa-dashboard',
 			'name' => '仪表盘',
 			'route_name' => 'admin.dashboard.index',
 			'path' => '/managerCenter/dashboard/index',
@@ -48,7 +48,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-gears',
+			'icon' => 'fas fa-gears',
 			'name' => '系统配置',
 			'route_name' => 'admin.config.index',
 			'path' => '/managerCenter/config/index',
@@ -60,7 +60,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-list-ul',
+			'icon' => 'fas fa-list-ul',
 			'name' => '菜单管理',
 			'route_name' => 'admin.menus.index',
 			'path' => '/managerCenter/menus/index',
@@ -72,7 +72,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-folder',
+			'icon' => 'fas fa-folder',
 			'name' => '文件管理',
 			'route_name' => 'admin.file.index',
 			'path' => '/managerCenter/file/index',
@@ -84,7 +84,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-user',
+			'icon' => 'fas fa-user',
 			'name' => '用户管理',
 			'route_name' => 'admin.user.index',
 			'path' => '/userCenter/users/index',
@@ -96,7 +96,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-address-card',
+			'icon' => 'fas fa-address-card',
 			'name' => '角色管理',
 			'route_name' => 'admin.role.index',
 			'path' => '/userCenter/roles/index',
@@ -108,7 +108,7 @@ class AdminMenusTableSeeder extends Seeder
 		]);
 
 		DB::table('admin_menus')->insert([
-			'icon' => 'fa-user-lock',
+			'icon' => 'fas fa-user-lock',
 			'name' => '权限管理',
 			'route_name' => 'admin.permission.index',
 			'path' => '/userCenter/permissions/index',

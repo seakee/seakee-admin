@@ -10,7 +10,7 @@
                   :row-class-name="fatherRowClass">
             <el-table-column label="菜单名称" width="150">
                 <template slot-scope="scope">
-                    <i :class="'fas ' + scope.row.icon"></i>{{ scope.row.name }}
+                    <i :class="scope.row.icon"></i>{{ scope.row.name }}
                 </template>
             </el-table-column>
             <el-table-column prop="path" label="菜单路径">

@@ -4,13 +4,13 @@
             <template v-for="(menu, parentIndex) in menus">
                 <el-submenu :index="parentIndex + ''">
                     <template slot="title">
-                        <i :class="'fas ' + menu.icon"></i>
+                        <i :class="menu.icon"></i>
                         <span slot="title">{{ menu.name }}</span>
                     </template>
                     <template v-if="menu.nodes !== 'undefined'">
                         <template v-for="(m) in menu.nodes">
                             <el-menu-item :index="m.path" style="padding-left: 30px">
-                                <i :class="'fas ' + m.icon"></i>{{ m.name }}
+                                <i :class="m.icon"></i>{{ m.name }}
                             </el-menu-item>
                         </template>
                     </template>
