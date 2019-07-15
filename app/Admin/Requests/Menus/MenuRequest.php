@@ -34,8 +34,8 @@ class MenuRequest extends Request
 		return [
 			'icon'       => '菜单图标',
 			'name'       => '菜单名称',
-			'route_name' => '路由名称',
-			'father_id'  => '父ID',
+			'route_name' => '路由标识',
+			'father_id'  => '上级菜单',
 			'sort'       => '排序值',
 			'display'    => '是否显示',
 			'path'       => '前端路径',
