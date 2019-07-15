@@ -16,6 +16,14 @@ const managerCenterRouter = {
                 title   : '菜单管理'
             },
             component: () => import('@/views/managerCenter/menus/index')
+        },
+        {
+            path     : 'menus/create',
+            name     : 'managerCenter.menus.create',
+            meta     : {
+                title   : '新增菜单'
+            },
+            component: () => import('@/views/managerCenter/menus/create')
         }
     ]
 

@@ -15,8 +15,13 @@ const router = new Router({
         {
             path     : '/',
             component: Layout,
-            name     : 'admin'
+            name     : 'admin',
+            meta     : {
+                title   : '首页'
+            },
         },
+        userCenterRouter,
+        managerCenterRouter,
         {
             path     : '/errorPage',
             component: Layout,
@@ -42,8 +47,6 @@ const router = new Router({
             },
             component: () => import('@/views/login')
         },
-        userCenterRouter,
-        managerCenterRouter,
         {
             path    : '*',
             redirect: '/errorPage/404'
