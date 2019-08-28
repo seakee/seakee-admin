@@ -80,6 +80,12 @@ class AdminUserRepository
 	 */
 	public function find($ids)
 	{
-		return $this->user->findOrFail($ids, ['id', 'user_name', 'avatar', 'email', 'mobile', 'status', 'rank', 'created_at']);
+		$columns = ['id', 'user_name', 'avatar', 'email', 'mobile', 'status', 'rank', 'created_at'];
+
+		if (is_array($ids)){
+			return $this->user->findMany($ids, $columns);
+		}
+
+		return $this->user->findOrFail($ids, $columns);
 	}
 }

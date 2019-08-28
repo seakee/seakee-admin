@@ -146,3 +146,30 @@ if (!function_exists('clear_cache')) {
 		}
 	}
 }
+
+/**
+ * 过滤二维数组中重复的数组(以数组中某个键值为判断)
+ *
+ * @param array $array
+ * @param       $key
+ *
+ * @return array
+ */
+if (!function_exists('array_filter_repeat')) {
+    function array_filter_repeat($array, $key)
+    {
+        $i          = 0;
+        $temp_array = [];
+        $key_array  = [];
+
+        foreach ($array as $val) {
+            if (!in_array($val[$key], $key_array)) {
+                $key_array[$i]  = $val[$key];
+                $temp_array[$i] = $val;
+            }
+            $i++;
+        }
+
+        return $temp_array;
+    }
+}

@@ -32,4 +32,8 @@ return [
 		//缓存时间（单位：min）
 		'ttl'    => 10080,
 	],
+
+	'cdn' => [
+		'enable' => false,
+	]
 ];

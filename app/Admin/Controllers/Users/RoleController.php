@@ -115,9 +115,9 @@ class RoleController extends Controller
 	 */
 	public function showPermissions(string $id)
 	{
-		$role    = $this->roleService->find($id);
+		$role = $this->roleService->find($id);
 
-		if (empty($user)){
+		if (empty($role)){
 			return response()->json(['error' => 'not found'], 404);
 		}
 
@@ -132,7 +132,7 @@ class RoleController extends Controller
 	 */
 	public function syncPermissions(string $id, Request $request)
 	{
-		$permIds = explode(",", $request->input('permission_ids'));
+		$permIds = array_filter(explode(",", $request->input('permission_ids')));
 		$role    = $this->roleService->find($id);
 
 		$this->permissionService->find($permIds);

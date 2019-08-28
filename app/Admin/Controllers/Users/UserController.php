@@ -17,6 +17,7 @@ use App\Services\Users\{
 	AdminPermissionService, AdminUserService, AdminRoleService
 };
 use Illuminate\Http\Request;
+use Auth;
 
 class UserController extends Controller
 {
@@ -144,7 +145,7 @@ class UserController extends Controller
 	 */
 	public function syncRoles(string $id, Request $request)
 	{
-		$roleIds = explode(",", $request->input('role_ids'));
+		$roleIds = array_filter(explode(",", $request->input('role_ids')));
 		$user    = $this->userService->find($id);
 
 		$this->roleService->find($roleIds);
@@ -188,5 +189,23 @@ class UserController extends Controller
 		$permission = $this->permissionService->current($user, $user->roles);
 
 		return response()->json($permission);
+	}
+
+	/**
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function profile()
+	{
+        $user = Auth::user();
+
+        $profile = array_only($user->toArray(),['id', 'user_name', 'avatar']);
+
+        $roles      = $user->roles;
+        $permission = $this->permissionService->current($user, $roles);
+        $menus      = $this->menuService->current($permission, $user);
+
+        $profile['menus'] = $this->menuService->tree($menus, true);
+
+		return response()->json($profile);
 	}
 }

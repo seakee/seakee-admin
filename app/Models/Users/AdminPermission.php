@@ -3,10 +3,12 @@
 namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AdminPermission extends Model
 {
+	use SoftDeletes;
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
