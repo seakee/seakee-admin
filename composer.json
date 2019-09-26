@@ -1,5 +1,5 @@
 {
-    "name": "Seakee-Admin",
+    "name": "seakee/admin",
     "type": "project",
     "description": "The background management scaffolding developed based on Laravel, Vue and Element.",
     "keywords": [
