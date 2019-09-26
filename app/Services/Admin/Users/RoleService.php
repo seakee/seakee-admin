@@ -15,7 +15,7 @@ use App\Repositories\Admin\Users\RoleRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use cache;
+use Cache;
 
 class RoleService
 {
