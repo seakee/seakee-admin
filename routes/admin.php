@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('admin');
 })->name('admin.index');
 
-Route::group(['prefix' => 'V1'], function () {
+Route::group(['prefix' => 'v1'], function () {
     Route::group([
         'prefix'    => 'auth',
         'namespace' => 'Auth',
