@@ -3,6 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
+/.idea
+/.vscode
 .env
 .env.backup
 .phpunit.result.cache
@@ -10,3 +12,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.config.yml
+/public/js
+/public/css/app.css
+/public/fonts
+/public/mix-manifest.json
