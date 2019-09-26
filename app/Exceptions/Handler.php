@@ -3,7 +3,14 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Arr;
 
 class Handler extends ExceptionHandler
 {
@@ -29,8 +36,10 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
-     * @return void
+     * @param Exception $exception
+     *
+     * @return mixed|void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
@@ -46,6 +55,31 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // 参数验证错误的异常，我们需要返回 400 的 http code 和一句错误信息
+        if ($exception instanceof ValidationException) {
+            return response()->json(['msg' => Arr::first(Arr::collapse($exception->errors()))], 400);
+        }
+        // 用户认证的异常，我们需要返回 401 的 http code 和错误信息
+        if ($exception instanceof UnauthorizedHttpException) {
+            return response()->json(['msg' => $exception->getMessage()], 401);
+        }
+
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json(['msg' => $exception->getMessage()], 404);
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json(['msg' => 'Method Not Allowed', 'Allow' => Arr::first($exception->getHeaders())], 405);
+        }
+
+        if ($exception instanceof TokenInvalidException) {
+            return response()->json(['msg' => $exception->getMessage()], 500);
+        }
+
+        if ($exception instanceof QueryException) {
+            return response()->json(['msg' => $exception->errorInfo[2]], 500);
+        }
+
         return parent::render($request, $exception);
     }
 }
