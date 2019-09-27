@@ -76,7 +76,7 @@
     }
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style rel="stylesheet/scss" lang="scss" scoped>
     #app, body, html {
         height: 100%;
         width: 100%;
