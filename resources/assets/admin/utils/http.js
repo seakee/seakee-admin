@@ -3,7 +3,7 @@ import store from '@/store'
 import { Message } from 'element-ui'
 
 const http = axios.create({
-    baseURL: 'http://www.skadmin.com/admin',
+    baseURL: 'http://www.skadmin.com/admin/api/v1',
     timeout: 5000
 });
 
