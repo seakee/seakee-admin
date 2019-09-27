@@ -1,9 +1,9 @@
 <?php
 /**
  * File: Application.php
- * Author: Seakee <seakee23@163.com>
+ * Author: Seakee <seakee23@gmail.com>
  * Homepage: https://seakee.top
- * Date: 2018/8/15 10:51
+ * Date: 2019/9/26 3:41 下午
  * Description:
  */
 
@@ -15,17 +15,17 @@ use Illuminate\Foundation\Bootstrap\LoadConfiguration;
 
 class Application extends App
 {
-	/**
-	 * Application constructor.
-	 *
-	 * @param null $basePath
-	 */
-	public function __construct($basePath = null)
-	{
-		parent::__construct($basePath);
+    /**
+     * Application constructor.
+     *
+     * @param null $basePath
+     */
+    public function __construct($basePath = null)
+    {
+        parent::__construct($basePath);
 
-		$this->afterBootstrapping(LoadConfiguration::class, function ($app) {
-			$app->make(LoadConfig::class)->handle();
-		});
-	}
+        $this->afterBootstrapping(LoadConfiguration::class, function ($app) {
+            $app->make(LoadConfig::class)->handle();
+        });
+    }
 }

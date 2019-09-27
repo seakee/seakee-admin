@@ -1,150 +1,150 @@
 <?php
 /**
  * File: RoleController.php
- * Author: Seakee <seakee23@163.com>
+ * Author: Seakee <seakee23@gmail.com>
  * Homepage: https://seakee.top
- * Date: 2018/9/3 14:47
+ * Date: 2019/9/26 11:08 上午
  * Description:
  */
 
-namespace App\Admin\Controllers\Users;
+namespace Admin\Controllers\Users;
 
 
+use Admin\Requests\Users\RoleRequest;
 use App\Http\Controllers\Controller;
-use App\Services\Users\{AdminRoleService, AdminPermissionService};
+use App\Services\Admin\Users\{RoleService, PermissionService};
 use Illuminate\Http\Request;
-use App\Admin\Requests\Users\RoleRequest;
 
 class RoleController extends Controller
 {
-	/**
-	 * @var AdminRoleService
-	 */
-	protected $roleService;
+    /**
+     * @var RoleService
+     */
+    protected $roleService;
 
-	/**
-	 * @var AdminPermissionService
-	 */
-	protected $permissionService;
+    /**
+     * @var PermissionService
+     */
+    protected $permissionService;
 
-	/**
-	 * RoleController constructor.
-	 *
-	 * @param AdminRoleService       $roleService
-	 * @param AdminPermissionService $permissionService
-	 */
-	public function __construct(AdminRoleService $roleService, AdminPermissionService $permissionService)
-	{
-		$this->roleService       = $roleService;
-		$this->permissionService = $permissionService;
-	}
+    /**
+     * RoleController constructor.
+     *
+     * @param RoleService       $roleService
+     * @param PermissionService $permissionService
+     */
+    public function __construct(RoleService $roleService, PermissionService $permissionService)
+    {
+        $this->roleService       = $roleService;
+        $this->permissionService = $permissionService;
+    }
 
-	/**
-	 * @param Request $request
-	 *
-	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-	 */
-	public function index(Request $request)
-	{
-		return $this->roleService->paginate($request);
-	}
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function index(Request $request)
+    {
+        return $this->roleService->paginate($request);
+    }
 
-	/**
-	 * @param RoleRequest $request
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function store(RoleRequest $request)
-	{
-		$user = $this->roleService->create($request);
+    /**
+     * @param RoleRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(RoleRequest $request)
+    {
+        $user = $this->roleService->create($request);
 
-		if (empty($user)){
-			return response()->json(['error' => 'creates failed'], 500);
-		}
+        if (empty($user)){
+            return response()->json(['error' => 'creates failed'], 500);
+        }
 
-		return response()->json(['msg' => 'success'],201);
-	}
+        return response()->json(['msg' => 'success'],201);
+    }
 
-	/**
-	 * @param string $id
-	 *
-	 * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
-	 */
-	public function show(string $id)
-	{
-		return $this->roleService->find($id);
-	}
+    /**
+     * @param string $id
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public function show(string $id)
+    {
+        return $this->roleService->find($id);
+    }
 
-	/**
-	 * @param string      $id
-	 * @param RoleRequest $request
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function update(string $id, RoleRequest $request)
-	{
-		$rs = $this->roleService->edit($request, $id);
+    /**
+     * @param string      $id
+     * @param RoleRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(string $id, RoleRequest $request)
+    {
+        $rs = $this->roleService->edit($request, $id);
 
-		if (empty($rs)){
-			return response()->json(['error' => 'updates failed'], 500);
-		}
+        if (empty($rs)){
+            return response()->json(['error' => 'updates failed'], 500);
+        }
 
-		return response()->json(['msg' => 'success'],201);
-	}
+        return response()->json(['msg' => 'success'],201);
+    }
 
-	/**
-	 * @param string $ids
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function destroy(string $ids)
-	{
-		$rs = $this->roleService->delete($ids);
+    /**
+     * @param string $ids
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(string $ids)
+    {
+        $rs = $this->roleService->delete($ids);
 
-		if (empty($rs)){
-			return response()->json(['error' => 'destruction failed'], 500);
-		}
+        if (empty($rs)){
+            return response()->json(['error' => 'destruction failed'], 500);
+        }
 
-		return response()->json(['msg' => 'success'],204);
-	}
+        return response()->json(['msg' => 'success'],204);
+    }
 
-	/**
-	 * @param string $id
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function showPermissions(string $id)
-	{
-		$role = $this->roleService->find($id);
+    /**
+     * @param string $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showPermissions(string $id)
+    {
+        $role = $this->roleService->find($id);
 
-		if (empty($role)){
-			return response()->json(['error' => 'not found'], 404);
-		}
+        if (empty($role)){
+            return response()->json(['error' => 'not found'], 404);
+        }
 
-		return response()->json($role->permissions);
-	}
+        return response()->json($role->permissions);
+    }
 
-	/**
-	 * @param string  $id
-	 * @param Request $request
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function syncPermissions(string $id, Request $request)
-	{
-		$permIds = array_filter(explode(",", $request->input('permission_ids')));
-		$role    = $this->roleService->find($id);
+    /**
+     * @param string  $id
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function syncPermissions(string $id, Request $request)
+    {
+        $permIds = array_filter(explode(",", $request->input('permission_ids')));
+        $role    = $this->roleService->find($id);
 
-		$this->permissionService->find($permIds);
+        $this->permissionService->find($permIds);
 
-		$rs = $role->permissions()->sync($permIds);
+        $rs = $role->permissions()->sync($permIds);
 
-		if (empty($rs)){
-			return response()->json(['error' => 'sync failed'], 500);
-		}
+        if (empty($rs)){
+            return response()->json(['error' => 'sync failed'], 500);
+        }
 
-		clear_cache(['admin.permissions.' . $id, 'admin.allPermissionNames']);
+        clear_cache(['admin.permissions.' . $id, 'admin.allPermissionNames']);
 
-		return response()->json(['msg' => 'success'],201);
-	}
+        return response()->json(['msg' => 'success'],201);
+    }
 }

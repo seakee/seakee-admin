@@ -45,18 +45,18 @@ if (!mix.inProduction()) {
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-    .sass('resources/assets/sass/app.scss', 'public/css', {implementation: require('node-sass')})
+mix.js('resources/assets/admin/app.js', 'public/admin/js')
+    .sass('resources/sass/app.scss', 'public/admin/css', {implementation: require('node-sass')})
     .webpackConfig({
         resolve: {
             extensions: ['.js', '.vue', '.json'],
             alias     : {
-                '@': path.resolve(__dirname, 'resources/assets/js')
+                '@': path.resolve(__dirname, 'resources/assets/admin')
             }
         },
         output : {
             // 未被列在 entry 且需要被打包出来的文件
-            chunkFilename: 'js/[id].[hash].js'
+            chunkFilename: 'admin/js/[id].[hash].js'
         }
     })
     .options({
