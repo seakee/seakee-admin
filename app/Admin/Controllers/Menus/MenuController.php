@@ -65,7 +65,7 @@ class MenuController extends Controller
             return response()->json(['error' => 'creates failed'], 500);
         }
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**
@@ -94,7 +94,7 @@ class MenuController extends Controller
 
         clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**
@@ -106,6 +106,6 @@ class MenuController extends Controller
     {
         $rs = $this->menuService->delete($ids);
 
-        return $rs ? response()->json(['msg' => 'success'],204) : response()->json(['error' => 'destruction failed'], 500);
+        return $rs ? response()->json(['message' => 'success'],204) : response()->json(['error' => 'destruction failed'], 500);
     }
 }

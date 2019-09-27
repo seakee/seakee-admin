@@ -56,7 +56,7 @@ class PermissionController
 
         clear_cache('admin.allPermissionNames');
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**
@@ -85,7 +85,7 @@ class PermissionController
 
         clear_cache('admin.allPermissionNames');
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**
@@ -103,7 +103,7 @@ class PermissionController
 
         clear_cache('admin.allPermissionNames');
 
-        return response()->json(['msg' => 'success'],204);
+        return response()->json(['message' => 'success'],204);
     }
 
     /**
@@ -128,6 +128,6 @@ class PermissionController
 
         clear_cache('admin.allPermissionNames');
 
-        return response()->json(['msg' => '共新增' . $count . '条权限，其中成功' . ($count - $failure) . '条失败' . $failure . '条'], 201);
+        return response()->json(['message' => '共新增' . $count . '条权限，其中成功' . ($count - $failure) . '条失败' . $failure . '条'], 201);
     }
 }

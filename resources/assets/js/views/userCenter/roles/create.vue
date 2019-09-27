@@ -57,7 +57,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     create(this.roleForm).then(response => {
-                        if (response.data.msg === 'success'){
+                        if (response.data.message === 'success'){
                             this.$message({
                                 type: 'success',
                                 message: '新增成功!'
