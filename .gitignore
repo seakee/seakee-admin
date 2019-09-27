@@ -17,4 +17,5 @@ yarn-error.log
 /public/css/app.css
 /public/fonts
 /public/mix-manifest.json
-/public/admin
+/public/admin/js
+/public/admin/css/app.css
