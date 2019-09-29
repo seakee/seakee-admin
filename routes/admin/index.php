@@ -14,7 +14,9 @@
 
 $config = config('admin.route');
 
-Route::view('/index', 'admin')->middleware('web')->name('admin.index');
+Route::get('/', 'AdminController@index')
+    ->middleware('web')
+    ->name('admin.index');
 
 Route::prefix('api')
     ->middleware($config['middleware'])
