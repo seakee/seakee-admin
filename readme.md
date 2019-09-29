@@ -3,9 +3,9 @@
 
 <p>
 <a href="https://travis-ci.org/seakee/seakee-admin"><img src="https://travis-ci.org/seakee/seakee-admin.svg?branch=master" alt="Build Status"></a>
-<a href="https://packagist.org/packages/seakee/admin"><img src="https://poser.pugx.org/seakee/admin/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/seakee/admin"><img src="https://poser.pugx.org/seakee/admin/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/seakee/admin"><img src="https://poser.pugx.org/seakee/admin/license.svg" alt="License"></a>
+<a href="https://packagist.org/packages/seakee/seakee-admin"><img src="https://poser.pugx.org/seakee/seakee-admin/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/seakee/seakee-admin"><img src="https://poser.pugx.org/seakee/seakee-admin/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/seakee/seakee-admin"><img src="https://poser.pugx.org/seakee/seakee-admin/license.svg" alt="License"></a>
 </p>
 
 ## About Seakee-Admin
