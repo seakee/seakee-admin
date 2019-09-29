@@ -56,7 +56,7 @@ mix.js('resources/assets/admin/app.js', 'public/js/admin')
         },
         output : {
             // 未被列在 entry 且需要被打包出来的文件
-            chunkFilename: 'js/admin/[id].[hash].js'
+            chunkFilename: 'js/admin/[name].[hash].js'
         }
     })
     .options({
