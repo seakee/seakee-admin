@@ -99,7 +99,7 @@
                     role_ids += selection.id + ',';
                 });
                 syncRoles(this.id, {role_ids: role_ids}).then(response => {
-                    if (response.data.msg === 'success') {
+                    if (response.data.message === 'success') {
                         this.$message({
                             type   : 'success',
                             message: '角色分配成功!'

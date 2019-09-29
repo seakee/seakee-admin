@@ -40,7 +40,6 @@ class MenuRequest extends Request
             'route_name' => '路由标识',
             'father_id'  => '上级菜单',
             'sort'       => '排序值',
-            'display'    => '是否显示',
             'path'       => '前端路径',
         ];
     }
@@ -51,7 +50,6 @@ class MenuRequest extends Request
         'route_name' => 'required|route_exists',
         'father_id'  => 'required',
         'sort'       => 'numeric',
-        'display'    => 'required',
         'path'       => 'required',
     ];
 }
