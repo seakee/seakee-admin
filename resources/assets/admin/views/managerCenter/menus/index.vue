@@ -1,5 +1,12 @@
 <template>
     <div class="app-container">
+        <el-form :inline="true" :model="menuForm">
+            <el-form-item>
+                <router-link to="/managerCenter/menus/create">
+                    <el-button type="primary"><i class="fas fa-plus"></i>新增菜单</el-button>
+                </router-link>
+            </el-form-item>
+        </el-form>
         <el-table :data="list"
                   border
                   style="width: 100%"
@@ -50,7 +57,16 @@
     export default {
         data(){
             return {
-                list : []
+                list : [],
+                listLoading: true,
+                menuForm   : {
+                    name   : '',
+                    route_name       : '',
+                    page        : 1,
+                    total       : 0,
+                    per_page    : 10,
+                    current_page: 1
+                }
             }
         },
         created() {
