@@ -38,7 +38,7 @@
     import { getInfo, update } from "@/api/user";
 
     export default {
-        name:'create',
+        name:'edit',
         data() {
             let validatePass = (rule, value, callback) => {
                 if (this.userForm.password !== '') {
