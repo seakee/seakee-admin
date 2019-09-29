@@ -107,7 +107,7 @@
                     }
 
                     update(this.userForm.id, userForm).then(response => {
-                        if (response.data.msg === 'success') {
+                        if (response.data.message === 'success') {
                             this.$message({
                                 type   : 'success',
                                 message: '编辑成功!'

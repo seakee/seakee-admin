@@ -99,7 +99,7 @@
                     permission_ids += selection.id + ',';
                 });
                 syncPermissions(this.id, {permission_ids: permission_ids}).then(response => {
-                    if (response.data.msg === 'success') {
+                    if (response.data.message === 'success') {
                         this.$message({
                             type   : 'success',
                             message: '角色授权成功!'

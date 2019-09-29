@@ -40,7 +40,7 @@ http.interceptors.response.use((response) => {
         case 400:
         case 404:
         case 500:
-            return Message({message: error.response.data.msg,type:'error', center: true});
+            return Message({message: error.response.data.message,type:'error', center: true});
     }
     return Promise.reject(error);
 });
