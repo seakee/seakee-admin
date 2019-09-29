@@ -81,7 +81,7 @@ class UserController extends Controller
             return response()->json(['error' => 'registration failed'], 500);
         }
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**
@@ -110,7 +110,7 @@ class UserController extends Controller
 
         clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**
@@ -122,7 +122,7 @@ class UserController extends Controller
     {
         $rs = $this->userService->delete($ids);
 
-        return $rs ? response()->json(['msg' => 'success'],204) : response()->json(['error' => 'failed'], 500);
+        return $rs ? response()->json(['message' => 'success'],204) : response()->json(['error' => 'failed'], 500);
     }
 
     /**
@@ -158,7 +158,7 @@ class UserController extends Controller
 
         clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**

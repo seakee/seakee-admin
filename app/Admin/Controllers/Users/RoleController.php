@@ -62,7 +62,7 @@ class RoleController extends Controller
             return response()->json(['error' => 'creates failed'], 500);
         }
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**
@@ -89,7 +89,7 @@ class RoleController extends Controller
             return response()->json(['error' => 'updates failed'], 500);
         }
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 
     /**
@@ -105,7 +105,7 @@ class RoleController extends Controller
             return response()->json(['error' => 'destruction failed'], 500);
         }
 
-        return response()->json(['msg' => 'success'],204);
+        return response()->json(['message' => 'success'],204);
     }
 
     /**
@@ -145,6 +145,6 @@ class RoleController extends Controller
 
         clear_cache(['admin.permissions.' . $id, 'admin.allPermissionNames']);
 
-        return response()->json(['msg' => 'success'],201);
+        return response()->json(['message' => 'success'],201);
     }
 }

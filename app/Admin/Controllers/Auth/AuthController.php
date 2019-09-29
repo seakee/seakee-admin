@@ -41,10 +41,10 @@ class AuthController extends Controller
         }
 
         if ($token = $this->attemptLogin($request)) {
-            return response()->json(['msg' => 'success', 'token' => 'bearer ' . $token], 201);
+            return response()->json(['message' => 'success', 'token' => 'bearer ' . $token], 201);
         }
 
-        return response()->json(['msg' => trans('auth.failed')], 400);
+        return response()->json(['message' => trans('auth.failed')], 400);
     }
 
     /**
@@ -56,7 +56,7 @@ class AuthController extends Controller
     {
         Auth::guard('admin')->logout();
 
-        return response()->json(['msg' => 'success'], 200);
+        return response()->json(['message' => 'success'], 200);
     }
 
     protected function username()
