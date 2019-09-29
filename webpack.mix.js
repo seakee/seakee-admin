@@ -45,8 +45,8 @@ if (!mix.inProduction()) {
  |
  */
 
-mix.js('resources/assets/admin/app.js', 'public/admin/js')
-    .sass('resources/sass/app.scss', 'public/admin/css', {implementation: require('node-sass')})
+mix.js('resources/assets/admin/app.js', 'public/js/admin')
+    .sass('resources/sass/app.scss', 'public/css/admin', {implementation: require('node-sass')})
     .webpackConfig({
         resolve: {
             extensions: ['.js', '.vue', '.json'],
