@@ -43,7 +43,7 @@ class AdminMenusTableSeeder extends Seeder
         ]);
 
         DB::table('admin_menus')->insert([
-            'icon' => 'fas fa-dashboard',
+            'icon' => 'fas fa-tachometer-alt',
             'name' => '仪表盘',
             'route_name' => 'admin.dashboard.index',
             'path' => '/managerCenter/dashboard/index',
@@ -55,7 +55,7 @@ class AdminMenusTableSeeder extends Seeder
         ]);
 
         DB::table('admin_menus')->insert([
-            'icon' => 'fas fa-gears',
+            'icon' => 'fas fa-cogs',
             'name' => '系统配置',
             'route_name' => 'admin.config.index',
             'path' => '/managerCenter/config/index',
