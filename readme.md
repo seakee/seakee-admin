@@ -16,7 +16,7 @@ The background management scaffolding developed based on Laravel6.0, Vue2.6 and 
 
 Require this package with composer using the following command:
 ```bash
-composer create-project seakee/admin
+composer create-project seakee/seakee-admin
 ```
 After updating composer,Edit the `.env`  to update your database configuration:
 ```bash
