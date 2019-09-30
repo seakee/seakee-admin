@@ -89,6 +89,10 @@ class RoleController extends Controller
             return response()->json(['error' => 'updates failed'], 500);
         }
 
+        clear_cache('roles');
+        clear_cache('permissions');
+        clear_cache('menus');
+
         return response()->json(['message' => 'success'],201);
     }
 
@@ -104,6 +108,10 @@ class RoleController extends Controller
         if (empty($rs)){
             return response()->json(['error' => 'destruction failed'], 500);
         }
+
+        clear_cache('roles');
+        clear_cache('permissions');
+        clear_cache('menus');
 
         return response()->json(['message' => 'success'],204);
     }
@@ -143,7 +151,9 @@ class RoleController extends Controller
             return response()->json(['error' => 'sync failed'], 500);
         }
 
-        clear_cache(['admin.permissions.' . $id, 'admin.allPermissionNames']);
+        clear_cache('roles');
+        clear_cache('permissions');
+        clear_cache('menus');
 
         return response()->json(['message' => 'success'],201);
     }

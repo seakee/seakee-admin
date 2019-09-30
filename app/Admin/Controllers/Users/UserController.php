@@ -108,7 +108,9 @@ class UserController extends Controller
             return response()->json(['error' => 'updates failed'], 500);
         }
 
-        clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
+        clear_cache('roles');
+        clear_cache('permissions');
+        clear_cache('menus');
 
         return response()->json(['message' => 'success'],201);
     }
@@ -121,6 +123,10 @@ class UserController extends Controller
     public function destroy(string $ids)
     {
         $rs = $this->userService->delete($ids);
+
+        clear_cache('roles');
+        clear_cache('permissions');
+        clear_cache('menus');
 
         return $rs ? response()->json(['message' => 'success'],204) : response()->json(['error' => 'failed'], 500);
     }
@@ -156,7 +162,9 @@ class UserController extends Controller
             return response()->json(['error' => 'sync failed'], 500);
         }
 
-        clear_cache(['admin.permissions.' . $id, 'admin.roles.' . $id]);
+        clear_cache('roles');
+        clear_cache('permissions');
+        clear_cache('menus');
 
         return response()->json(['message' => 'success'],201);
     }

@@ -96,7 +96,9 @@ class PermissionService
      */
     public function current($user, $roles): array
     {
-        return Cache::remember('admin.permissions.' . $user->id, config('cache.ttl'), function () use ($roles){
+        $permission = Cache::tags(['admin', 'permissions', 'user'])->get($user->id) ?: [];
+
+        if (empty($permission)){
             if (in_array('Super_Admin', array_column($roles->toArray(), 'name'))){
                 $permission = $this->allName();
             } else {
@@ -106,8 +108,10 @@ class PermissionService
                 $permission = array_keys(array_flip(Arr::collapse($permission  ?? [])));
             }
 
-            return $permission;
-        });
+            Cache::tags(['admin', 'permissions', 'user',])->put($user->id, $permission, config('cache.ttl'));
+        }
+
+        return $permission;
     }
 
     /**
@@ -115,9 +119,14 @@ class PermissionService
      */
     public function allName(): array
     {
-        return Cache::remember('admin.allPermissionNames', config('cache.ttl'), function (){
-            return array_column($this->permissionRepository->all()->toArray(), 'name');
-        });
+        $permissionNames = Cache::tags(['admin', 'permissions', 'name'])->get('all') ?: [];
+
+        if (empty($permissionNames)){
+            $permissionNames = array_column($this->permissionRepository->all()->toArray(), 'name');
+            Cache::tags(['admin', 'permissions', 'name',])->put('all', $permissionNames, config('cache.ttl'));
+        }
+
+        return $permissionNames;
     }
 
     /**

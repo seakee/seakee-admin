@@ -94,9 +94,14 @@ class RoleService
      */
     public function current($user): Collection
     {
-        return Cache::remember('admin.roles.' . $user->id, config('cache.ttl'), function () use ($user) {
-            return $user->roles;
-        });
+        $roles = Cache::tags(['admin', 'roles', 'user'])->get($user->id) ?: [];
+
+        if (empty($roles)){
+            $roles = $user->roles;
+            Cache::tags(['admin', 'roles', 'user',])->put($user->id, $roles, config('cache.ttl'));
+        }
+
+        return $roles;
     }
 
     /**
