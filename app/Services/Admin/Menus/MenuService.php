@@ -1,21 +1,19 @@
 <?php
 /**
  * File: MenuService.php
- * Author: Seakee <seakee23@gmail.com>
+ * Author: Seakee <seakee23@163.com>
  * Homepage: https://seakee.top
- * Date: 2019/9/26 3:59 下午
+ * Date: 2018/9/4 16:16
  * Description:
  */
 
-namespace App\Services\Admin\Menus;
+namespace App\Services\Menus;
 
-
+use App\Repositories\Menus\MenuRepository;
 use App\Models\Menus\Menu;
-use App\Repositories\Admin\Menus\MenuRepository;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Cache;
-use Arr;
 
 class MenuService
 {
@@ -111,22 +109,27 @@ class MenuService
         return $this->menuRepository->find($ids);
     }
 
-    /**
-     * @return array
-     */
-    public function list(): array
-    {
-        return $this->menuRepository->list()->toArray();
-    }
+	/**
+	 * @return array
+	 */
+	public function list(): array
+	{
+		return $this->menuRepository->list()->toArray();
+	}
 
     /**
      * @return array
      */
     public function all(): array
     {
-        return Cache::remember('admin.allMenus', config('cache.ttl'), function () {
-            return $this->menuRepository->all()->toArray();
-        });
+        $menus =  Cache::tags(['admin', 'menus'])->get('all') ?: [];
+
+        if (empty($menus)){
+            $menus = $this->menuRepository->all()->toArray();
+            Cache::tags(['admin', 'menus'])->put('all', $menus, config('cache.ttl'));
+        }
+
+        return $menus;
     }
 
     /**
@@ -137,7 +140,9 @@ class MenuService
      */
     public function current($currentPermission, $user)
     {
-        return Cache::remember('admin.menus.' . $user->id, config('cache.ttl'), function () use ($currentPermission, $user) {
+        $currentUserMenu = Cache::tags(['admin', 'menus', 'user',])->get($user->id) ?: [];
+
+        if (empty($currentUserMenu)) {
             $allMenu = $this->all();
             $roles   = array_column($user->roles->toArray(), 'name');
 
@@ -162,9 +167,10 @@ class MenuService
 
             //过滤重复菜单
             $currentUserMenu = array_filter_repeat($currentUserMenu, 'id');
+            Cache::tags(['admin', 'menus', 'user',])->put($user->id, $currentUserMenu, config('cache.ttl'));
+        }
 
-            return $currentUserMenu;
-        });
+        return $currentUserMenu;
     }
 
     /**
@@ -181,15 +187,15 @@ class MenuService
         return $this->setMenuTree($menus, $father_id, $simple);
     }
 
-    /**
-     * 设置菜单树形数组
-     *
-     * @param $menus
-     * @param $father_id
-     * @param $simple
-     *
-     * @return array
-     */
+	/**
+	 * 设置菜单树形数组
+	 *
+	 * @param $menus
+	 * @param $father_id
+	 * @param $simple
+	 *
+	 * @return array
+	 */
     protected function setMenuTree(&$menus, $father_id, $simple)
     {
         if (!empty($menus)) {
@@ -197,7 +203,7 @@ class MenuService
                 if ($menu['father_id'] == $father_id) {
                     $nodes = $this->setMenuTree($menus, $menu['id'], $simple);
                     if ($simple){
-                        $menu = Arr::only($menu, ['icon', 'name', 'route_name', 'path']);
+                    	$menu = array_only($menu, ['icon', 'name', 'route_name', 'path']);
                     }
                     $result[] = empty($nodes) ? $menu : array_merge($menu, ['nodes' => $nodes]);
                 }
