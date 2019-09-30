@@ -104,10 +104,13 @@
                             this.roleForm.page -= 1;
                         }
                         this.fetchData(this.roleForm);
-                        this.$message({
-                            type   : 'success',
-                            message: '删除成功!'
-                        });
+                        if (response.data.message === 'success'){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!',
+                                center : true
+                            });
+                        }
                     });
                 }).catch(() => {
                     this.$message({

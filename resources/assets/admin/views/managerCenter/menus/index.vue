@@ -84,11 +84,14 @@
             //修改菜单状态
             changeStatus(id, display) {
                 update(id, {'display': display}).then(response => {
-                    this.$message({
-                        message: '修改成功',
-                        type   : 'success',
-                        center : true
-                    });
+                    this.fetchData();
+                    if (response.data.message === 'success'){
+                        this.$message({
+                            type: 'success',
+                            message: '修改成功!',
+                            center : true
+                        });
+                    }
                 })
             },
             deleteMenu(id) {
@@ -99,10 +102,13 @@
                 }).then(() => {
                     deleteMenu(id).then(response => {
                         this.fetchData();
-                        this.$message({
-                            type   : 'success',
-                            message: '删除成功!'
-                        });
+                        if (response.data.message === 'success'){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!',
+                                center : true
+                            });
+                        }
                     });
                 }).catch(() => {
                     this.$message({

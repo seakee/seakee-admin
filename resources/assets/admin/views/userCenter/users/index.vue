@@ -107,11 +107,14 @@
             //修改用户状态
             changeStatus(id, status) {
                 update(id, {'status': status}).then(response => {
-                    this.$message({
-                        message: '修改成功',
-                        type   : 'success',
-                        center : true
-                    });
+                    this.fetchData();
+                    if (response.data.message === 'success'){
+                        this.$message({
+                            type: 'success',
+                            message: '修改成功!',
+                            center : true
+                        });
+                    }
                 })
             },
             handleSizeChange   : function (pageSize) { // 每页条数切换
@@ -134,10 +137,13 @@
                             this.userForm.page -= 1;
                         }
                         this.fetchData(this.userForm);
-                        this.$message({
-                            type   : 'success',
-                            message: '删除成功!'
-                        });
+                        if (response.data.message === 'success'){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!',
+                                center : true
+                            });
+                        }
                     });
                 }).catch(() => {
                     this.$message({

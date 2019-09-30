@@ -77,10 +77,10 @@
             fetchData() {
                 this.listLoading = true;
                 getList(this.permissionForm).then(response => {
-                    this.list              = response.data;
+                    this.list                    = response.data;
                     this.permissionForm.total    = response.data.total;
                     this.permissionForm.per_page = response.data.per_page;
-                    this.listLoading       = false
+                    this.listLoading             = false
                 })
             },
             handleSizeChange   : function (pageSize) { // 每页条数切换
@@ -103,10 +103,13 @@
                             this.permissionForm.page -= 1;
                         }
                         this.fetchData(this.permissionForm);
-                        this.$message({
-                            type   : 'success',
-                            message: '删除成功!'
-                        });
+                        if (response.data.message === 'success'){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!',
+                                center : true
+                            });
+                        }
                     });
                 }).catch(() => {
                     this.$message({
