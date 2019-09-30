@@ -7,13 +7,14 @@
  * Description:
  */
 
-namespace App\Services\Menus;
+namespace App\Services\Admin\Menus;
 
-use App\Repositories\Menus\MenuRepository;
+use App\Repositories\Admin\Menus\MenuRepository;
 use App\Models\Menus\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Cache;
+use Arr;
 
 class MenuService
 {
@@ -203,7 +204,7 @@ class MenuService
                 if ($menu['father_id'] == $father_id) {
                     $nodes = $this->setMenuTree($menus, $menu['id'], $simple);
                     if ($simple){
-                    	$menu = array_only($menu, ['icon', 'name', 'route_name', 'path']);
+                    	$menu = Arr::only($menu, ['icon', 'name', 'route_name', 'path']);
                     }
                     $result[] = empty($nodes) ? $menu : array_merge($menu, ['nodes' => $nodes]);
                 }
