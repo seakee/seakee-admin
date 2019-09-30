@@ -130,7 +130,7 @@ if (!function_exists('clear_cache')) {
      * @param array|string  $key
      * @param bool          $is_tags
      */
-    function clear_cache($key, $is_tags = false)
+    function clear_cache($key, $is_tags = true)
     {
         if ($is_tags){
             \Cache::tags($key)->flush();
