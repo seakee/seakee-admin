@@ -73,12 +73,12 @@ class CheckPermission
 
             //检查权限是否已经定义
             if (!in_array($currentRouteName, $allPermission)) {
-                return response()->json(['msg' => trans('auth.undefined')],400);
+                return response()->json(['message' => trans('auth.undefined')],400);
             }
 
             //检查是否有权限
             if (!in_array($currentRouteName, $currentPermission)) {
-                return response()->json(['msg' => trans('auth.forbidden')],403);
+                return response()->json(['message' => trans('auth.forbidden')],403);
             }
 
             return $next($request);
