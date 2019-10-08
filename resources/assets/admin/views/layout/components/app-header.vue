@@ -1,7 +1,9 @@
 <template>
     <el-header>
         <div class="header-title">
-            <h3>{{ title }}</h3>
+            <router-link to="/">
+                <h3>{{ title }}</h3>
+            </router-link>
         </div>
         <div class="header-nav">
             <el-breadcrumb separator="/">
@@ -62,7 +64,7 @@
         display: flex;
     }
 
-    .header-title h3 {
+    .header-title a, .header-title a h3 {
         margin: auto;
     }
 
