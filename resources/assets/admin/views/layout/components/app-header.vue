@@ -1,7 +1,7 @@
 <template>
     <el-header>
         <div class="header-title">
-            <h4>HaHaHaHaHaHa</h4>
+            <h3>{{ title }}</h3>
         </div>
         <div class="header-nav">
             <el-breadcrumb separator="/">
@@ -19,7 +19,8 @@
         name: "app-header",
         data(){
             return {
-                breadcrumbList: null
+                breadcrumbList: null,
+                title: appConfig.name
             }
         },
         watch: {
@@ -58,7 +59,11 @@
         min-width: 200px;
         background: rgba(0, 0, 0, 0.05);
         position: absolute;
-        text-align: center;
+        display: flex;
+    }
+
+    .header-title h3 {
+        margin: auto;
     }
 
     .header-nav {
