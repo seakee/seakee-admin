@@ -134,9 +134,7 @@
         },
         methods: {
             submitForm(formName) {
-                console.log(this.menuForm);
                 this.$refs[formName].validate((valid) => {
-                    console.log(this.menuForm)
                     update(this.menuForm.id, this.menuForm).then(response => {
                         if (response.data.message === 'success') {
                             this.$message({

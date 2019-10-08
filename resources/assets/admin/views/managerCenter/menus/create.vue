@@ -106,7 +106,7 @@
             this.fetchMenuList()
         },
         methods: {
-            submitForm(formName) {console.log(this.menuForm);
+            submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     create(this.menuForm).then(response => {
                         if (response.data.message === 'success'){
