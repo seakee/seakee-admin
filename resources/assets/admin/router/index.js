@@ -17,7 +17,7 @@ let router = new Router({
             component: Layout,
             name     : 'admin',
             meta     : {
-                title   : '首页'
+                title: '首页'
             },
         },
         userCenterRouter,
@@ -26,14 +26,14 @@ let router = new Router({
             path     : '/errorPage',
             component: Layout,
             meta     : {
-                title   : '错误'
+                title: '错误'
             },
             children : [
                 {
                     path     : '404',
                     name     : 'errorPage.404',
                     meta     : {
-                        title   : '404'
+                        title: '404'
                     },
                     component: () => import('@/views/errorPage/404')
                 }
@@ -43,7 +43,7 @@ let router = new Router({
             path     : '/login',
             name     : 'admin.login',
             meta     : {
-                title   : '登录'
+                title: '登录'
             },
             component: () => import('@/views/login')
         },
@@ -56,7 +56,7 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
 
-    let title    = to.meta.title ? to.meta.title : 'Home';
+    let title      = to.meta.title ? to.meta.title : 'Home';
     document.title = title + ' - ' + appConfig.name;
 
     let token = store.getters.token;
@@ -83,5 +83,10 @@ router.beforeEach((to, from, next) => {
         }
     }
 });
+
+let originalPush      = Router.prototype.push;
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+};
 
 export default router
