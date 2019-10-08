@@ -11,7 +11,7 @@ return [
     /*
      * 应用标题
      */
-    'name'  => 'seakee-admin',
+    'name'  => 'SeakeeAdmin',
 
     /*
      * 路由配置

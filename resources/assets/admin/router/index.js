@@ -56,7 +56,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
 
-    document.title = to.meta.title ? to.meta.title : '首页 - seakee-admin';
+    document.title = to.meta.title ? to.meta.title + ' - SeakeeAdmin' : 'Home - SeakeeAdmin';
 
     const token = store.getters.token;
     if (token) {

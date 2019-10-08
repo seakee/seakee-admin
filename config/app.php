@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'seakee-admin'),
+    'name' => env('APP_NAME', 'SeakeeAdmin'),
 
     /*
     |--------------------------------------------------------------------------
