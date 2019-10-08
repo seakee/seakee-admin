@@ -23,9 +23,10 @@ if (config.admin.cdn.enable === true) {
     });
 }
 
-//生产环境开启版本控制
+//生产环境配置
 if (mix.inProduction()) {
-    mix.version();
+    mix.version()
+        .disableNotifications();
 }
 
 //非生产环境禁用懒加载
