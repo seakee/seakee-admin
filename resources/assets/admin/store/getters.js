@@ -1,4 +1,4 @@
-const getters = {
+let getters = {
     token: state => state.auth.token,
     profile: state => state.auth.profile
 };

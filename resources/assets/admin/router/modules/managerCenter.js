@@ -1,6 +1,6 @@
 import Layout from '@/views/layout/layout'
 
-const managerCenterRouter = {
+let managerCenterRouter = {
     path     : '/managerCenter',
     name     : 'managerCenter',
     /*redirect : '/managerCenter/users/index',*/

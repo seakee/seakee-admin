@@ -21,14 +21,14 @@
     export default {
         name   : "login",
         data() {
-            const checkAccount = (rule, value, callback) => {
+            let checkAccount = (rule, value, callback) => {
                 if (!value) {
                     return callback(new Error('账号不能为空'));
                 }
 
                 return callback();
             };
-            const validatePass = (rule, value, callback) => {
+            let validatePass = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('请输入密码'));
                 }

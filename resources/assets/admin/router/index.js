@@ -10,7 +10,7 @@ import Layout from '@/views/layout/layout'
 import userCenterRouter    from './modules/userCenter'
 import managerCenterRouter from './modules/managerCenter';
 
-const router = new Router({
+let router = new Router({
     routes: [
         {
             path     : '/',
@@ -56,9 +56,10 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
 
-    document.title = to.meta.title ? to.meta.title + ' - SeakeeAdmin' : 'Home - SeakeeAdmin';
+    let title    = to.meta.title ? to.meta.title : 'Home';
+    document.title = title + ' - ' + appConfig.name;
 
-    const token = store.getters.token;
+    let token = store.getters.token;
     if (token) {
         if (to.path === '/login') {
             next({path: '/'});

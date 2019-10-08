@@ -4,7 +4,7 @@ import {profile}                      from "@/api/user";
 import {getData, setData, removeData} from "@/utils/localStorage";
 import router from '@/router'
 
-const auth = {
+let auth = {
     state    : {
         token  : getData('token'),
         profile: null
@@ -39,7 +39,7 @@ const auth = {
                     loginInfo.password
                 ).then(response => {
                     if (response.status === 201) {
-                        const data = response.data;
+                        let data = response.data;
                         commit('setToken', data.token);
                         setData('token', data.token);
                         resolve()
@@ -56,7 +56,7 @@ const auth = {
             return new Promise(function (resolve, reject) {
                 profile().then(response => {
                     if (response.status === 200) {
-                        const data = response.data;
+                        let data = response.data;
                         commit('profile', data);
                         resolve()
                     } else {

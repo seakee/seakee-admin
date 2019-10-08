@@ -5,7 +5,7 @@ import getters from './getters'
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
+let store = new Vuex.Store({
     modules: {
         auth
     },

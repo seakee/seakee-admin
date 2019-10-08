@@ -2,14 +2,14 @@ import axios from 'axios'
 import store from '@/store'
 import { Message } from 'element-ui'
 
-const http = axios.create({
-    baseURL: 'http://www.skadmin.com/admin/api/v1',
+let http = axios.create({
+    baseURL: appConfig.baseURL,
     timeout: 5000
 });
 
 // request拦截器
 http.interceptors.request.use(config => {
-    const token = store.getters.token;
+    let token = store.getters.token;
 
     if (token){
         config.headers.Authorization = token
@@ -23,7 +23,7 @@ http.interceptors.request.use(config => {
 //response拦截器
 http.interceptors.response.use((response) => {
     // 判断一下响应中是否有 token，如果有就直接使用此 token 替换掉本地的 token。你可以根据你的业务需求自己编写更新 token 的逻辑
-    const token = response.headers.authorization;
+    let token = response.headers.authorization;
     if (token) {
         // 如果 header 中存在 token，那么触发 refreshToken 方法，替换本地的 token
         store.dispatch('refreshToken', token);
@@ -60,7 +60,7 @@ export function get(url, params = {}) {
 //封装post请求
 export function post(url, data = {}) {
     //默认配置
-    const sendObject = {
+    let sendObject = {
         url    : url,
         method : 'post',
         headers: {
