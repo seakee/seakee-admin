@@ -57,8 +57,8 @@ class AdminMenusTableSeeder extends Seeder
         DB::table('admin_menus')->insert([
             'icon' => 'fas fa-cogs',
             'name' => '系统配置',
-            'route_name' => 'admin.config.index',
-            'path' => '/managerCenter/config/index',
+            'route_name' => 'admin.configs.index',
+            'path' => '/managerCenter/configs/index',
             'father_id' => 1,
             'sort' => 9,
             'display' => 1,
