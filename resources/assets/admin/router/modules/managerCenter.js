@@ -10,6 +10,14 @@ let managerCenterRouter = {
     component: Layout,
     children : [
         {
+            path     : 'config/index',
+            name     : 'managerCenter.config.index',
+            meta     : {
+                title   : '系统配置'
+            },
+            component: () => import('@/views/managerCenter/config/index')
+        },
+        {
             path     : 'menus/index',
             name     : 'managerCenter.menus.index',
             meta     : {
