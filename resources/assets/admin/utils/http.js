@@ -3,8 +3,8 @@ import store from '@/store'
 import { Message } from 'element-ui'
 
 let http = axios.create({
-    baseURL: appConfig.baseURL,
-    timeout: 5000
+    baseURL: appConfig.api.baseURL,
+    timeout: appConfig.api.timeout
 });
 
 // request拦截器

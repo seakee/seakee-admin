@@ -9,13 +9,18 @@
 
 namespace Admin\Controllers;
 
-
 use App\Http\Controllers\Controller;
+use Arr;
 
 class AdminController extends Controller
 {
 	public function index()
 	{
-		return view('admin');
+	    $config = config('admin');
+        Arr::forget($config, 'route');
+
+	    $data['config'] = $config;
+
+		return view('admin', $data);
 	}
 }
