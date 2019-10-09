@@ -126,10 +126,16 @@ class RoleController extends Controller
         $role = $this->roleService->find($id);
 
         if (empty($role)){
-            return response()->json(['message' => 'not found'], 404);
+            return json_response(404, 'not found');
         }
 
-        return response()->json($role->permissions);
+        if (in_array('Super_Admin', $role->toArray())){
+            $permission = $this->permissionService->all();
+        } else {
+            $permission = $role->permissions;
+        }
+
+        return json_response(200, 'success', $permission);
     }
 
     /**

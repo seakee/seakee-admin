@@ -117,12 +117,27 @@ class PermissionService
     /**
      * @return array
      */
+    public function all(): array
+    {
+        $permissions = Cache::tags(['admin', 'permissions'])->get('all') ?: [];
+
+        if (empty($permissions)){
+            $permissions = $this->permissionRepository->all()->toArray();
+            Cache::tags(['admin', 'permissions',])->put('all', $permissions, config('cache.ttl'));
+        }
+
+        return $permissions;
+    }
+
+    /**
+     * @return array
+     */
     public function allName(): array
     {
         $permissionNames = Cache::tags(['admin', 'permissions', 'name'])->get('all') ?: [];
 
         if (empty($permissionNames)){
-            $permissionNames = array_column($this->permissionRepository->all()->toArray(), 'name');
+            $permissionNames = array_column($this->all(), 'name');
             Cache::tags(['admin', 'permissions', 'name',])->put('all', $permissionNames, config('cache.ttl'));
         }
 
