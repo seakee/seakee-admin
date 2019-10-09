@@ -86,7 +86,7 @@
 </template>
 
 <script>
-    import {getList, create} from "@/api/menu";
+    import {update} from "@/api/config";
 
     export default {
         name   : 'index',
@@ -123,9 +123,6 @@
                 }
             };
         },
-        created() {
-            this.fetchMenuList()
-        },
         methods: {
             submitForm(formName) {
                 let data = {};
@@ -138,7 +135,7 @@
                 if (formName === 'cdnForm') {
                     data = this.cdnForm;
                 }
-                create(data).then(response => {
+                update(data).then(response => {
                     if (response.data.message === 'success') {
                         this.$message({
                             type   : 'success',
@@ -150,24 +147,6 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
-            },
-            goBack() {
-                window.history.length > 1
-                    ? this.$router.go(-1)
-                    : this.$router.push('/')
-            },
-            fetchMenuList() {
-                getList().then(response => {
-                    response.data.unshift(this.list);
-                    this.list = response.data;
-                })
-            },
-            getRouterList() {
-                let list = this.$router.options.routes;
-                list.splice(list.length - 3, list.length - 2, list.length - 1);
-                list.pop();
-                this.routerList         = list;
-                this.dialogTableVisible = true;
             }
         }
     }

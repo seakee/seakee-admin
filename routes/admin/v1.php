@@ -70,3 +70,7 @@ Route::group(['namespace' => 'Menus'], function () {
         ],
     ]);
 });
+
+Route::group(['namespace' => 'Configs'], function () {
+    Route::put('configs', 'ConfigController@update')->name('admin.configs.update');
+});
