@@ -4,8 +4,8 @@
             <el-tab-pane label="基础配置">
                 <el-form :label-position="labelPosition" :model="baseForm" ref="baseForm" label-width="100px"
                          status-icon>
-                    <el-form-item label="应用名称" prop="name">
-                        <el-input v-model="baseForm.name"></el-input>
+                    <el-form-item label="应用名称" prop="admin.name">
+                        <el-input v-model="baseForm.admin.name"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('baseForm')">立即更新</el-button>
@@ -16,9 +16,9 @@
             <el-tab-pane label="缓存配置">
                 <el-form :label-position="labelPosition" :model="cacheForm" ref="cacheForm" label-width="100px"
                          status-icon>
-                    <el-form-item label="缓存开关" prop="enable">
+                    <el-form-item label="缓存开关" prop="admin.cache.enable">
                         <el-switch
-                            v-model="cacheForm.enable"
+                            v-model="cacheForm.admin.cache.enable"
                             :active-value="true"
                             inactive-value="false"
                             active-color="#13ce66"
@@ -28,8 +28,8 @@
                         >
                         </el-switch>
                     </el-form-item>
-                    <el-form-item label="缓存时间" prop="ttl">
-                        <el-input v-model="cacheForm.ttl">
+                    <el-form-item label="缓存时间" prop="admin.cache.ttl">
+                        <el-input v-model="cacheForm.admin.cache.ttl">
                             <template slot="append">分钟</template>
                         </el-input>
                     </el-form-item>
@@ -41,9 +41,9 @@
             </el-tab-pane>
             <el-tab-pane label="CDN配置">
                 <el-form :label-position="labelPosition" :model="cdnForm" ref="cdnForm" label-width="100px" status-icon>
-                    <el-form-item label="CDN开关" prop="enable">
+                    <el-form-item label="CDN开关" prop="admin.cdn.enable">
                         <el-switch
-                            v-model="cdnForm.enable"
+                            v-model="cdnForm.admin.cdn.enable"
                             :active-value="true"
                             inactive-value="false"
                             active-color="#13ce66"
@@ -58,22 +58,22 @@
                         <span class="txt">CSS</span>
                         <span class="right"></span>
                     </div>
-                    <el-form-item label="Element" prop="css.elementui">
-                        <el-input v-model="cdnForm.css.elementui"></el-input>
+                    <el-form-item label="Element" prop="admin.cdn.css.elementui">
+                        <el-input v-model="cdnForm.admin.cdn.css.elementui"></el-input>
                     </el-form-item>
-                    <el-form-item label="Fontawesome" prop="css.fontawesome">
-                        <el-input v-model="cdnForm.css.fontawesome"></el-input>
+                    <el-form-item label="Fontawesome" prop="admin.cdn.css.fontawesome">
+                        <el-input v-model="cdnForm.admin.cdn.css.fontawesome"></el-input>
                     </el-form-item>
                     <div class="line">
                         <span class="left"></span>
                         <span class="txt">JS</span>
                         <span class="right"></span>
                     </div>
-                    <el-form-item label="Vue" prop="js.vue">
-                        <el-input v-model="cdnForm.js.vue"></el-input>
+                    <el-form-item label="Vue" prop="admin.cdn.js.vue">
+                        <el-input v-model="cdnForm.admin.cdn.js.vue"></el-input>
                     </el-form-item>
-                    <el-form-item label="Element" prop="js.elementui">
-                        <el-input v-model="cdnForm.js.elementui"></el-input>
+                    <el-form-item label="Element" prop="admin.cdn.js.elementui">
+                        <el-input v-model="cdnForm.admin.cdn.js.elementui"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('cdnForm')">立即更新</el-button>
@@ -94,21 +94,31 @@
             return {
                 labelPosition: 'left',
                 baseForm     : {
-                    name: ''
+                    admin: {
+                        name : appConfig.name
+                    }
                 },
                 cacheForm    : {
-                    enable: true,
-                    ttl   : 10080
+                    admin: {
+                        cache: {
+                            enable: appConfig.cache.enable,
+                            ttl   : appConfig.cache.ttl
+                        }
+                    }
                 },
                 cdnForm      : {
-                    enable: false,
-                    css   : {
-                        elementui  : '',
-                        fontawesome: ''
-                    },
-                    js    : {
-                        vue      : '',
-                        elementui: ''
+                    admin: {
+                        cdn  : {
+                            enable: appConfig.cdn.enable,
+                            css   : {
+                                elementui  : appConfig.cdn.css.elementui,
+                                fontawesome: appConfig.cdn.css.fontawesome
+                            },
+                            js    : {
+                                vue      : appConfig.cdn.js.vue,
+                                elementui: appConfig.cdn.js.elementui
+                            }
+                        }
                     }
                 }
             };
@@ -118,16 +128,24 @@
         },
         methods: {
             submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    create(this.menuForm).then(response => {
-                        if (response.data.message === 'success') {
-                            this.$message({
-                                type   : 'success',
-                                message: '新增成功!'
-                            });
-                            this.resetForm('menuForm');
-                        }
-                    });
+                let data = {};
+                if (formName === 'baseForm') {
+                    data = this.baseForm;
+                }
+                if (formName === 'cacheForm') {
+                    data = this.cacheForm;
+                }
+                if (formName === 'cdnForm') {
+                    data = this.cdnForm;
+                }
+                create(data).then(response => {
+                    if (response.message === 'success') {
+                        this.$message({
+                            type   : 'success',
+                            message: '新增成功!'
+                        });
+                        this.resetForm('menuForm');
+                    }
                 });
             },
             resetForm(formName) {
