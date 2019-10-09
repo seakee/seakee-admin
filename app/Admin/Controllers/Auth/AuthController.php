@@ -36,15 +36,14 @@ class AuthController extends Controller
         // the IP address of the client making these requests into this application.
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
+            $this->sendLockoutResponse($request);
         }
 
         if ($token = $this->attemptLogin($request)) {
-            return response()->json(['message' => 'success', 'token' => 'bearer ' . $token], 201);
+            return json_response(201, 'success', ['token' => 'bearer ' . $token]);
         }
 
-        return response()->json(['message' => trans('auth.failed')], 400);
+        return json_response(400, trans('auth.failed'));
     }
 
     /**
@@ -56,7 +55,7 @@ class AuthController extends Controller
     {
         Auth::guard('admin')->logout();
 
-        return response()->json(['message' => 'success'], 200);
+        return json_response();
     }
 
     protected function username()
