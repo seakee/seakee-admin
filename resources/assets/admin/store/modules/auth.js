@@ -39,7 +39,7 @@ let auth = {
                     loginInfo.password
                 ).then(response => {
                     if (response.status === 201) {
-                        let data = response.data;
+                        let data = response.data.data;
                         commit('setToken', data.token);
                         setData('token', data.token);
                         resolve()
@@ -56,7 +56,7 @@ let auth = {
             return new Promise(function (resolve, reject) {
                 profile().then(response => {
                     if (response.status === 200) {
-                        let data = response.data;
+                        let data = response.data.data;
                         commit('profile', data);
                         resolve()
                     } else {

@@ -139,7 +139,7 @@
                     data = this.cdnForm;
                 }
                 create(data).then(response => {
-                    if (response.message === 'success') {
+                    if (response.data.message === 'success') {
                         this.$message({
                             type   : 'success',
                             message: '新增成功!'
