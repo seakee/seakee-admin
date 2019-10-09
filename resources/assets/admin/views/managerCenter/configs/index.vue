@@ -178,4 +178,8 @@
         color: #686868;
         vertical-align: -4px;
     }
+
+    .el-input {
+        width: 300px;
+    }
 </style>
