@@ -59,7 +59,7 @@ class RoleController extends Controller
         $user = $this->roleService->create($request);
 
         if (empty($user)){
-            return response()->json(['error' => 'creates failed'], 500);
+            return response()->json(['message' => 'creates failed'], 500);
         }
 
         return response()->json(['message' => 'success'],201);
@@ -86,7 +86,7 @@ class RoleController extends Controller
         $rs = $this->roleService->edit($request, $id);
 
         if (empty($rs)){
-            return response()->json(['error' => 'updates failed'], 500);
+            return response()->json(['message' => 'updates failed'], 500);
         }
 
         clear_cache('roles');
@@ -106,7 +106,7 @@ class RoleController extends Controller
         $rs = $this->roleService->delete($ids);
 
         if (empty($rs)){
-            return response()->json(['error' => 'destruction failed'], 500);
+            return response()->json(['message' => 'destruction failed'], 500);
         }
 
         clear_cache('roles');
@@ -126,7 +126,7 @@ class RoleController extends Controller
         $role = $this->roleService->find($id);
 
         if (empty($role)){
-            return response()->json(['error' => 'not found'], 404);
+            return response()->json(['message' => 'not found'], 404);
         }
 
         return response()->json($role->permissions);
@@ -148,7 +148,7 @@ class RoleController extends Controller
         $rs = $role->permissions()->sync($permIds);
 
         if (empty($rs)){
-            return response()->json(['error' => 'sync failed'], 500);
+            return response()->json(['message' => 'sync failed'], 500);
         }
 
         clear_cache('roles');

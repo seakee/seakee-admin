@@ -78,7 +78,7 @@ class UserController extends Controller
         $user = $this->userService->create($request);
 
         if (empty($user)){
-            return response()->json(['error' => 'registration failed'], 500);
+            return response()->json(['message' => 'registration failed'], 500);
         }
 
         return response()->json(['message' => 'success'],201);
@@ -105,7 +105,7 @@ class UserController extends Controller
         $rs = $this->userService->edit($request, $id);
 
         if (empty($rs)){
-            return response()->json(['error' => 'updates failed'], 500);
+            return response()->json(['message' => 'updates failed'], 500);
         }
 
         clear_cache('roles');
@@ -128,7 +128,7 @@ class UserController extends Controller
         clear_cache('permissions');
         clear_cache('menus');
 
-        return $rs ? response()->json(['message' => 'success'],204) : response()->json(['error' => 'failed'], 500);
+        return $rs ? response()->json(['message' => 'success'],204) : response()->json(['message' => 'failed'], 500);
     }
 
     /**
@@ -159,7 +159,7 @@ class UserController extends Controller
         $rs = $user->roles()->sync($roleIds);
 
         if (empty($rs)){
-            return response()->json(['error' => 'sync failed'], 500);
+            return response()->json(['message' => 'sync failed'], 500);
         }
 
         clear_cache('roles');

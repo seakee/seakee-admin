@@ -51,7 +51,7 @@ class PermissionController
         $permission = $this->permissionService->create($request);
 
         if (empty($permission)){
-            return response()->json(['error' => 'creates failed'], 500);
+            return response()->json(['message' => 'creates failed'], 500);
         }
 
         clear_cache('permissions');
@@ -80,7 +80,7 @@ class PermissionController
         $rs = $this->permissionService->edit($request, $id);
 
         if (empty($rs)){
-            return response()->json(['error' => 'updates failed'], 500);
+            return response()->json(['message' => 'updates failed'], 500);
         }
 
         clear_cache('permissions');
@@ -99,7 +99,7 @@ class PermissionController
         $rs = $this->permissionService->delete($ids);
 
         if (empty($rs)){
-            return response()->json(['error' => 'destruction failed'], 500);
+            return response()->json(['message' => 'destruction failed'], 500);
         }
 
         clear_cache('permissions');
