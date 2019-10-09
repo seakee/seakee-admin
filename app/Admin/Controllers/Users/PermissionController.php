@@ -51,12 +51,12 @@ class PermissionController
         $permission = $this->permissionService->create($request);
 
         if (empty($permission)){
-            return response()->json(['message' => 'creates failed'], 500);
+            return json_response(500, trans('error.create_failed'));
         }
 
         clear_cache('permissions');
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -80,13 +80,13 @@ class PermissionController
         $rs = $this->permissionService->edit($request, $id);
 
         if (empty($rs)){
-            return response()->json(['message' => 'updates failed'], 500);
+            return json_response(500, trans('error.update_failed'));
         }
 
         clear_cache('permissions');
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -99,13 +99,13 @@ class PermissionController
         $rs = $this->permissionService->delete($ids);
 
         if (empty($rs)){
-            return response()->json(['message' => 'destruction failed'], 500);
+            return json_response(500, trans('error.destroy_failed'));
         }
 
         clear_cache('permissions');
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],204);
+        return json_response(204);
     }
 
     /**
@@ -131,6 +131,6 @@ class PermissionController
         clear_cache('permissions');
         clear_cache('menus');
 
-        return response()->json(['message' => '共新增' . $count . '条权限，其中成功' . ($count - $failure) . '条失败' . $failure . '条'], 201);
+        return json_response(201, '共新增' . $count . '条权限，其中成功' . ($count - $failure) . '条失败' . $failure . '条');
     }
 }

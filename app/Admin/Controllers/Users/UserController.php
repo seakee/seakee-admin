@@ -78,10 +78,10 @@ class UserController extends Controller
         $user = $this->userService->create($request);
 
         if (empty($user)){
-            return response()->json(['message' => 'registration failed'], 500);
+            return json_response(500, trans('error.reg_failed'));
         }
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -105,14 +105,14 @@ class UserController extends Controller
         $rs = $this->userService->edit($request, $id);
 
         if (empty($rs)){
-            return response()->json(['message' => 'updates failed'], 500);
+            return json_response(500, trans('error.update_failed'));
         }
 
         clear_cache('roles');
         clear_cache('permissions');
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -128,7 +128,7 @@ class UserController extends Controller
         clear_cache('permissions');
         clear_cache('menus');
 
-        return $rs ? response()->json(['message' => 'success'],204) : response()->json(['message' => 'failed'], 500);
+        return $rs ? json_response(204) : json_response(500, trans('error.destroy_failed'));
     }
 
     /**
@@ -140,7 +140,7 @@ class UserController extends Controller
     {
         $user = $this->userService->find($id);
 
-        return response()->json($user->roles);
+        return json_response(200, 'success', $user->roles);
     }
 
     /**
@@ -159,14 +159,14 @@ class UserController extends Controller
         $rs = $user->roles()->sync($roleIds);
 
         if (empty($rs)){
-            return response()->json(['message' => 'sync failed'], 500);
+            return json_response(500, trans('error.grant_role_failed'));
         }
 
         clear_cache('roles');
         clear_cache('permissions');
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -182,7 +182,7 @@ class UserController extends Controller
 
         $menus = $this->menuService->current($permission, $user);
 
-        return response()->json($menus);
+        return json_response(200, 'success', $menus);
     }
 
     /**
@@ -196,7 +196,7 @@ class UserController extends Controller
 
         $permission = $this->permissionService->current($user, $user->roles);
 
-        return response()->json($permission);
+        return json_response(200, 'success', $permission);
     }
 
     /**
@@ -214,6 +214,6 @@ class UserController extends Controller
 
         $profile['menus'] = $this->menuService->tree($menus, true);
 
-        return response()->json($profile);
+        return json_response(200, 'success', $profile);
     }
 }

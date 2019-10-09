@@ -62,12 +62,12 @@ class MenuController extends Controller
         $menu = $this->menuService->create($request);
 
         if (empty($menu)){
-            return response()->json(['message' => 'creates failed'], 500);
+            return json_response(500, trans('error.create_failed'));
         }
 
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -91,12 +91,12 @@ class MenuController extends Controller
         $rs = $this->menuService->edit($request, $id);
 
         if (empty($rs)){
-            return response()->json(['message' => 'updates failed'], 500);
+            return json_response(500, trans('error.update_failed'));
         }
 
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -110,6 +110,6 @@ class MenuController extends Controller
 
         clear_cache('menus');
 
-        return $rs ? response()->json(['message' => 'success'],204) : response()->json(['message' => 'destruction failed'], 500);
+        return $rs ? json_response(204) : json_response(500, trans('error.destroy_failed'));
     }
 }

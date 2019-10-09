@@ -59,10 +59,10 @@ class RoleController extends Controller
         $user = $this->roleService->create($request);
 
         if (empty($user)){
-            return response()->json(['message' => 'creates failed'], 500);
+            return json_response(500, trans('error.create_failed'));
         }
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -86,14 +86,14 @@ class RoleController extends Controller
         $rs = $this->roleService->edit($request, $id);
 
         if (empty($rs)){
-            return response()->json(['message' => 'updates failed'], 500);
+            return json_response(500, trans('error.update_failed'));
         }
 
         clear_cache('roles');
         clear_cache('permissions');
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 
     /**
@@ -106,14 +106,14 @@ class RoleController extends Controller
         $rs = $this->roleService->delete($ids);
 
         if (empty($rs)){
-            return response()->json(['message' => 'destruction failed'], 500);
+            return json_response(500, trans('error.destroy_failed'));
         }
 
         clear_cache('roles');
         clear_cache('permissions');
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],204);
+        return json_response(204);
     }
 
     /**
@@ -126,7 +126,7 @@ class RoleController extends Controller
         $role = $this->roleService->find($id);
 
         if (empty($role)){
-            return json_response(404, 'not found');
+            return json_response(404, trans('error.not_found'));
         }
 
         if (in_array('Super_Admin', $role->toArray())){
@@ -154,13 +154,13 @@ class RoleController extends Controller
         $rs = $role->permissions()->sync($permIds);
 
         if (empty($rs)){
-            return response()->json(['message' => 'sync failed'], 500);
+            return json_response(500, trans('error.grant_permission_failed'));
         }
 
         clear_cache('roles');
         clear_cache('permissions');
         clear_cache('menus');
 
-        return response()->json(['message' => 'success'],201);
+        return json_response(201);
     }
 }

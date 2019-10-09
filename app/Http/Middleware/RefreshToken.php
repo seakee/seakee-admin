@@ -51,7 +51,7 @@ class RefreshToken extends BaseMiddleware
             if ($this->auth->parseToken()->authenticate()) {
                 return $next($request);
             }
-            throw new UnauthorizedHttpException('jwt-auth', '未登录');
+            throw new UnauthorizedHttpException('jwt-auth', trans('error.not_logged_in'));
         } catch (TokenExpiredException $exception) {
             // 此处捕获到了 token 过期所抛出的 TokenExpiredException 异常，我们在这里需要做的是刷新该用户的 token 并将它添加到响应头中
             try {

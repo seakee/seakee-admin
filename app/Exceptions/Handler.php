@@ -57,27 +57,27 @@ class Handler extends ExceptionHandler
     {
         // 参数验证错误的异常，我们需要返回 400 的 http code 和一句错误信息
         if ($exception instanceof ValidationException) {
-            return response()->json(['message' => Arr::first(Arr::collapse($exception->errors()))], 400);
+            return json_response(400, Arr::first(Arr::collapse($exception->errors())));
         }
         // 用户认证的异常，我们需要返回 401 的 http code 和错误信息
         if ($exception instanceof UnauthorizedHttpException) {
-            return response()->json(['message' => $exception->getMessage()], 401);
+            return json_response(401, trans('error.token_not_provided'));
         }
 
         if ($exception instanceof ModelNotFoundException) {
-            return response()->json(['message' => $exception->getMessage()], 404);
+            return json_response(404, trans('error.model_not_found'));
         }
 
         if ($exception instanceof MethodNotAllowedHttpException) {
-            return response()->json(['message' => 'Method Not Allowed', 'Allow' => Arr::first($exception->getHeaders())], 405);
+            return json_response(405, trans('error.method_not_allowed'));
         }
 
         if ($exception instanceof TokenInvalidException) {
-            return response()->json(['message' => $exception->getMessage()], 500);
+            return json_response(500, trans('error.token_invalid'));
         }
 
         if ($exception instanceof QueryException) {
-            return response()->json(['message' => $exception->errorInfo[2]], 500);
+            return json_response(500, $exception->errorInfo[2]);
         }
 
         return parent::render($request, $exception);
