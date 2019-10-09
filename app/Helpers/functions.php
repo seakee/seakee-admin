@@ -172,3 +172,24 @@ if (!function_exists('array_filter_repeat')) {
         return $temp_array;
     }
 }
+
+if (!function_exists('json_response')) {
+    /**
+     * 返回json格式响应
+     *
+     * @param string $message
+     * @param array  $data
+     * @param int    $status
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function json_response($status = 200, $message = 'success', $data = [])
+    {
+        $rtn = [
+            'message' => $message,
+            'data'    => $data,
+        ];
+
+        return response()->json($rtn, $status);
+    }
+}
