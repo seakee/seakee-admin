@@ -19,8 +19,8 @@
                     <el-form-item label="缓存开关" prop="admin.cache.enable">
                         <el-switch
                             v-model="cacheForm.admin.cache.enable"
-                            :active-value="true"
-                            inactive-value="false"
+                            :active-value=true
+                            :inactive-value=false
                             active-color="#13ce66"
                             inactive-color="#ff4949"
                             active-text="开启"
@@ -44,8 +44,8 @@
                     <el-form-item label="CDN开关" prop="admin.cdn.enable">
                         <el-switch
                             v-model="cdnForm.admin.cdn.enable"
-                            :active-value="true"
-                            inactive-value="false"
+                            :active-value=true
+                            :inactive-value=false
                             active-color="#13ce66"
                             inactive-color="#ff4949"
                             active-text="开启"

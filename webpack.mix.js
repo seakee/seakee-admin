@@ -46,13 +46,13 @@ if (!mix.inProduction()) {
  |
  */
 
-mix.js('resources/assets/admin/app.js', 'public/js/admin')
-    .sass('resources/sass/app.scss', 'public/css/admin', {implementation: require('node-sass')})
+mix.js('resources/admin/app.js', 'public/js/admin')
+    .sass('resources/admin/assets/sass/app.scss', 'public/css/admin', {implementation: require('node-sass')})
     .webpackConfig({
         resolve: {
             extensions: ['.js', '.vue', '.json'],
             alias     : {
-                '@': path.resolve(__dirname, 'resources/assets/admin')
+                '@': path.resolve(__dirname, 'resources/admin')
             }
         },
         output : {
