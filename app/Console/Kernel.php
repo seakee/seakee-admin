@@ -24,8 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $mode = config('admin.maintenanceMode');
+
+        if ($mode){
+            $schedule->command('npm run')->withoutOverlapping();
+            $schedule->command('maintenance:mode down')->withoutOverlapping();
+        }
     }
 
     /**
