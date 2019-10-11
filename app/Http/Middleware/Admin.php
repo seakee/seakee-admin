@@ -25,6 +25,21 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
+        //处理维护模式的请求
+        if (config('admin.maintenanceMode')) {
+
+            $data['message'] = 'System is under maintenance, please try again later.';
+            $retryAfter      = 60;
+
+            header("Retry-After: " . $retryAfter);
+
+            if (in_array('api', explode('/', $request->getPathInfo()))) {
+                return response()->json($data, 503);
+            }
+
+            return response()->view('maintenance', $data, 503);
+        }
+
         //为后台加载JWT eloquent配置文件，用于后台账号的登录和token刷新
         config(['jwt.user' => '\App\Models\Users\AdminUser']);
         config(['auth.providers.users.model' => AdminUser::class]);
