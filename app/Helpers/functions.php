@@ -193,3 +193,28 @@ if (!function_exists('json_response')) {
         return response()->json($rtn, $status);
     }
 }
+
+if (!function_exists('array_mds_merge')) {
+    /**
+     * 将两个多维数组合并为一个数组
+     *
+     * a,b数组均为关联数组
+     * 若key在a,b中均存在，若value都不是数组，取a的值
+     * 若key在a,b中均存在，若其中一个value为数组，取数组的值
+     *
+     * @param $a
+     * @param $b
+     */
+    function array_mds_merge(&$a, $b)
+    {
+        foreach ($a as $key => &$val) {
+            if (is_array($val) && array_key_exists($key, $b) && is_array($b[$key])) {
+                array_mds_merge($val, $b[$key]);
+                $val = $val + $b[$key];
+            } else if (is_array($val) || (array_key_exists($key, $b) && is_array($b[$key]))) {
+                $val = is_array($val) ? $val : $b[$key];
+            }
+        }
+        $a = $a + $b;
+    }
+}
