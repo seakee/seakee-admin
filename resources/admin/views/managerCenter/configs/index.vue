@@ -76,7 +76,7 @@
                         <el-input v-model="cdnForm.admin.cdn.js.elementui"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('cdnForm')">立即更新</el-button>
+                        <el-button type="primary" @click="updateCdn()">立即更新</el-button>
                         <el-button @click="resetForm('cdnForm')">重置</el-button>
                     </el-form-item>
                 </el-form>
@@ -139,10 +139,23 @@
                     if (response.data.message === 'success') {
                         this.$message({
                             type   : 'success',
-                            message: '新增成功!'
+                            message: '更新成功!'
                         });
-                        this.resetForm('menuForm');
                     }
+                });
+            },
+            updateCdn() {
+                this.$confirm('此操作将会开启维护模式，系统将在1分钟之内开始重新构建项目，确定要继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText : '取消',
+                    type             : 'warning'
+                }).then(() => {
+                    this.submitForm('cdnForm')
+                }).catch(() => {
+                    this.$message({
+                        type   : 'info',
+                        message: '已取消'
+                    });
                 });
             },
             resetForm(formName) {
