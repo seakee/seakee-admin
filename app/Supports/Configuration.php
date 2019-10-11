@@ -87,8 +87,12 @@ class Configuration
     public function set($key, $value = null): RepositoryContract
     {
         $config = $this->getConfiguration();
-        $config->set($key, $value);
 
+        if (is_array($key)){
+            array_mds_merge($key, $config->all());
+        }
+
+        $config->set($key, $value);
         // Perform the configuration save operation.
         $this->save($config);
 
