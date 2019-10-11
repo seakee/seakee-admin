@@ -83,6 +83,7 @@ class RouteServiceProvider extends ServiceProvider
         $config = config('admin.route');
 
         Route::prefix($config['prefix'])
+            ->middleware($config['middleware'])
             ->namespace($config['namespace'])
             ->group(base_path('routes/admin/index.php'));
     }

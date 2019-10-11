@@ -15,11 +15,9 @@
 $config = config('admin.route');
 
 Route::get('/', 'AdminController@index')
-    ->middleware('web')
     ->name('admin.index');
 
 Route::prefix('api')
-    ->middleware($config['middleware'])
     ->group(function () {
         Route::prefix('v1')->group(base_path('routes/admin/v1.php'));
     });
