@@ -34,4 +34,5 @@ return [
     'destroy_failed'          => '删除失败。',
     'creates_failed'          => '创建失败。',
     'not_found'               => '未找到。',
+    'npm_cmd_failed'          => '该命令不允许执行',
 ];

@@ -34,4 +34,5 @@ return [
     'destroy_failed'          => 'Destroy failed.',
     'create_failed'           => 'created failed.',
     'not_found'               => 'Not Found.',
+    'npm_cmd_failed'          => 'Command Not Allowed.',
 ];
