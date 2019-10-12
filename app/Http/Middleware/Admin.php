@@ -28,7 +28,7 @@ class Admin
         //处理维护模式的请求
         if (config('admin.maintenanceMode')) {
 
-            $data['message'] = 'System is under maintenance, please try again later.';
+            $data['message'] = trans('admin.maintenance');
             $retryAfter      = 60;
 
             header("Retry-After: " . $retryAfter);
