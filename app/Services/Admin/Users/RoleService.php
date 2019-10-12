@@ -94,11 +94,11 @@ class RoleService
      */
     public function current($user): Collection
     {
-        $roles = Cache::tags(['admin', 'roles', 'user'])->get($user->id) ?: [];
+        $tags  = ['admin', 'roles', 'user'];
+        $roles = cache_tags($tags, $user->id);
 
         if (empty($roles)){
-            $roles = $user->roles;
-            Cache::tags(['admin', 'roles', 'user',])->put($user->id, $roles, config('cache.ttl'));
+            $roles = cache_tags($tags, $user->id, $user->roles);
         }
 
         return $roles;

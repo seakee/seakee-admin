@@ -218,3 +218,31 @@ if (!function_exists('array_mds_merge')) {
         $a = $a + $b;
     }
 }
+
+if (!function_exists('cache_tags')) {
+    /**
+     * 缓存标记，开启admin缓存时返回或者存储缓存数据（$data为空时返回数据）
+     *
+     * @param array $tag
+     * @param       $key
+     * @param       $data
+     *
+     * @return null|mixed
+     */
+    function cache_tags(array $tag, $key, $data = [])
+    {
+        if (config('admin.cache.enable')) {
+            if (empty($tag) || empty($key)) {
+                return null;
+            }
+
+            if (empty($data)) {
+                return \Cache::tags($tag)->get($key);
+            }
+
+            \Cache::tags($tag)->put($key, $data, config('admin.cache.ttl'));
+        }
+
+        return $data;
+    }
+}

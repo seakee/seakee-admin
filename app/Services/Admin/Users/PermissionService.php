@@ -96,7 +96,8 @@ class PermissionService
      */
     public function current($user, $roles): array
     {
-        $permission = Cache::tags(['admin', 'permissions', 'user'])->get($user->id) ?: [];
+        $tags       = ['admin', 'permissions', 'user'];
+        $permission = cache_tags($tags, $user->id);
 
         if (empty($permission)){
             if (in_array('Super_Admin', array_column($roles->toArray(), 'name'))){
@@ -108,7 +109,7 @@ class PermissionService
                 $permission = array_keys(array_flip(Arr::collapse($permission  ?? [])));
             }
 
-            Cache::tags(['admin', 'permissions', 'user',])->put($user->id, $permission, config('cache.ttl'));
+            cache_tags($tags, $user->id, $permission);
         }
 
         return $permission;
@@ -119,11 +120,12 @@ class PermissionService
      */
     public function all(): array
     {
-        $permissions = Cache::tags(['admin', 'permissions'])->get('all') ?: [];
+        $tags        = ['admin', 'permissions',];
+        $permissions = cache_tags($tags, 'all');
 
         if (empty($permissions)){
             $permissions = $this->permissionRepository->all()->toArray();
-            Cache::tags(['admin', 'permissions',])->put('all', $permissions, config('cache.ttl'));
+            cache_tags($tags, 'all', $permissions);
         }
 
         return $permissions;
@@ -134,11 +136,12 @@ class PermissionService
      */
     public function allName(): array
     {
-        $permissionNames = Cache::tags(['admin', 'permissions', 'name'])->get('all') ?: [];
+        $tags            = ['admin', 'permissions', 'name'];
+        $permissionNames = cache_tags($tags, 'all');
 
         if (empty($permissionNames)){
             $permissionNames = array_column($this->all(), 'name');
-            Cache::tags(['admin', 'permissions', 'name',])->put('all', $permissionNames, config('cache.ttl'));
+            cache_tags($tags, 'all', $permissionNames);
         }
 
         return $permissionNames;

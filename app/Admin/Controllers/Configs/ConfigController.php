@@ -36,6 +36,11 @@ class ConfigController extends Controller
         }
 
         $configuration->set($data);
+        
+        // If the Cache option is updated,clear all cache
+        if (isset($data['admin']['cache'])){
+            clear_cache(['admin']);
+        }
 
         return json_response();
     }

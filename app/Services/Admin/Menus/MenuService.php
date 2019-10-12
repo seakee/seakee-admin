@@ -123,11 +123,12 @@ class MenuService
      */
     public function all(): array
     {
-        $menus =  Cache::tags(['admin', 'menus'])->get('all') ?: [];
+        $tags = ['admin', 'menus'];
+        $menus = cache_tags($tags, 'all');
 
         if (empty($menus)){
             $menus = $this->menuRepository->all()->toArray();
-            Cache::tags(['admin', 'menus'])->put('all', $menus, config('cache.ttl'));
+            cache_tags($tags, 'all', $menus);
         }
 
         return $menus;
@@ -141,7 +142,8 @@ class MenuService
      */
     public function current($currentPermission, $user)
     {
-        $currentUserMenu = Cache::tags(['admin', 'menus', 'user',])->get($user->id) ?: [];
+        $tags = ['admin', 'menus', 'user',];
+        $currentUserMenu = cache_tags($tags, $user->id);
 
         if (empty($currentUserMenu)) {
             $allMenu = $this->all();
@@ -168,7 +170,7 @@ class MenuService
 
             //过滤重复菜单
             $currentUserMenu = array_filter_repeat($currentUserMenu, 'id');
-            Cache::tags(['admin', 'menus', 'user',])->put($user->id, $currentUserMenu, config('cache.ttl'));
+            cache_tags($tags, $user->id, $currentUserMenu);;
         }
 
         return $currentUserMenu;
