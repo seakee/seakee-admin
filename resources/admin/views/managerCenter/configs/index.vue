@@ -53,22 +53,14 @@
                         >
                         </el-switch>
                     </el-form-item>
-                    <div class="line">
-                        <span class="left"></span>
-                        <span class="txt">CSS</span>
-                        <span class="right"></span>
-                    </div>
+                    <el-divider content-position="left">CSS</el-divider>
                     <el-form-item label="Element" prop="admin.cdn.css.elementui">
                         <el-input v-model="cdnForm.admin.cdn.css.elementui"></el-input>
                     </el-form-item>
                     <el-form-item label="Fontawesome" prop="admin.cdn.css.fontawesome">
                         <el-input v-model="cdnForm.admin.cdn.css.fontawesome"></el-input>
                     </el-form-item>
-                    <div class="line">
-                        <span class="left"></span>
-                        <span class="txt">JS</span>
-                        <span class="right"></span>
-                    </div>
+                    <el-divider content-position="left">JS</el-divider>
                     <el-form-item label="Vue" prop="admin.cdn.js.vue">
                         <el-input v-model="cdnForm.admin.cdn.js.vue"></el-input>
                     </el-form-item>
@@ -166,27 +158,11 @@
 </script>
 
 <style scoped>
-    .line {
-        margin-top: -16px;
-        margin-bottom: 20px;
+    .el-divider--horizontal {
+        display: block;
+        height: 1px;
         width: 400px;
-    }
-
-    .line .left {
-        display: inline-block;
-        width: 20px;
-        border-top: 1px solid #eee;
-    }
-
-    .line .right {
-        display: inline-block;
-        width: 338px;
-        border-top: 1px solid #eee;
-    }
-
-    .line .txt {
-        color: #686868;
-        vertical-align: -4px;
+        margin: 24px 0;
     }
 
     .el-input {
