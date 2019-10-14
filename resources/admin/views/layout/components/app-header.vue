@@ -13,6 +13,19 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
+        <div class="header-avatar">
+            <span>Hi, {{ profile.user_name }}</span>
+            <el-dropdown>
+                  <span class="el-dropdown-link">
+                    <el-avatar icon="el-icon-user-solid"></el-avatar>
+                  </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item icon="el-icon-user">我的</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-setting">设置</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-switch-button" divided @click.native="logout">注销</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </div>
     </el-header>
 </template>
 
@@ -21,6 +34,7 @@
         name: "app-header",
         data(){
             return {
+                profile: this.$store.getters.profile,
                 breadcrumbList: null,
                 title: appConfig.name
             }
@@ -41,6 +55,13 @@
                 } else {
                     this.breadcrumbList = matchedList;
                 }
+            },
+            logout () {
+                this.$store.dispatch('logout').then(() => {
+                    this.$router.push({path: '/login'});
+                }).catch(() => {
+
+                })
             }
         }
     }
@@ -71,6 +92,7 @@
     .header-nav {
         padding-left: 200px;
         margin: 25px 20px;
+        position: absolute;
     }
 
     .el-breadcrumb__separator,
@@ -82,5 +104,23 @@
     .el-breadcrumb__item:last-child .el-breadcrumb__inner,
     .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover{
         color: #FFFFFF;
+    }
+
+    .el-dropdown {
+        margin: 10px 20px 10px 10px;
+    }
+
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
+    }
+    .el-icon-arrow-down {
+        font-size: 12px;
+    }
+    .header-avatar {
+        float: right;
+    }
+    .header-avatar span {
+        vertical-align: middle;
     }
 </style>

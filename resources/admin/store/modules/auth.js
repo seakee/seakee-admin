@@ -70,9 +70,18 @@ let auth = {
         // 用户登出，清除本地数据并重定向至登录页面
         logout({commit}) {
             return new Promise(function (resolve, reject) {
-                commit('logout', '');
-                removeData('token');
-                router.push({path: '/login'});
+                logout().then(response => {
+                    if (response.status === 200) {
+                        commit('logout', '');
+                        removeData('token');
+                        router.push({path: '/login'});
+                        resolve()
+                    } else {
+                        reject();
+                    }
+                }).catch(error => {
+                    reject(error)
+                });
             })
         },
         // 将刷新的 token 保存至本地
