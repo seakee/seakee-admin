@@ -13,7 +13,7 @@
             <link rel="stylesheet" href="{{ $css }}">
         @endforeach
     @else
-        <link href="/css/admin/element-ui/2.10.1/index.css" rel="stylesheet">
+        <link href="/css/admin/element-ui/2.12.0/index.css" rel="stylesheet">
         <link href="/css/admin/font-awesome/5.9.0/all.min.css" rel="stylesheet">
     @endif
 </head>

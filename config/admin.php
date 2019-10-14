@@ -51,12 +51,12 @@ return [
     'cdn'     => [
         'enable' => false,
         'css'    => [
-            'elementui'   => '//cdn.bootcss.com/element-ui/2.10.1/theme-chalk/index.css',
+            'elementui'   => '//cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css',
             'fontawesome' => '//cdn.bootcss.com/font-awesome/5.9.0/css/all.min.css',
         ],
         'js'     => [
             'vue'        => '//cdn.bootcss.com/vue/2.6.10/vue.min.js',
-            'elementui' => '//cdn.bootcss.com/element-ui/2.10.1/index.js',
+            'elementui'  => '//cdn.bootcss.com/element-ui/2.12.0/index.js',
         ],
     ],
 
