@@ -72,5 +72,12 @@ Route::group(['namespace' => 'Menus'], function () {
 });
 
 Route::group(['namespace' => 'Configs'], function () {
+    Route::get('configs', 'ConfigController@index')->name('admin.configs.index');
     Route::put('configs', 'ConfigController@update')->name('admin.configs.update');
+});
+
+Route::group(['namespace' => 'Dashboards'], function () {
+    Route::get('dashboards', 'DashboardController@index')->name('admin.dashboards.index');
+    Route::get('dashboards/server', 'DashboardController@server')->name('admin.dashboards.server');
+    Route::get('dashboards/system', 'DashboardController@system')->name('admin.dashboards.system');
 });

@@ -16,6 +16,11 @@ use Illuminate\Http\Request;
 
 class ConfigController extends Controller
 {
+    public function index()
+    {
+
+    }
+
     /**
      * Update Configuration, rewrite by file .config.yml
      *
