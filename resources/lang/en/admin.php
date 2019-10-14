@@ -20,5 +20,31 @@ return [
     |
     */
 
+    'on'  => 'On',
+    'off' => 'Off',
+
     'maintenance' => 'System is under maintenance, please try again later.',
+
+    //Server Info
+    'phpVersion'     => 'PHP Version',
+    'os'             => 'OS',
+    'server'         => 'Server Soft',
+    'db'             => 'Database',
+    'maxUploadSize'  => 'Max Upload Size',
+    'executeTime'    => 'PHP Execute Time',
+    'serverIp'       => 'Server IP',
+    'disk'           => 'Disk Free Space',
+
+    //System Info
+    'sysVersion'      => 'SeakeeAdmin Version',
+    'laravelVersion'  => 'Laravel Version',
+    'timeZone'        => 'Timezone',
+    'cache'           => 'Cache',
+    'cdn'             => 'CDN',
+    'root'            => 'Application Root',
+    'broadcastDriver' => 'Broadcast Driver',
+    'cacheDriver'     => 'Cache Driver',
+    'queueCon'        => 'Queue Connection',
+    'sessionDriver'   => 'Session Driver',
+    'sessionLifetime' => 'Session Lifetime',
 ];
