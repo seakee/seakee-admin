@@ -1,6 +1,6 @@
 <template>
     <aside class="el-aside">
-        <el-menu default-active="" class="el-menu-vertical" unique-opened router>
+        <el-menu :default-active="activeIndex" class="el-menu-vertical" unique-opened router>
             <template v-for="(menu, parentIndex) in menus">
                 <el-submenu :index="parentIndex + ''">
                     <template slot="title">
@@ -25,7 +25,22 @@
         name: "app-sidebar",
         data() {
             return {
-                menus: this.$store.getters.profile.menus
+                menus: this.$store.getters.profile.menus,
+                activeIndex: 0
+            }
+        },
+        methods: {
+            handleActiveIndex() {
+                let matchedList = this.$route.matched;
+                this.activeIndex = matchedList[matchedList.length - 1].meta.activeIndex;
+            }
+        },
+        created() {
+            this.handleActiveIndex();
+        },
+        watch: {
+            $route() {
+                this.handleActiveIndex()
             }
         }
     }

@@ -16,6 +16,7 @@ let router = new Router({
             path     : '/',
             component: Layout,
             name     : 'admin',
+            redirect : '/managerCenter/dashboards/index',
             meta     : {
                 title: '首页'
             },

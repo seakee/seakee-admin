@@ -13,7 +13,8 @@ let userCenterRouter = {
             path     : 'users/index',
             name     : 'userCenter.users.index',
             meta     : {
-                title   : '用户管理'
+                title   : '用户管理',
+                activeIndex : '/userCenter/users/index'
             },
             component: () => import('@/views/userCenter/users/index')
         },
@@ -21,7 +22,8 @@ let userCenterRouter = {
             path     : 'users/create',
             name     : 'userCenter.users.create',
             meta     : {
-                title   : '新增用户'
+                title   : '新增用户',
+                activeIndex : '/userCenter/users/index'
             },
             component: () => import('@/views/userCenter/users/create')
         },
@@ -29,7 +31,8 @@ let userCenterRouter = {
             path     : 'users/edit/:id(\\d+)',
             name     : 'userCenter.users.edit',
             meta     : {
-                title   : '编辑用户'
+                title   : '编辑用户',
+                activeIndex : '/userCenter/users/index'
             },
             component: () => import('@/views/userCenter/users/edit')
         },
@@ -37,7 +40,8 @@ let userCenterRouter = {
             path     : 'users/syncRoles/:id(\\d+)',
             name     : 'userCenter.users.syncRoles',
             meta     : {
-                title   : '角色分配'
+                title   : '角色分配',
+                activeIndex : '/userCenter/users/index'
             },
             component: () => import('@/views/userCenter/users/syncRoles')
         },
@@ -45,7 +49,8 @@ let userCenterRouter = {
             path     : 'roles/index',
             name     : 'userCenter.roles.index',
             meta     : {
-                title   : '角色管理'
+                title   : '角色管理',
+                activeIndex : '/userCenter/roles/index'
             },
             component: () => import('@/views/userCenter/roles/index')
         },
@@ -53,7 +58,8 @@ let userCenterRouter = {
             path     : 'roles/create',
             name     : 'userCenter.roles.create',
             meta     : {
-                title   : '新增角色'
+                title   : '新增角色',
+                activeIndex : '/userCenter/roles/index'
             },
             component: () => import('@/views/userCenter/roles/create')
         },
@@ -61,7 +67,8 @@ let userCenterRouter = {
             path     : 'roles/edit/:id(\\d+)',
             name     : 'userCenter.roles.edit',
             meta     : {
-                title   : '编辑角色'
+                title   : '编辑角色',
+                activeIndex : '/userCenter/roles/index'
             },
             component: () => import('@/views/userCenter/roles/edit')
         },
@@ -69,7 +76,8 @@ let userCenterRouter = {
             path     : 'roles/syncPermissions/:id(\\d+)',
             name     : 'userCenter.roles.syncRoles',
             meta     : {
-                title   : '角色授权'
+                title   : '角色授权',
+                activeIndex : '/userCenter/roles/index'
             },
             component: () => import('@/views/userCenter/roles/syncPermissions')
         },
@@ -77,7 +85,8 @@ let userCenterRouter = {
             path     : 'permissions/index',
             name     : 'userCenter.permissions.index',
             meta     : {
-                title   : '权限管理'
+                title   : '权限管理',
+                activeIndex : '/userCenter/permissions/index'
             },
             component: () => import('@/views/userCenter/permissions/index')
         },
@@ -85,7 +94,8 @@ let userCenterRouter = {
             path     : 'permissions/create',
             name     : 'userCenter.permissions.create',
             meta     : {
-                title   : '新增权限'
+                title   : '新增权限',
+                activeIndex : '/userCenter/permissions/index'
             },
             component: () => import('@/views/userCenter/permissions/create')
         },
@@ -93,7 +103,8 @@ let userCenterRouter = {
             path     : 'permissions/edit/:id(\\d+)',
             name     : 'userCenter.permissions.edit',
             meta     : {
-                title   : '编辑权限'
+                title   : '编辑权限',
+                activeIndex : '/userCenter/permissions/index'
             },
             component: () => import('@/views/userCenter/permissions/edit')
         }
