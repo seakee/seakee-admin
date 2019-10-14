@@ -45,8 +45,8 @@ class AdminMenusTableSeeder extends Seeder
         DB::table('admin_menus')->insert([
             'icon' => 'fas fa-tachometer-alt',
             'name' => '仪表盘',
-            'route_name' => 'admin.dashboard.index',
-            'path' => '/managerCenter/dashboard/index',
+            'route_name' => 'admin.dashboards.index',
+            'path' => '/managerCenter/dashboards/index',
             'father_id' => 1,
             'sort' => 10,
             'display' => 1,
@@ -81,8 +81,8 @@ class AdminMenusTableSeeder extends Seeder
         DB::table('admin_menus')->insert([
             'icon' => 'fas fa-folder',
             'name' => '文件管理',
-            'route_name' => 'admin.file.index',
-            'path' => '/managerCenter/file/index',
+            'route_name' => 'admin.files.index',
+            'path' => '/managerCenter/files/index',
             'father_id' => 1,
             'sort' => 7,
             'display' => 1,
@@ -93,7 +93,7 @@ class AdminMenusTableSeeder extends Seeder
         DB::table('admin_menus')->insert([
             'icon' => 'fas fa-user',
             'name' => '用户管理',
-            'route_name' => 'admin.user.index',
+            'route_name' => 'admin.users.index',
             'path' => '/userCenter/users/index',
             'father_id' => 2,
             'sort' => 10,
@@ -105,7 +105,7 @@ class AdminMenusTableSeeder extends Seeder
         DB::table('admin_menus')->insert([
             'icon' => 'fas fa-address-card',
             'name' => '角色管理',
-            'route_name' => 'admin.role.index',
+            'route_name' => 'admin.roles.index',
             'path' => '/userCenter/roles/index',
             'father_id' => 2,
             'sort' => 9,
@@ -117,7 +117,7 @@ class AdminMenusTableSeeder extends Seeder
         DB::table('admin_menus')->insert([
             'icon' => 'fas fa-user-lock',
             'name' => '权限管理',
-            'route_name' => 'admin.permission.index',
+            'route_name' => 'admin.permissions.index',
             'path' => '/userCenter/permissions/index',
             'father_id' => 2,
             'sort' => 8,
