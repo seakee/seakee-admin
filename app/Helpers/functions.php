@@ -246,3 +246,18 @@ if (!function_exists('cache_tags')) {
         return $data;
     }
 }
+
+if (!function_exists('file_url')) {
+    /**
+     * 返回文件的url
+     *
+     * @param        $path
+     * @param string $disk
+     *
+     * @return mixed
+     */
+    function file_url($path, $disk = 'public')
+    {
+        return \Storage::disk($disk)->url($path);
+    }
+}

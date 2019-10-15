@@ -15,6 +15,10 @@ Route::group([
     Route::post('logout', 'AuthController@logout')->name('admin.logout');
 });
 
+Route::group(['namespace' => 'Commons'], function () {
+    Route::post('files/avatar', 'FileController@avatar')->name('admin.files.avatar');
+});
+
 Route::group(['namespace' => 'Users'], function () {
     Route::get('users/{id}/roles', 'UserController@showRoles')->name('admin.users.roles');
     Route::get('users/{id}/menus', 'UserController@showMenus')->name('admin.users.menus');

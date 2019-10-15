@@ -11,12 +11,12 @@ return [
     /**
      * 应用标题
      */
-    'name'    => 'SeakeeAdmin',
+    'name'            => 'SeakeeAdmin',
 
     /**
      * 版本号
      */
-    'version' => '0.1.5',
+    'version'         => '0.1.5',
 
     /**
      * 维护模式开关（仅作为后台管理页面及接口的开关，不会影响到全局维护模式）
@@ -26,7 +26,7 @@ return [
     /**
      * 路由配置
      */
-    'route'   => [
+    'route'           => [
         // 路由前缀
         'prefix'     => 'admin',
         // 控制器命名空间前缀
@@ -38,7 +38,7 @@ return [
     /**
      * 缓存相关配置
      */
-    'cache'   => [
+    'cache'           => [
         //缓存开关
         'enable' => true,
         //缓存时间（单位：min）
@@ -48,23 +48,33 @@ return [
     /**
      * CDN配置
      */
-    'cdn'     => [
+    'cdn'             => [
         'enable' => false,
         'css'    => [
             'elementui'   => '//cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css',
             'fontawesome' => '//cdn.bootcss.com/font-awesome/5.9.0/css/all.min.css',
         ],
         'js'     => [
-            'vue'        => '//cdn.bootcss.com/vue/2.6.10/vue.min.js',
-            'elementui'  => '//cdn.bootcss.com/element-ui/2.12.0/index.js',
+            'vue'       => '//cdn.bootcss.com/vue/2.6.10/vue.min.js',
+            'elementui' => '//cdn.bootcss.com/element-ui/2.12.0/index.js',
         ],
     ],
 
     /**
      * API配置
      */
-    'api'     => [
+    'api'             => [
         'baseURL' => '/admin/api/v1',
         'timeout' => 5000,
+    ],
+
+    /**
+     * 存储配置
+     */
+    'storage' => [
+        'default'     => 'admin',
+        'public'      => 'admin_public',
+        'public_root' => 'uploads/admin',
+        'public_url'  => '/uploads/admin',
     ],
 ];
