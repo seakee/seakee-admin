@@ -75,3 +75,13 @@ a:hover {
         height: 0;
     }
 }
+
+@import '~nprogress/nprogress.css';
+
+#nprogress {
+    display: block;
+}
+#nprogress .bar {
+    background: rgb(140, 197, 255) !important;
+    height: 3px;
+}

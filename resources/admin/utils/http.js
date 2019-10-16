@@ -1,6 +1,12 @@
 import axios from 'axios'
 import store from '@/store'
 import { Message } from 'element-ui'
+import NProgress from 'nprogress/nprogress'
+
+//请求加载进度条配置
+NProgress.configure({
+    showSpinner: false,
+});
 
 let http = axios.create({
     baseURL: appConfig.api.baseURL,
@@ -9,6 +15,9 @@ let http = axios.create({
 
 // request拦截器
 http.interceptors.request.use(config => {
+
+    //请求加载进度条开始
+    NProgress.start();
     let token = store.getters.token;
 
     if (token){
@@ -17,7 +26,9 @@ http.interceptors.request.use(config => {
 
     return config
 }, error => {
-    Promise.reject(error)
+    //请求加载进度条完成
+    NProgress.done();
+    Promise.reject(error);
 });
 
 //response拦截器
@@ -28,8 +39,12 @@ http.interceptors.response.use((response) => {
         // 如果 header 中存在 token，那么触发 refreshToken 方法，替换本地的 token
         store.dispatch('refreshToken', token);
     }
+    //请求加载进度条完成
+    NProgress.done();
     return response
 }, (error) => {
+    //请求加载进度条完成
+    NProgress.done();
     switch (error.response.status) {
 
         // 如果响应中的 http code 为 401，那么则此用户可能 token 失效了之类的，我会触发 logout 方法，清除本地的数据并将用户重定向至登录页面

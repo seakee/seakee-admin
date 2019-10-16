@@ -31,12 +31,7 @@
 
 <style rel="stylesheet/scss" lang="scss">
     .app-main {
-        margin-right: auto;
-        margin-left: auto;
-    }
-
-    .app-container {
-        padding: 20px;
+        margin: 20px;
     }
 
     .pagination-container {
