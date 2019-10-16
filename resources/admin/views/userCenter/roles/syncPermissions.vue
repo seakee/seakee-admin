@@ -76,7 +76,7 @@
             },
             fetchData(id) {
                 getPermissions(id).then(response => {
-                    this.permissions = response.data;
+                    this.permissions = response.data.data;
                     getList({per_page: 100}).then(response => {
                         this.permissionsList = response.data;
 

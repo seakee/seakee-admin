@@ -76,7 +76,7 @@
             },
             fetchData(id) {
                 getRoles(id).then(response => {
-                    this.roles = response.data;
+                    this.roles = response.data.data;
                     getList({per_page: 100}).then(response => {
                         this.rolesList = response.data;
 
