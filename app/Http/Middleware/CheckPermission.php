@@ -44,7 +44,7 @@ class CheckPermission
      *
      * @var array
      */
-    protected $exceptRouteName = ['admin.login', 'admin.index', 'admin.logout', 'admin.users.profile'];
+    protected $exceptRouteName = ['admin.login', 'admin.index', 'admin.logout', 'admin.profile.show', 'admin.profile.update'];
 
     /**
      * Handle an incoming request.
