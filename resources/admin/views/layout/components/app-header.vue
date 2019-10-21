@@ -26,10 +26,15 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
-        <el-drawer title="我的" :visible.sync="profileDrawer" :direction="direction">
-            <avatar :username="profile.user_name" :size="150" backgroundColor="#c0c4cc"
-                    :customStyle="{margin: '0 auto'}"></avatar>
-            <div class="profile">
+        <el-drawer :visible.sync="profileDrawer" :direction="direction" size="22%" :show-close="false">
+            <div class="profile-header">
+                <avatar :username="profile.user_name"
+                        :src="avatar"
+                        :size="150"
+                        backgroundColor="#c0c4cc"
+                        :customStyle="{margin: '0 auto'}"></avatar>
+            </div>
+            <div class="profile-content" :style="{ 'height': profileHeight + 'px' }">
                 <div class="name">
                     <h3>{{ profile.user_name }}</h3>
                 </div>
@@ -39,18 +44,70 @@
                     </template>
                 </div>
                 <div class="info">
-
+                    <el-table :data="profileData" style="width: 100%" :show-header="false">
+                        <el-table-column prop="key" align="center"></el-table-column>
+                        <el-table-column prop="value"></el-table-column>
+                    </el-table>
                 </div>
             </div>
+            <div class="profile-footer">
+                <button type="button" class="el-button el-button--primary" @click="settingDrawer = true">
+                    <i class="el-icon-setting"></i><span>设置</span>
+                </button>
+            </div>
         </el-drawer>
-        <el-drawer title="设置" :visible.sync="settingDrawer" :direction="direction">
-            <span>我来啦!</span>
+        <el-drawer title="设置" :visible.sync="settingDrawer" size="22%" :direction="direction">
+            <div class="profile-header">
+                <el-upload
+                    class="avatar-uploader"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload">
+                    <img v-if="avatar" :src="avatar" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+            </div>
+            <div class="profile-content">
+                <div class="name">
+                    <h3>{{ profile.user_name }}</h3>
+                </div>
+                <div class="roles">
+                    <template v-for="(item) in profile.roles">
+                        {{ item }}
+                    </template>
+                </div>
+                <div class="info">
+                    <el-form :model="userForm" :rules="rules" ref="userForm" label-width="70px">
+                        <el-form-item label="邮箱" prop="email">
+                            <el-input v-model="userForm.email"></el-input>
+                        </el-form-item>
+                        <el-form-item label="手机号" prop="mobile">
+                            <el-input v-model="userForm.mobile"></el-input>
+                        </el-form-item>
+                        <el-form-item label="原始密码" prop="password">
+                            <el-input type="password" v-model="userForm.password"></el-input>
+                        </el-form-item>
+                        <el-form-item label="新密码" prop="password_new">
+                            <el-input type="password" v-model="userForm.password_new"></el-input>
+                        </el-form-item>
+                        <el-form-item label="确认密码" prop="password_confirmation">
+                            <el-input type="password" v-model="userForm.password_confirmation"></el-input>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+            <div class="profile-footer-edit">
+                <el-button @click="resetForm('userForm')">重置</el-button>
+                <el-button type="primary" @click="submitForm('userForm')">立即更新</el-button>
+            </div>
         </el-drawer>
     </el-header>
 </template>
 
 <script>
-    import Avatar from 'vue-avatar'
+    import Avatar from 'vue-avatar';
+    import { updateProfile } from "@/api/auth";
 
     export default {
         name      : "app-header",
@@ -58,13 +115,66 @@
             Avatar
         },
         data() {
+            let validatePass = (rule, value, callback) => {
+                if (this.userForm.password !== '') {
+                    this.$refs.userForm.validateField('password_confirmation');
+                }
+                callback();
+            };
+            let validatePass2 = (rule, value, callback) => {
+                if (this.userForm.password_new !== this.userForm.password_confirmation) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
             return {
+                userForm: {
+                    email                : this.$store.getters.profile.email,
+                    mobile               : this.$store.getters.profile.mobile,
+                    password             : '',
+                    password_confirmation: '',
+                    password_new         : '',
+                },
+                avatar: this.$store.getters.profile.avatar,
                 profileDrawer : false,
                 settingDrawer : false,
                 direction     : 'rtl',
                 profile       : this.$store.getters.profile,
                 breadcrumbList: null,
-                title         : appConfig.name
+                title         : appConfig.name,
+                profileHeight : 0,
+                profileData   : [
+                    {
+                        key  : '电话',
+                        value: this.$store.getters.profile.mobile
+                    }, {
+                        key  : '邮箱',
+                        value: this.$store.getters.profile.email
+                    }
+                ],
+                rules: {
+                    email: [
+                        { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+                        { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+                    ],
+                    mobile: [
+                        { required: true, message: '请输入手机号', trigger: 'blur' },
+                        { pattern: /^1[3|4|5|7|8][0-9]\d{8}$/, message: '请输入正确的手机号', trigger: ['blur', 'change'] }
+                    ],
+                    password: [
+                        { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: ['blur', 'change'] },
+                        { validator: validatePass, trigger: 'blur' }
+                    ],
+                    password_confirmation: [
+                        { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: ['blur', 'change'] },
+                        { validator: validatePass2, trigger: 'blur' }
+                    ],
+                    password_new: [
+                        { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: ['blur', 'change'] },
+                        { validator: validatePass2, trigger: 'blur' }
+                    ],
+                }
             }
         },
         watch     : {
@@ -73,7 +183,8 @@
             }
         },
         created() {
-            this.getBreadcrumb()
+            this.getBreadcrumb();
+            this.setProfileHeight();
         },
         methods   : {
             getBreadcrumb() {
@@ -91,14 +202,48 @@
 
                 })
             },
-            handleClose(done) {
-                this.$confirm('确认关闭？')
-                    .then(_ => {
-                        done();
-                    })
-                    .catch(_ => {
+            setProfileHeight() {
+                this.profileHeight = window.innerHeight - 250;
+            },
+            destroyed() {
+                window.removeEventListener('resize', this.setProfileHeight)
+            },
+            handleAvatarSuccess(res, file) {
+                this.avatar = URL.createObjectURL(file.raw);
+            },
+            beforeAvatarUpload(file) {
+                let isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isLt2M;
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    let userForm = null;
+                    if (this.userForm.password === '' && this.userForm.password_confirmation === '' && this.userForm.password_new === '') {
+                        userForm = {
+                            email    : this.userForm.email,
+                            mobile   : this.userForm.mobile,
+                        }
+                    } else {
+                        userForm = this.userForm
+                    }
+
+                    updateProfile(userForm).then(response => {
+                        if (response.data.message === 'success') {
+                            this.$message({
+                                type   : 'success',
+                                message: '更新成功!'
+                            });
+                        }
                     });
-            }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
         }
     }
 </script>
@@ -155,6 +300,10 @@
         font-size: 12px;
     }
 
+    .el-drawer {
+        background: #f4f6f9 !important;
+    }
+
     .header-avatar {
         float: right;
     }
@@ -163,21 +312,77 @@
         vertical-align: middle;
     }
 
-    .profile {
-        padding: 20px 20px 0;
+    .el-drawer__header {
+        background: #343a40 !important;
+        margin-bottom: 0;
     }
 
-    .profile .name h3{
+    .profile-header {
+        padding-top: 20px;
+        background: #343a40 !important;
+        padding-bottom: 20px;
+    }
+
+    .profile-content .name h3 {
+        color: #FFFFFF;
         margin-top: 0;
-        margin-bottom: 10px;
+        padding-bottom: 10px;
+        margin-bottom: 0;
     }
 
-    .profile .roles {
-        margin-bottom: 23px;
+    .profile-content .roles {
+        padding-bottom: 23px;
         color: #6c757d !important;
     }
 
-    .profile .name, .profile .roles {
+    .profile-content .name, .profile-content .roles {
         text-align: center;
+        background: #343a40 !important;
+    }
+
+    .profile-footer button {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        display: flex;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        font: 60px / 150px Helvetica, Arial, sans-serif;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(192, 196, 204);
+        color: rgb(255, 255, 255);
+        margin: 0 auto;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+    .avatar {
+        width: 150px;
+        height: 150px;
+        display: block;
+    }
+    form {
+        margin: 20px 30px;
+    }
+    .profile-footer-edit {
+        align-items: center;
+        text-align: center;
+        button {
+            width: 40%;
+        }
     }
 </style>
