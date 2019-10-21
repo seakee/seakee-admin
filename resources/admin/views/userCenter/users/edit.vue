@@ -96,7 +96,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     let userForm = null;
-                    if (this.userForm.password === '' && this.userForm.password === '') {
+                    if (this.userForm.password === '' && this.userForm.password_confirmation === '') {
                         userForm = {
                             user_name: this.userForm.user_name,
                             email    : this.userForm.email,
