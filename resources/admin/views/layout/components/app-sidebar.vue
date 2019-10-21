@@ -1,6 +1,10 @@
 <template>
     <aside class="el-aside">
-        <el-menu :default-active="activeIndex" class="el-menu-vertical" unique-opened router>
+        <el-menu :default-active="activeIndex" class="el-menu-vertical"
+                 unique-opened
+                 router
+                 background-color="#545c64"
+                 text-color="#c2c7d0">
             <template v-for="(menu, parentIndex) in menus">
                 <el-submenu :index="parentIndex + ''">
                     <template slot="title">
@@ -47,8 +51,13 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
+    .el-submenu__title i {
+        color: #c2c7d0;
+    }
+
     .el-menu-item i {
         width: 20px;
+        color: #c2c7d0;
     }
 
     .el-aside {

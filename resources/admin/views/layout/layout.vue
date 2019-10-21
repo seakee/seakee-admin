@@ -33,4 +33,8 @@
         width: 25px;
     }
 
+    .app-content {
+        background: #f4f6f9;
+    }
+
 </style>

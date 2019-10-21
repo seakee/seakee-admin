@@ -18,7 +18,7 @@
         },
         methods: {
             getHeight(){
-                this.height = window.innerHeight - 100;
+                this.height = window.innerHeight - 140;
             }
 
         },

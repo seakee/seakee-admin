@@ -17,29 +17,57 @@
             <span>Hi, {{ profile.user_name }}</span>
             <el-dropdown>
                   <span class="el-dropdown-link">
-                    <el-avatar icon="el-icon-user-solid"></el-avatar>
+                    <avatar :username="profile.user_name" :size="40" backgroundColor="#c0c4cc"></avatar>
                   </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item icon="el-icon-user">我的</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-setting">设置</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-user" @click.native="profileDrawer = true">我的</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-setting" @click.native="settingDrawer = true">设置</el-dropdown-item>
                     <el-dropdown-item icon="el-icon-switch-button" divided @click.native="logout">注销</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
+        <el-drawer title="我的" :visible.sync="profileDrawer" :direction="direction">
+            <avatar :username="profile.user_name" :size="150" backgroundColor="#c0c4cc"
+                    :customStyle="{margin: '0 auto'}"></avatar>
+            <div class="profile">
+                <div class="name">
+                    <h3>{{ profile.user_name }}</h3>
+                </div>
+                <div class="roles">
+                    <template v-for="(item) in profile.roles">
+                        {{ item }}
+                    </template>
+                </div>
+                <div class="info">
+
+                </div>
+            </div>
+        </el-drawer>
+        <el-drawer title="设置" :visible.sync="settingDrawer" :direction="direction">
+            <span>我来啦!</span>
+        </el-drawer>
     </el-header>
 </template>
 
 <script>
+    import Avatar from 'vue-avatar'
+
     export default {
-        name: "app-header",
-        data(){
+        name      : "app-header",
+        components: {
+            Avatar
+        },
+        data() {
             return {
-                profile: this.$store.getters.profile,
+                profileDrawer : false,
+                settingDrawer : false,
+                direction     : 'rtl',
+                profile       : this.$store.getters.profile,
                 breadcrumbList: null,
-                title: appConfig.name
+                title         : appConfig.name
             }
         },
-        watch: {
+        watch     : {
             $route() {
                 this.getBreadcrumb()
             }
@@ -47,21 +75,29 @@
         created() {
             this.getBreadcrumb()
         },
-        methods: {
+        methods   : {
             getBreadcrumb() {
                 let matchedList = this.$route.matched;
-                if (matchedList[0].name === 'admin'){
+                if (matchedList[0].name === 'admin') {
                     this.breadcrumbList = [];
                 } else {
                     this.breadcrumbList = matchedList;
                 }
             },
-            logout () {
+            logout() {
                 this.$store.dispatch('logout').then(() => {
                     this.$router.push({path: '/login'});
                 }).catch(() => {
 
                 })
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
             }
         }
     }
@@ -80,7 +116,7 @@
     .header-title {
         min-height: 100%;
         min-width: 200px;
-        background: rgba(0, 0, 0, 0.05);
+        background: #4b545c;
         position: absolute;
         display: flex;
     }
@@ -102,7 +138,7 @@
     .el-breadcrumb__inner a:hover,
     .el-breadcrumb__inner.is-link:hover,
     .el-breadcrumb__item:last-child .el-breadcrumb__inner,
-    .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover{
+    .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover {
         color: #FFFFFF;
     }
 
@@ -114,13 +150,34 @@
         cursor: pointer;
         color: #409EFF;
     }
+
     .el-icon-arrow-down {
         font-size: 12px;
     }
+
     .header-avatar {
         float: right;
     }
+
     .header-avatar span {
         vertical-align: middle;
+    }
+
+    .profile {
+        padding: 20px 20px 0;
+    }
+
+    .profile .name h3{
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .profile .roles {
+        margin-bottom: 23px;
+        color: #6c757d !important;
+    }
+
+    .profile .name, .profile .roles {
+        text-align: center;
     }
 </style>
