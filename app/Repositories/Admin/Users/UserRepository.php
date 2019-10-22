@@ -88,4 +88,14 @@ class UserRepository
 
         return $this->user->findOrFail($ids, $columns);
     }
+
+    /**
+     * @param array $where
+     *
+     * @return mixed
+     */
+    public function get(array $where)
+    {
+        return $this->user->where($where)->get(['id', 'user_name', 'avatar', 'email', 'mobile', 'status', 'rank', 'created_at']);
+    }
 }

@@ -114,4 +114,14 @@ class UserService
     {
         return $this->userRepository->find($ids);
     }
+
+    /**
+     * @param array $where
+     *
+     * @return mixed
+     */
+    public function get(array $where)
+    {
+        return $this->userRepository->get($where);
+    }
 }

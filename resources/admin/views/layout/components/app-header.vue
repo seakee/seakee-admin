@@ -17,7 +17,7 @@
             <span>Hi, {{ profile.user_name }}</span>
             <el-dropdown>
                   <span class="el-dropdown-link">
-                    <avatar :username="profile.user_name" :size="40" backgroundColor="#c0c4cc"></avatar>
+                    <avatar :username="profile.user_name" :src="userForm.avatar" :size="40" backgroundColor="#c0c4cc"></avatar>
                   </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item icon="el-icon-user" @click.native="profileDrawer = true">我的</el-dropdown-item>
@@ -26,10 +26,10 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
-        <el-drawer :visible.sync="profileDrawer" :direction="direction" size="22%" :show-close="false">
+        <el-drawer :visible.sync="profileDrawer" :direction="direction" size="320px" :show-close="false">
             <div class="profile-header">
                 <avatar :username="profile.user_name"
-                        :src="avatar"
+                        :src="userForm.avatar"
                         :size="150"
                         backgroundColor="#c0c4cc"
                         :customStyle="{margin: '0 auto'}"></avatar>
@@ -56,7 +56,7 @@
                 </button>
             </div>
         </el-drawer>
-        <el-drawer title="设置" :visible.sync="settingDrawer" size="22%" :direction="direction">
+        <el-drawer title="设置" :visible.sync="settingDrawer" size="320px" :direction="direction">
             <div class="profile-header">
                 <el-upload
                     class="avatar-uploader"
@@ -64,7 +64,7 @@
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
-                    <img v-if="avatar" :src="avatar" class="avatar">
+                    <img v-if="userForm.avatar" :src="userForm.avatar" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </div>
@@ -78,18 +78,18 @@
                     </template>
                 </div>
                 <div class="info">
-                    <el-form :model="userForm" :rules="rules" ref="userForm" label-width="70px">
+                    <el-form :model="userForm" :rules="rules" ref="userForm" label-width="80px">
                         <el-form-item label="邮箱" prop="email">
                             <el-input v-model="userForm.email"></el-input>
                         </el-form-item>
                         <el-form-item label="手机号" prop="mobile">
                             <el-input v-model="userForm.mobile"></el-input>
                         </el-form-item>
-                        <el-form-item label="原始密码" prop="password">
-                            <el-input type="password" v-model="userForm.password"></el-input>
+                        <el-form-item label="登录密码" prop="password_old">
+                            <el-input type="password" v-model="userForm.password_old"></el-input>
                         </el-form-item>
-                        <el-form-item label="新密码" prop="password_new">
-                            <el-input type="password" v-model="userForm.password_new"></el-input>
+                        <el-form-item label="新密码" prop="password">
+                            <el-input type="password" v-model="userForm.password"></el-input>
                         </el-form-item>
                         <el-form-item label="确认密码" prop="password_confirmation">
                             <el-input type="password" v-model="userForm.password_confirmation"></el-input>
@@ -116,13 +116,7 @@
         },
         data() {
             let validatePass = (rule, value, callback) => {
-                if (this.userForm.password !== '') {
-                    this.$refs.userForm.validateField('password_confirmation');
-                }
-                callback();
-            };
-            let validatePass2 = (rule, value, callback) => {
-                if (this.userForm.password_new !== this.userForm.password_confirmation) {
+                if (this.userForm.password !== this.userForm.password_confirmation) {
                     callback(new Error('两次输入密码不一致!'));
                 } else {
                     callback();
@@ -132,11 +126,11 @@
                 userForm: {
                     email                : this.$store.getters.profile.email,
                     mobile               : this.$store.getters.profile.mobile,
+                    avatar: this.$store.getters.profile.avatar,
                     password             : '',
                     password_confirmation: '',
-                    password_new         : '',
+                    password_old         : '',
                 },
-                avatar: this.$store.getters.profile.avatar,
                 profileDrawer : false,
                 settingDrawer : false,
                 direction     : 'rtl',
@@ -146,7 +140,7 @@
                 profileHeight : 0,
                 profileData   : [
                     {
-                        key  : '电话',
+                        key  : '手机号',
                         value: this.$store.getters.profile.mobile
                     }, {
                         key  : '邮箱',
@@ -162,17 +156,15 @@
                         { required: true, message: '请输入手机号', trigger: 'blur' },
                         { pattern: /^1[3|4|5|7|8][0-9]\d{8}$/, message: '请输入正确的手机号', trigger: ['blur', 'change'] }
                     ],
+                    password_old: [
+                        { required: true, message: '请输入登录密码', trigger: ['blur', 'change'] }
+                    ],
                     password: [
                         { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: ['blur', 'change'] },
-                        { validator: validatePass, trigger: 'blur' }
                     ],
                     password_confirmation: [
                         { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: ['blur', 'change'] },
-                        { validator: validatePass2, trigger: 'blur' }
-                    ],
-                    password_new: [
-                        { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: ['blur', 'change'] },
-                        { validator: validatePass2, trigger: 'blur' }
+                        { validator: validatePass, trigger: 'blur' }
                     ],
                 }
             }
@@ -209,7 +201,7 @@
                 window.removeEventListener('resize', this.setProfileHeight)
             },
             handleAvatarSuccess(res, file) {
-                this.avatar = URL.createObjectURL(file.raw);
+                this.userForm.avatar = URL.createObjectURL(file.raw);
             },
             beforeAvatarUpload(file) {
                 let isLt2M = file.size / 1024 / 1024 < 2;
@@ -222,10 +214,11 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     let userForm = null;
-                    if (this.userForm.password === '' && this.userForm.password_confirmation === '' && this.userForm.password_new === '') {
+                    if (this.userForm.password === '' && this.userForm.password_confirmation === '') {
                         userForm = {
-                            email    : this.userForm.email,
-                            mobile   : this.userForm.mobile,
+                            email        : this.userForm.email,
+                            mobile       : this.userForm.mobile,
+                            password_old : this.userForm.password_old,
                         }
                     } else {
                         userForm = this.userForm
