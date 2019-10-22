@@ -381,7 +381,7 @@
         display: block;
         border-radius: 50%;
     }
-    form {
+    .info form {
         margin: 20px 30px;
     }
     .profile-footer-edit {
