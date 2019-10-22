@@ -44,6 +44,6 @@ class FileController extends Controller
 
         $path = $this->fileService->uploadFile('avatar', $request->file('avatar'));
 
-        return json_response(200, 'success', $path);
+        return json_response(200, 'success', file_url($path, 'admin_public'));
     }
 }

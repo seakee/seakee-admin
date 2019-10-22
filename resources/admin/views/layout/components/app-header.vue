@@ -14,7 +14,7 @@
             </el-breadcrumb>
         </div>
         <div class="header-avatar">
-            <span>Hi, {{ profile.user_name }}</span>
+            <div class="name"><span>Hi, {{ profile.user_name }}</span></div>
             <el-dropdown>
                   <span class="el-dropdown-link">
                     <avatar :username="profile.user_name" :src="userForm.avatar" :size="40" backgroundColor="#c0c4cc"></avatar>
@@ -60,9 +60,9 @@
             <div class="profile-header">
                 <el-upload
                     class="avatar-uploader"
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    action=""
+                    :http-request="uploadAvatar"
                     :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
                     <img v-if="userForm.avatar" :src="userForm.avatar" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -108,6 +108,7 @@
 <script>
     import Avatar from 'vue-avatar';
     import { updateProfile } from "@/api/auth";
+    import {avatar} from '@/api/common';
 
     export default {
         name      : "app-header",
@@ -126,7 +127,7 @@
                 userForm: {
                     email                : this.$store.getters.profile.email,
                     mobile               : this.$store.getters.profile.mobile,
-                    avatar: this.$store.getters.profile.avatar,
+                    avatar               : this.$store.getters.profile.avatar,
                     password             : '',
                     password_confirmation: '',
                     password_old         : '',
@@ -200,9 +201,6 @@
             destroyed() {
                 window.removeEventListener('resize', this.setProfileHeight)
             },
-            handleAvatarSuccess(res, file) {
-                this.userForm.avatar = URL.createObjectURL(file.raw);
-            },
             beforeAvatarUpload(file) {
                 let isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -211,6 +209,17 @@
                 }
                 return isLt2M;
             },
+            uploadAvatar (file){
+                avatar(file).then(response => {
+                    if (response.data.message === 'success') {
+                        this.userForm.avatar = response.data.data;
+                        this.$message({
+                            type   : 'success',
+                            message: '上传成功!'
+                        });
+                    }
+                });
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     let userForm = null;
@@ -218,6 +227,7 @@
                         userForm = {
                             email        : this.userForm.email,
                             mobile       : this.userForm.mobile,
+                            avatar       : this.userForm.avatar,
                             password_old : this.userForm.password_old,
                         }
                     } else {
@@ -280,10 +290,6 @@
         color: #FFFFFF;
     }
 
-    .el-dropdown {
-        margin: 10px 20px 10px 10px;
-    }
-
     .el-dropdown-link {
         cursor: pointer;
         color: #409EFF;
@@ -299,6 +305,12 @@
 
     .header-avatar {
         float: right;
+        padding: 10px 20px 10px 10px;
+    }
+
+    .header-avatar .name {
+        float: left;
+        margin: 10px;
     }
 
     .header-avatar span {
@@ -367,6 +379,7 @@
         width: 150px;
         height: 150px;
         display: block;
+        border-radius: 50%;
     }
     form {
         margin: 20px 30px;
