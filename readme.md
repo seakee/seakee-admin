@@ -50,6 +50,15 @@ username:admin
 
 password:admin123456
 
+## Screenshots
+<p><img src="screenshots/dashboards.png" alt="Dashboards"></p>
+<p><img src="screenshots/configs.png" alt="Configs"></p>
+<p><img src="screenshots/menus.png" alt="Menus"></p>
+<p><img src="screenshots/menus_create.png" alt="menus_create"></p>
+<p><img src="screenshots/users.png" alt="Users"></p>
+<p><img src="screenshots/users_create.png" alt="Users_create"></p>
+<p><img src="screenshots/roles.png" alt="Roles"></p>
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
