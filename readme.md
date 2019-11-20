@@ -51,15 +51,15 @@ username:admin
 password:admin123456
 
 ## Screenshots
-<p><img src="screenshots/dashboards.png" alt="Dashboards"></p>
-<p><img src="screenshots/configs.png" alt="Configs"></p>
-<p><img src="screenshots/menus.png" alt="Menus"></p>
-<p><img src="screenshots/menus_create.png" alt="menus_create"></p>
-<p><img src="screenshots/users.png" alt="Users"></p>
-<p><img src="screenshots/users_create.png" alt="Users_create"></p>
-<p><img src="screenshots/roles.png" alt="Roles"></p>
-<p><img src="screenshots/profile.png" alt="Profile"></p>
-<p><img src="screenshots/settings.png" alt="Settings"></p>
+<img src="screenshots/dashboards.png" alt="Dashboards">
+<img src="screenshots/configs.png" alt="Configs">
+<img src="screenshots/menus.png" alt="Menus">
+<img src="screenshots/menus_create.png" alt="menus_create">
+<img src="screenshots/users.png" alt="Users">
+<img src="screenshots/users_create.png" alt="Users_create">
+<img src="screenshots/roles.png" alt="Roles">
+<img src="screenshots/profile.png" alt="Profile">
+<img src="screenshots/settings.png" alt="Settings">
 
 ## License
 
