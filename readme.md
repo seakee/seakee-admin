@@ -58,6 +58,8 @@ password:admin123456
 <p><img src="screenshots/users.png" alt="Users"></p>
 <p><img src="screenshots/users_create.png" alt="Users_create"></p>
 <p><img src="screenshots/roles.png" alt="Roles"></p>
+<p><img src="screenshots/profile.png" alt="Profile"></p>
+<p><img src="screenshots/settings.png" alt="Settings"></p>
 
 ## License
 
