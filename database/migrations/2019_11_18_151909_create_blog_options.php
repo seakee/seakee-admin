@@ -16,7 +16,7 @@ class CreateBlogOptions extends Migration
         Schema::create('blog_options', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100)->index('name');
-            $table->longText('value');
+            $table->string('value');
             $table->timestamps();
         });
     }
