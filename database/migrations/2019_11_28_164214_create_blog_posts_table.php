@@ -23,6 +23,7 @@ class CreateBlogPostsTable extends Migration
             $table->tinyInteger('status')->default(1)->comment('1.已发布2.待发布3.草稿4.已删除');
             $table->tinyInteger('comment_status')->default(1);
             $table->string('name')->index('name');
+            $table->softDeletes();
             $table->timestamp('posted_at');
             $table->timestamps();
         });

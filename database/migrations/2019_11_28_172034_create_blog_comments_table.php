@@ -22,6 +22,7 @@ class CreateBlogCommentsTable extends Migration
             $table->text('content');
             $table->tinyInteger('approved')->default(1);
             $table->string('agent');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
