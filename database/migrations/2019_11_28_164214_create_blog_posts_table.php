@@ -15,14 +15,14 @@ class CreateBlogPostsTable extends Migration
     {
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('author_id')->default(0)->unsigned();
+            $table->integer('author_id')->default(0)->unsigned()->index('author_id');
             $table->longText('content');
             $table->longText('hide_content');
-            $table->text('title')->index('title');
+            $table->text('title');
             $table->text('excerpt');
             $table->tinyInteger('status')->default(1)->comment('1.已发布2.待发布3.草稿4.已删除');
             $table->tinyInteger('comment_status')->default(1);
-            $table->text('name')->index('name');
+            $table->string('name')->index('name');
             $table->timestamp('posted_at');
             $table->timestamps();
         });
