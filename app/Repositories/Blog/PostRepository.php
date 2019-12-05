@@ -75,11 +75,16 @@ class PostRepository
      * @param int   $perPage
      * @param int   $page
      * @param array $columns
+     * @param bool  $trashed
      *
      * @return LengthAwarePaginator
      */
-    public function paginate(array $where, int $perPage, int $page, $columns = ['*']): LengthAwarePaginator
+    public function paginate(array $where, int $perPage, int $page, $columns = ['*'], $trashed = false): LengthAwarePaginator
     {
+        if ($trashed) {
+            return $this->post->onlyTrashed()->where($where)->paginate($perPage, $columns, 'page', $page);
+        }
+
         return $this->post->where($where)->paginate($perPage, $columns, 'page', $page);
     }
 
@@ -92,5 +97,25 @@ class PostRepository
     public function find($ids, $columns = ['*'])
     {
         return $this->post->findOrFail($ids, $columns);
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return bool|null
+     */
+    public function restore(array $ids)
+    {
+        return $this->post->withTrashed()->whereIn('id', $ids)->restore();
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return mixed
+     */
+    public function forceDelete(array $ids)
+    {
+        return $this->post->find($ids)->forceDelete();
     }
 }
