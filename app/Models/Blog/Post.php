@@ -32,4 +32,12 @@ class Post extends Model
     protected $fillable = [
         'author_id', 'content', 'hide_content', 'title', 'excerpt', 'status', 'comment_status', 'name', 'posted_at'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Blog\Comment', 'post_id');
+    }
 }

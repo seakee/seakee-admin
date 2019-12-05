@@ -15,7 +15,7 @@ class CreateBlogPostsTable extends Migration
     {
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('author_id')->default(0)->unsigned()->index('author_id');
+            $table->integer('author_id')->default(0)->unsigned();
             $table->longText('content');
             $table->longText('hide_content');
             $table->text('title');
@@ -26,6 +26,9 @@ class CreateBlogPostsTable extends Migration
             $table->timestamp('posted_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('author_id')->references('id')->on('admin_users')
+                ->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 
