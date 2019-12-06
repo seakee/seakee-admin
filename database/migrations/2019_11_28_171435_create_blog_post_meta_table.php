@@ -19,9 +19,6 @@ class CreateBlogPostMetaTable extends Migration
             $table->string('name', 100)->index('name');
             $table->text('value');
             $table->timestamps();
-
-            $table->foreign('post_id')->references('id')->on('blog_posts')
-                ->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

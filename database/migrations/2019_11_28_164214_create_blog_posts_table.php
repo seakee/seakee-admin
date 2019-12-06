@@ -26,9 +26,6 @@ class CreateBlogPostsTable extends Migration
             $table->timestamp('posted_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('author_id')->references('id')->on('admin_users')
-                ->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

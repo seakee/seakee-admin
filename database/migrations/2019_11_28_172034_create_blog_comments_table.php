@@ -24,11 +24,6 @@ class CreateBlogCommentsTable extends Migration
             $table->string('agent');
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('post_id')->references('id')->on('blog_posts')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('author_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
