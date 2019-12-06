@@ -15,7 +15,7 @@ class CreateBlogPostMetaTable extends Migration
     {
         Schema::create('blog_post_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('post_id')->default(0)->unsigned();
+            $table->bigInteger('post_id')->index('post_id')->default(0)->unsigned();
             $table->string('name', 100)->index('name');
             $table->text('value');
             $table->timestamps();

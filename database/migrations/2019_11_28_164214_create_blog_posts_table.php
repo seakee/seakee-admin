@@ -15,7 +15,7 @@ class CreateBlogPostsTable extends Migration
     {
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('author_id')->default(0)->unsigned();
+            $table->integer('author_id')->default(0)->unsigned()->index('author_id');
             $table->longText('content');
             $table->longText('hide_content');
             $table->text('title');
