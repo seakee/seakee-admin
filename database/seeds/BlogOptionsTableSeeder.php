@@ -47,6 +47,13 @@ class BlogOptionsTableSeeder extends Seeder
         ]);
 
         DB::table('blog_options')->insert([
+            'name'       => 'blog_keywords',
+            'value'      => 'Seakee,Blog,Laravel,Vue,Element',
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
+        DB::table('blog_options')->insert([
             'name'       => 'blog_icp',
             'value'      => '京ICP备xxxxxxxx',
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
