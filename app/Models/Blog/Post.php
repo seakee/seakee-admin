@@ -40,4 +40,20 @@ class Post extends Model
     {
         return $this->hasMany('App\Models\Blog\Comment', 'post_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo('App\Models\Users\AdminUser', 'author_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function metas()
+    {
+        return $this->hasMany('App\Models\Blog\PostMeta', 'post_id');
+    }
 }
