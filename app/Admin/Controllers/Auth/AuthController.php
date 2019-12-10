@@ -161,7 +161,7 @@ class AuthController extends Controller
      */
     public function profile()
     {
-        $user = Auth::user();
+        $user = $this->userService->current();
 
         $profile = Arr::only($user->toArray(), [
             'id',
