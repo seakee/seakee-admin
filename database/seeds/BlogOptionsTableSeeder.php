@@ -68,7 +68,7 @@ class BlogOptionsTableSeeder extends Seeder
         ]);
 
         DB::table('blog_options')->insert([
-            'name'       => 'posts_per_page',
+            'name'       => 'post_per_page',
             'value'      => '10',
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
             'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
