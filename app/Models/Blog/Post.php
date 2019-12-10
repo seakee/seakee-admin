@@ -56,4 +56,20 @@ class Post extends Model
     {
         return $this->hasMany('App\Models\Blog\PostMeta', 'post_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+       return $this->belongsToMany('App\Models\Blog\Tag', 'blog_post_tag', 'post_id', 'tag_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Blog\Category', 'blog_post_category', 'post_id', 'category_id');
+    }
 }
