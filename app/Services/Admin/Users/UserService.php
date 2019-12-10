@@ -124,4 +124,12 @@ class UserService
     {
         return $this->userRepository->get($where);
     }
+
+    /**
+     * @return \App\Models\Users\User|null
+     */
+    public function current()
+    {
+        return \Auth::user();
+    }
 }
