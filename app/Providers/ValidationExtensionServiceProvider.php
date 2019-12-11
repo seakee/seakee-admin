@@ -16,6 +16,8 @@ use Route;
 
 class ValidationExtensionServiceProvider extends ServiceProvider
 {
+    protected $exceptRouteName = ['#'];
+
     /**
      * Bootstrap the Validation Extension.
      *
@@ -28,6 +30,11 @@ class ValidationExtensionServiceProvider extends ServiceProvider
         });
 
         Validator::extend('route_exists', function ($attribute, $value, $parameters, $validator) {
+
+            if (in_array($value, $this->exceptRouteName)){
+                return true;
+            }
+
             return Route::getRoutes()->hasNamedRoute($value);
         });
     }
