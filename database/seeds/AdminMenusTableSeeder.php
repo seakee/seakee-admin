@@ -43,6 +43,18 @@ class AdminMenusTableSeeder extends Seeder
         ]);
 
         DB::table('admin_menus')->insert([
+            'icon' => 'fas fa-blog',
+            'name' => '博客中心',
+            'route_name' => '#',
+            'path' => '/blogCenter',
+            'father_id' => -1,
+            'sort' => 97,
+            'display' => 1,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
+        DB::table('admin_menus')->insert([
             'icon' => 'fas fa-tachometer-alt',
             'name' => '仪表盘',
             'route_name' => 'admin.dashboards.index',
@@ -121,6 +133,66 @@ class AdminMenusTableSeeder extends Seeder
             'path' => '/userCenter/permissions/index',
             'father_id' => 2,
             'sort' => 8,
+            'display' => 1,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
+        DB::table('admin_menus')->insert([
+            'icon' => 'fas fa-cog',
+            'name' => '博客设置',
+            'route_name' => 'admin.options.index',
+            'path' => '/blogCenter/options/index',
+            'father_id' => 10,
+            'sort' => 10,
+            'display' => 1,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
+        DB::table('admin_menus')->insert([
+            'icon' => 'far fa-list-alt',
+            'name' => '文章管理',
+            'route_name' => 'admin.posts.index',
+            'path' => '/blogCenter/posts/index',
+            'father_id' => 10,
+            'sort' => 9,
+            'display' => 1,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
+        DB::table('admin_menus')->insert([
+            'icon' => 'fas fa-tags',
+            'name' => '标签管理',
+            'route_name' => 'admin.tags.index',
+            'path' => '/blogCenter/tags/index',
+            'father_id' => 10,
+            'sort' => 8,
+            'display' => 1,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
+        DB::table('admin_menus')->insert([
+            'icon' => 'fas fa-th-list',
+            'name' => '分类管理',
+            'route_name' => 'admin.categories.index',
+            'path' => '/blogCenter/categories/index',
+            'father_id' => 10,
+            'sort' => 7,
+            'display' => 1,
+            'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+            'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+        ]);
+
+        DB::table('admin_menus')->insert([
+            'icon' => 'far fa-comment-alt',
+            'name' => '评论管理',
+            'route_name' => 'admin.comments.index',
+            'path' => '/blogCenter/comments/index',
+            'father_id' => 10,
+            'sort' => 6,
             'display' => 1,
             'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
             'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
