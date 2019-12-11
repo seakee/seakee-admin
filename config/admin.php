@@ -11,7 +11,7 @@ return [
     /**
      * 应用标题
      */
-    'name'            => 'SeakeeAdmin',
+    'name'            => 'SeakeeBlog',
 
     /**
      * 版本号
