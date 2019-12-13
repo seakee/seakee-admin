@@ -7,7 +7,7 @@
  * Description:
  */
 
-namespace App\Services\Admin\Blog;
+namespace App\Services\Blog;
 
 
 use App\Repositories\Blog\PostRepository;
