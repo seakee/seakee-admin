@@ -3,7 +3,7 @@
         <el-menu :default-active="activeIndex" class="el-menu-vertical"
                  unique-opened
                  router
-                 background-color="#545c64"
+                 background-color="#001529"
                  text-color="#c2c7d0">
             <template v-for="(menu, parentIndex) in menus">
                 <el-submenu :index="parentIndex + ''">
