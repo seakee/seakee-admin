@@ -87,7 +87,7 @@
                 }
             };
         },
-        created () {
+        mounted () {
             let id = this.$route.params && this.$route.params.id;
             this.userForm.id = id;
             this.fetchData(id)

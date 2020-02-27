@@ -64,7 +64,7 @@
                 id               : 0
             }
         },
-        created() {
+        mounted() {
             this.id = this.$route.params && this.$route.params.id;
             this.fetchData(this.id);
         },

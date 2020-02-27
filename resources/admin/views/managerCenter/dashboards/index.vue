@@ -38,7 +38,7 @@
                 systemData: []
             }
         },
-        created() {
+        mounted() {
             this.fetchData()
         },
         methods: {

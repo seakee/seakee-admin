@@ -53,7 +53,7 @@
                 }
             };
         },
-        created () {
+        mounted () {
             let id = this.$route.params && this.$route.params.id;
             this.roleForm.id = id;
             this.fetchData(id)

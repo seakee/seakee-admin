@@ -261,3 +261,9 @@ if (!function_exists('file_url')) {
         return \Storage::disk($disk)->url($path);
     }
 }
+
+if (!function_exists('blog_options')){
+    function blog_options($name){
+
+    }
+}

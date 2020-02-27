@@ -102,7 +102,7 @@
                 }
             };
         },
-        created() {
+        mounted() {
             this.fetchMenuList()
         },
         methods: {
