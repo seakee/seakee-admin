@@ -77,7 +77,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof QueryException) {
-            return json_response(500, $exception->errorInfo[2]);
+            return json_response(500, $exception->getMessage());
         }
 
         return parent::render($request, $exception);
