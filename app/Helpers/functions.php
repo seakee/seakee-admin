@@ -95,7 +95,7 @@ if (!function_exists('human_file_size')){
      */
     function human_file_size($bytes, $decimals = 2): string
     {
-        $size   = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
+        $size   = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
         $factor = floor((strlen($bytes) - 1) / 3);
 
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) .@$size[$factor];
@@ -259,5 +259,11 @@ if (!function_exists('file_url')) {
     function file_url($path, $disk = 'public')
     {
         return \Storage::disk($disk)->url($path);
+    }
+}
+
+if (!function_exists('blog_options')){
+    function blog_options($name){
+
     }
 }
