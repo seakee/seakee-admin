@@ -264,7 +264,7 @@
     .header-title {
         min-height: 100%;
         min-width: 200px;
-        background: #4b545c;
+        background: #000c17;
         position: absolute;
         display: flex;
     }
