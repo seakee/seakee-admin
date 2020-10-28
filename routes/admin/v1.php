@@ -86,3 +86,16 @@ Route::group(['namespace' => 'Dashboards'], function () {
     Route::get('dashboards/server', 'DashboardController@server')->name('admin.dashboards.server');
     Route::get('dashboards/system', 'DashboardController@system')->name('admin.dashboards.system');
 });
+
+Route::group(['namespace' => 'Blogs'], function () {
+    Route::apiResource('posts', 'PostController', [
+        'parameters' => ['posts' => 'id'],
+        'names'      => [
+            'index'   => 'admin.posts.index',
+            'store'   => 'admin.posts.store',
+            'show'    => 'admin.posts.show',
+            'update'  => 'admin.posts.update',
+            'destroy' => 'admin.posts.destroy',
+        ],
+    ]);
+});
