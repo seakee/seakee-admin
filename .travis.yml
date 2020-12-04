@@ -1,41 +1,16 @@
-dist: xenial
 language: php
 
-env:
-  global:
-    - SETUP=stable
+php:
+  - 7.3
+  - 7.4
 
-matrix:
-  fast_finish: true
-  include:
-    - php: 7.2
-    - php: 7.2
-      env: SETUP=stable
-    - php: 7.3
-    - php: 7.3
-      env: SETUP=stable
-    - php: 7.4snapshot
-    - php: 7.4snapshot
-      env: SETUP=stable
+os: linux
 
-cache:
-  directories:
-    - $HOME/.composer/cache
+before_script:
+  - composer install
+  - cp .env.example .env
+  - php artisan key:generate
+  - php artisan jwt:secret
 
-services:
-  - memcached
-  - redis
-  - mysql
-
-before_install:
-  - phpenv config-rm xdebug.ini || true
-  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - printf "\n" | pecl install -f redis
-  - travis_retry composer self-update
-  - mysql -e 'CREATE DATABASE forge;'
-
-install:
-  - if [[ $SETUP = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest; fi
-  - if [[ $SETUP = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable --no-suggest; fi
-
-script: vendor/bin/phpunit
+script:
+  - vendor/bin/phpunit
