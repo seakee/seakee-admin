@@ -10,13 +10,13 @@ matrix:
   include:
     - php: 7.2
     - php: 7.2
-      env: SETUP=lowest
+      env: SETUP=stable
     - php: 7.3
     - php: 7.3
-      env: SETUP=lowest
+      env: SETUP=stable
     - php: 7.4snapshot
     - php: 7.4snapshot
-      env: SETUP=lowest
+      env: SETUP=stable
 
 cache:
   directories:
@@ -24,7 +24,7 @@ cache:
 
 services:
   - memcached
-  - redis-server
+  - redis
   - mysql
 
 before_install:
