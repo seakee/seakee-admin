@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-        "axios": "^0.18.1",
+        "axios": "^0.21.1",
         "babel-plugin-dynamic-import-node": "^2.3.0",
         "bootstrap-sass": "^3.4.1",
         "cross-env": "^5.1",
