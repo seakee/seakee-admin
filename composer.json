@@ -14,8 +14,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
-        "tymon/jwt-auth": "1.0.0-rc.5",
-        "symfony/yaml": "^4.1"
+        "lcobucci/jwt": "3.3.3",
+        "symfony/yaml": "^4.1",
+        "tymon/jwt-auth": "1.0.0-rc.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
